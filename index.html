@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tết Bính Ngọ 2026 - Xuân Vạn Phúc</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+    <!-- Canvas Pháo Hoa -->
+    <canvas id="fireworks"></canvas>
+    <!-- Nhạc nền -->
+    <audio id="tet-music" loop src="vansunhuy.mp3"></audio> <!-- Link nhạc demo, bạn có thể thay link nhạc Tết mp3 của bạn -->
+    <!-- Nhạc tập thể dục -->
+    <audio id="exercise-music" loop src="theduc.mp3"></audio>
+    <!-- Hiệu ứng hoa đào rơi -->
+    <div id="blossom-container"></div>
+
+    <!-- LANDING PAGE (TRANG CHỦ GIỚI THIỆU) -->
+    <section id="landing-page">
+        <div class="landing-content">
+            <h1 class="landing-title">TẾT AI 2026</h1>
+            <h2 class="landing-subtitle">TẾT CÙNG AI VỚI 4.0</h2>
+            <div class="landing-desc">
+                <p>Chào mừng bạn đến với cổng giải trí Tết Bính Ngọ 2026 - Nơi truyền thống hội tụ công nghệ!</p>
+                <p style="margin-top: 10px;">✨ <strong>Trợ lý AI:</strong> Chúc Tết, Làm thơ, Gieo quẻ, Xem tuổi xông đất.</p>
+                <p>🧧 <strong>Lì Xì 4.0:</strong> Chia tiền ngẫu nhiên, Tạo QR Code, Game săn lộc.</p>
+                <p>🎨 <strong>Sáng tạo & Kết nối:</strong> Vẽ tranh AI, Đố vui có thưởng, Lì xì chéo.</p>
+                <p>🏃 <strong>Sức khỏe:</strong> Rèn luyện thể thao với nhạc nền sôi động.</p>
+            </div>
+            <button onclick="enterWebsite()" class="landing-btn" style="color: #fff; background: linear-gradient(45deg, #d00000, #e63946);">KHÁM PHÁ NGAY <i class="fas fa-arrow-right"></i></button>
+        </div>
+        <div class="landing-overlay"></div>
+    </section>
+
+    <div class="app-container">
+        <!-- SIDEBAR MENU -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-robot" style="margin-right: 10px;"></i>Tết AI 2026</h1>
+                <h2 style="font-size: 0.8rem; letter-spacing: 1px;">TẾT CÙNG AI VỚI 4.0</h2>
+            </div>
+            
+            <!-- User Login Section -->
+            <div id="user-section" style="padding: 15px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                <div id="login-buttons">
+                    <button onclick="loginWithGoogle()" style="width: 100%; font-size: 0.9rem; background: linear-gradient(45deg, #4285f4, #34a853); color: #fff; border: none; padding: 10px; border-radius: 5px; cursor: pointer; margin-bottom: 5px;"><i class="fab fa-google"></i> Đăng nhập Google</button>
+                    <button onclick="toggleAnonForm()" style="width: 100%; font-size: 0.9rem; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.5); padding: 8px; border-radius: 5px; cursor: pointer;"><i class="fas fa-user-secret"></i> Đăng nhập Ẩn danh</button>
+                </div>
+                
+                <div id="anon-form" class="hidden" style="margin-top: 10px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px;">
+                    <input type="text" id="anon-name" placeholder="Nhập tên của bạn" style="width: 100%; margin-bottom: 5px; padding: 8px; font-size: 0.9rem;">
+                    <input type="email" id="anon-email" placeholder="Email (Tùy chọn)" style="width: 100%; margin-bottom: 5px; padding: 8px; font-size: 0.9rem;">
+                    <button onclick="loginAnonymously()" style="width: 100%; background: var(--tet-gold); color: #d00000; border: none; padding: 8px; border-radius: 5px; font-weight: bold;">Vào Ngay</button>
+                    <button onclick="toggleAnonForm()" style="background: transparent; border: none; color: #ccc; font-size: 0.8rem; margin-top: 5px; cursor: pointer;">Hủy</button>
+                </div>
+
+                <div id="user-info" class="hidden" style="color: white;">
+                    <img id="user-avatar" src="" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; margin-bottom: 5px; border: 2px solid var(--tet-gold);">
+                    <div id="user-name" style="font-weight: bold; font-size: 0.9rem;"></div>
+                    <button onclick="logout()" style="background: transparent; border: 1px solid rgba(255,255,255,0.5); padding: 2px 10px; font-size: 0.7rem; margin-top: 5px;">Đăng xuất</button>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" onclick="switchTab('countdown-section')"><i class="fas fa-clock"></i> Đếm Ngược</button>
+                <button class="nav-btn" onclick="switchTab('ai-wishes')"><i class="fas fa-robot"></i> Trợ Lý Chúc Tết</button>
+                <button class="nav-btn" onclick="switchTab('lixi-allocator')"><i class="fas fa-money-bill-wave"></i> Chia Lì Xì</button>
+                <button class="nav-btn" onclick="switchTab('fortune-telling')"><i class="fas fa-scroll"></i> Gieo Quẻ</button>
+                <button class="nav-btn" onclick="switchTab('first-footing')"><i class="fas fa-door-open"></i> Xem Xông Đất</button>
+                <button class="nav-btn" onclick="switchTab('guess-game')"><i class="fas fa-question-circle"></i> Đoán Lì Xì</button>
+                <button class="nav-btn" onclick="switchTab('catch-lixi-game')"><i class="fas fa-gamepad"></i> Game Hứng Lộc</button>
+                <button class="nav-btn" onclick="switchTab('tet-quiz')"><i class="fas fa-puzzle-piece"></i> Đố Vui Tết</button>
+                <button class="nav-btn" onclick="switchTab('leaderboard-section')"><i class="fas fa-trophy"></i> Bảng Tổng Sắp</button>
+                <button class="nav-btn" onclick="switchTab('exercise-section')"><i class="fas fa-running"></i> Tập Thể Dục</button>
+                <button class="nav-btn" onclick="switchTab('ai-image-gen')"><i class="fas fa-paint-brush"></i> Tạo Ảnh Tết AI</button>
+                <button class="nav-btn" onclick="switchTab('exchange-challenge')"><i class="fas fa-random"></i> Lì Xì Chéo</button>
+                <button class="nav-btn" onclick="switchTab('vietqr-generator')"><i class="fas fa-qrcode"></i> Tạo QR Code</button>
+            </nav>
+            <div class="sidebar-footer">
+                <p>Code bởi Triết Võ (AI Support)</p>
+                <div style="display: flex; gap: 5px; justify-content: center; margin-top: 10px;">
+                    <a href="https://github.com/" target="_blank" style="color: white; text-decoration: none; background: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;"><i class="fab fa-github"></i> GitHub</a>
+                    <button onclick="donate()" style="background: #e91e63; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; cursor: pointer;"><i class="fas fa-heart"></i> Donate</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="content-area">
+            <!-- Music Credit (Chạy chữ) -->
+            <div class="music-credit-bar">
+                <div class="music-credit-text">🎵 Đang phát: Trúc Nhân, DTAP | VẠN SỰ NHƯ Ý 🎵</div>
+            </div>
+
+            <!-- 1. Đếm ngược -->
+            <section id="countdown-section" class="card tab-content active">
+                <h3><i class="fas fa-clock"></i> Đếm Ngược Giao Thừa 2026</h3>
+                
+                <div id="timer-container">
+                    <div class="timer-wrapper">
+                        <div class="timer-box"><span id="days">00</span><div class="label">Ngày</div></div>
+                        <div class="timer-box"><span id="hours">00</span><div class="label">Giờ</div></div>
+                        <div class="timer-box"><span id="minutes">00</span><div class="label">Phút</div></div>
+                        <div class="timer-box"><span id="seconds">00</span><div class="label">Giây</div></div>
+                    </div>
+                    <div class="tet-info">
+                        <p><i class="fas fa-calendar-check" style="color: var(--tet-red);"></i> <strong>Mùng 1 Tết:</strong> 17/02/2026 (Dương lịch)</p>
+                        <div style="margin-top: 10px; text-align: left; display: inline-block; border-top: 1px dashed #ccc; padding-top: 10px;">
+                            <p><i class="fas fa-landmark" style="color: var(--tet-red);"></i> <strong>Công chức/Nhà nước:</strong> 7 ngày (29 Tết - Hết Mùng 5).</p>
+                            <p><i class="fas fa-user-graduate" style="color: var(--tet-red);"></i> <strong>Học sinh:</strong> 10-14 ngày (Theo lịch địa phương).</p>
+                            <p><i class="fas fa-industry" style="color: var(--tet-red);"></i> <strong>Công nhân/Lao động:</strong> 5 ngày + nghỉ bù (Theo quy định).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hiển thị khi đến giờ G -->
+                <div id="happy-new-year" class="hidden">
+                    <h1 class="hny-text">CHÚC MỪNG NĂM MỚI!</h1>
+                    <h2 class="hny-sub">Xuân Bính Ngọ - 2026</h2>
+                    <p>Kính chúc quý vị một năm mới An Khang Thịnh Vượng - Vạn Sự Như Ý</p>
+                </div>
+            </section>
+
+            <!-- 2. Tạo lời chúc AI -->
+            <section id="ai-wishes" class="card tab-content">
+                <h3><i class="fas fa-robot"></i> Trợ Lý Chúc Tết AI</h3>
+                <div class="controls">
+                    <select id="wish-target">
+                        <option value="family">Ông Bà/Cha Mẹ</option>
+                        <option value="friend">Bạn Bè/Đồng Nghiệp</option>
+                        <option value="lover">Người Yêu</option>
+                        <option value="boss">Sếp/Đối Tác</option>
+                        <option value="self">Bản Thân</option>
+                    </select>
+                    <select id="wish-style">
+                        <option value="formal">Trang trọng</option>
+                        <option value="funny">Hài hước/Bá đạo</option>
+                        <option value="emotional">Tình cảm/Sâu sắc</option>
+                    </select>
+                    <select id="wish-length">
+                        <option value="short">Ngắn gọn (1-2 câu)</option>
+                        <option value="medium" selected>Vừa phải</option>
+                        <option value="long">Dài (Tâm thư)</option>
+                    </select>
+                    <select id="wish-theme">
+                        <option value="general">Chủ đề: Tổng hợp</option>
+                        <option value="money">Chủ đề: Tài lộc & Giàu sang</option>
+                        <option value="health">Chủ đề: Sức khỏe & Bình an</option>
+                        <option value="love">Chủ đề: Tình duyên & Hạnh phúc</option>
+                    </select>
+                </div>
+                <div class="controls" style="justify-content: center;">
+                    <button onclick="generateWish('text')"><i class="fas fa-pen-nib"></i> Lời Chúc</button>
+                    <button onclick="generateWish('poem')"><i class="fas fa-scroll"></i> Làm Thơ</button>
+                    <button onclick="generateWish('couplet')"><i class="fas fa-columns"></i> Câu Đối</button>
+                </div>
+                <div id="wish-result" class="result-box hidden"></div>
+            </section>
+
+            <!-- 3. Chia bao lì xì -->
+            <section id="lixi-allocator" class="card tab-content">
+                <h3><i class="fas fa-money-bill-wave"></i> Chia Lì Xì Ngẫu Nhiên</h3>
+                <div class="controls">
+                    <input type="number" id="total-money" placeholder="Tổng tiền (VNĐ)">
+                    <input type="number" id="total-packets" placeholder="Số lượng bao">
+                    <button onclick="allocateMoney()">Chia Tiền</button>
+                    <button id="btn-reallocate" onclick="allocateMoney()" class="hidden" style="background: var(--tet-gold); color: #d00000; margin-left: 5px;"><i class="fas fa-sync-alt"></i> Chia Lại</button>
+                </div>
+                <div id="lixi-result" class="result-grid hidden"></div>
+            </section>
+
+            <!-- 4. Gieo quẻ AI -->
+            <section id="fortune-telling" class="card tab-content">
+                <h3><i class="fas fa-scroll"></i> Gieo Quẻ Đầu Năm</h3>
+                <div class="controls">
+                    <input type="number" id="fortune-age" placeholder="Tuổi âm lịch (VD: 25)">
+                    <select id="fortune-gender">
+                        <option value="male">Nam mạng</option>
+                        <option value="female">Nữ mạng</option>
+                    </select>
+                    <select id="fortune-topic">
+                        <option value="general">Tổng quát năm 2026</option>
+                        <option value="love">Tình duyên / Gia đạo</option>
+                        <option value="career">Công danh / Sự nghiệp</option>
+                        <option value="money">Tài lộc / Tiền bạc</option>
+                    </select>
+                </div>
+                <p style="text-align: center; margin-bottom: 10px;">Thành tâm khấn nguyện và bấm nút bên dưới</p>
+                <button onclick="getFortune()" class="shake-btn">Xin Quẻ</button>
+                <div id="fortune-result" class="result-box hidden"></div>
+            </section>
+
+            <!-- 5. Xông đất đầu năm -->
+            <section id="first-footing" class="card tab-content">
+                <h3><i class="fas fa-door-open"></i> Xem Tuổi Xông Đất</h3>
+                <div class="controls">
+                    <input type="number" id="owner-input" placeholder="Nhập năm sinh gia chủ (VD: 1985)">
+                    <select id="owner-gender">
+                        <option value="male">Nam mạng</option>
+                        <option value="female">Nữ mạng</option>
+                    </select>
+                    <button onclick="suggestFirstFooting()">Tìm Tuổi Hợp</button>
+                </div>
+                <div id="footing-result" class="result-box hidden"></div>
+            </section>
+
+            <!-- 6. Đoán lì xì (Troll) -->
+            <section id="guess-game" class="card tab-content">
+                <h3><i class="fas fa-question-circle"></i> Thử Thách Đoán Lì Xì</h3>
+                <div class="controls">
+                    <input type="number" id="user-age" placeholder="Nhập tuổi của bạn">
+                    <div style="display: flex; align-items: center; gap: 5px; margin: 0 10px; background: rgba(255,255,255,0.5); padding: 0 10px; border-radius: 5px;">
+                        <input type="checkbox" id="troll-mode" style="width: auto; flex: none; margin: 0;">
+                        <label for="troll-mode" style="cursor: pointer; user-select: none; color: var(--tet-red); font-weight: bold;">Bật Troll</label>
+                    </div>
+                    <button onclick="playGuessGame()">Mở Bao</button>
+                </div>
+                <div id="guess-result" class="result-box hidden"></div>
+            </section>
+
+            <!-- NEW: Game Hứng Lộc -->
+            <section id="catch-lixi-game" class="card tab-content">
+                <h3><i class="fas fa-gamepad"></i> Minigame: Hứng Lộc Đầu Năm</h3>
+                <p style="text-align: center;">Di chuyển chuột/tay để hứng bao lì xì, tránh pháo nổ nhé!</p>
+                <div id="game-container" style="position: relative; height: 400px; background: rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden; cursor: none;">
+                    <canvas id="game-canvas"></canvas>
+                    <div id="game-ui" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                        <button onclick="startGame()" style="font-size: 1.2rem; padding: 15px 30px;">Bắt Đầu Chơi</button>
+                    </div>
+                    <div id="score-board" style="position: absolute; top: 10px; left: 10px; font-weight: bold; color: var(--tet-red); font-size: 1.2rem;">Điểm: 0</div>
+                </div>
+            </section>
+
+            <!-- NEW: Đố Vui Tết -->
+            <section id="tet-quiz" class="card tab-content">
+                <h3><i class="fas fa-puzzle-piece"></i> Đố Vui Ngày Tết AI</h3>
+                <div class="controls">
+                    <select id="quiz-topic">
+                        <option value="tradition">Phong tục truyền thống</option>
+                        <option value="food">Ẩm thực ngày Tết</option>
+                        <option value="history">Sự tích & Lịch sử</option>
+                        <option value="funny">Đố vui hài hước/Mẹo</option>
+                    </select>
+                    <select id="quiz-difficulty">
+                        <option value="easy">Dễ</option>
+                        <option value="medium">Trung bình</option>
+                        <option value="hard">Khó (Thử thách)</option>
+                    </select>
+                    <button onclick="generateTetQuiz()">Tạo Câu Hỏi</button>
+                </div>
+                
+                <!-- Chọn nhanh chủ đề -->
+                <div class="controls" style="justify-content: center; margin-top: 10px; gap: 5px;">
+                    <button onclick="generateTetQuiz('tradition')"><i class="fas fa-star"></i> Phong Tục</button>
+                    <button onclick="generateTetQuiz('food')"><i class="fas fa-utensils"></i> Ẩm Thực</button>
+                    <button onclick="generateTetQuiz('funny')"><i class="fas fa-laugh"></i> Hài Hước</button>
+                    <button onclick="generateTetQuiz('random')"><i class="fas fa-random"></i> Ngẫu Nhiên</button>
+                </div>
+
+                <!-- Chọn chế độ Thử thách -->
+                <h4 style="text-align: center; margin-top: 15px; color: var(--tet-red); border-top: 1px dashed #ccc; padding-top: 10px;">CHẾ ĐỘ THỬ THÁCH (LƯU ĐIỂM)</h4>
+                <div class="controls" style="justify-content: center; margin-top: 5px; gap: 10px;">
+                    <button onclick="startQuizChallenge(10, 1)" style="background: linear-gradient(45deg, #4caf50, #81c784);">10 Câu / 1 Phút</button>
+                    <button onclick="startQuizChallenge(20, 5)" style="background: linear-gradient(45deg, #ff9800, #ffb74d);">20 Câu / 5 Phút</button>
+                    <button onclick="startQuizChallenge(30, 10)" style="background: linear-gradient(45deg, #f44336, #e57373);">30 Câu / 10 Phút</button>
+                </div>
+
+                <div id="challenge-status" class="hidden" style="text-align: center; margin-top: 15px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; border: 1px dashed var(--tet-gold); color: #fff;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #d00000;" id="quiz-timer">00:00</div>
+                    <div style="font-size: 1rem;">Câu: <span id="quiz-progress">0/0</span> | Điểm: <span id="quiz-score">0</span></div>
+                </div>
+                <div id="quiz-container" class="hidden" style="margin-top: 20px;"></div>
+            </section>
+
+            <!-- NEW: Tạo Ảnh Tết AI -->
+            <section id="ai-image-gen" class="card tab-content">
+                <h3><i class="fas fa-magic"></i> Chuyên Gia Tạo Lệnh Ảnh (Prompt)</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: #666; margin-bottom: 15px;">AI sẽ giúp bạn viết câu lệnh tiếng Anh chuẩn nhất để tạo ảnh đẹp trên Midjourney, DALL-E 3, Bing Image Creator...</p>
+                
+                <div class="controls">
+                    <input type="text" id="img-prompt" placeholder="Mô tả ý tưởng chính (VD: Gia đình gói bánh chưng, Rồng vàng bay lượn)...">
+                </div>
+                
+                <div class="controls">
+                    <select id="prompt-style">
+                        <option value="">-- Chọn Phong cách --</option>
+                        <option value="Hyper-realistic, 8k, highly detailed">Thực tế (Hyper-realistic)</option>
+                        <option value="Anime style, Studio Ghibli, vibrant">Anime / Ghibli</option>
+                        <option value="3D render, Pixar style, C4D, Unreal Engine">3D Cute (Pixar)</option>
+                        <option value="Oil painting, textured, impasto">Tranh Sơn Dầu</option>
+                        <option value="Cyberpunk, neon lights, futuristic">Cyberpunk / Tương lai</option>
+                        <option value="Vintage, film grain, retro 90s">Vintage / Hoài cổ</option>
+                        <option value="Watercolor, soft edges, pastel">Tranh Màu nước</option>
+                        <option value="Traditional Vietnamese Dong Ho painting style">Tranh Đông Hồ</option>
+                    </select>
+                    <select id="prompt-lighting">
+                        <option value="">-- Chọn Ánh sáng --</option>
+                        <option value="Cinematic lighting, dramatic shadows">Điện ảnh (Cinematic)</option>
+                        <option value="Natural sunlight, golden hour">Giờ vàng (Nắng ấm)</option>
+                        <option value="Soft studio lighting, rim light">Studio mềm mại</option>
+                        <option value="Neon lights, glowing">Neon phát sáng</option>
+                    </select>
+                </div>
+                <div class="controls">
+                    <select id="prompt-camera">
+                        <option value="">-- Chọn Góc máy --</option>
+                        <option value="Wide angle, panoramic view">Góc rộng (Toàn cảnh)</option>
+                        <option value="Macro shot, extreme close-up">Cận cảnh (Macro)</option>
+                        <option value="Drone view, aerial shot">Flycam (Từ trên cao)</option>
+                        <option value="Portrait lens, bokeh background">Chân dung (Xóa phông)</option>
+                    </select>
+                    <select id="prompt-ratio">
+                        <option value="--ar 16:9">Ngang (16:9 - PC)</option>
+                        <option value="--ar 9:16">Dọc (9:16 - ĐT)</option>
+                        <option value="--ar 1:1">Vuông (1:1 - Avatar)</option>
+                    </select>
+                    <button onclick="generateImagePrompt()">Tạo Lệnh Ảnh</button>
+                </div>
+
+                <div id="prompt-result" class="hidden" style="margin-top: 20px;">
+                    <label style="font-weight:bold; color:var(--tet-red); display:block; margin-bottom:5px;">Lệnh tạo ảnh của bạn (Copy dòng này):</label>
+                    <textarea id="generated-prompt" readonly style="width:100%; height:120px; padding:10px; border:2px solid var(--tet-gold); border-radius:5px; background:#fff; color:#333; font-family: monospace; font-size: 1.1rem;"></textarea>
+                    <div style="margin-top:10px; text-align:center;">
+                        <button onclick="copyPrompt()" style="background:#4caf50;"><i class="fas fa-copy"></i> Copy Lệnh</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NEW: Bảng Tổng Sắp -->
+            <section id="leaderboard-section" class="card tab-content">
+                <h3><i class="fas fa-trophy"></i> Bảng Tổng Sắp Cao Thủ</h3>
+                <div class="controls" style="justify-content: center;">
+                    <button onclick="loadLeaderboard(10)" style="background: #4caf50;">Top 10 Câu</button>
+                    <button onclick="loadLeaderboard(20)" style="background: #ff9800;">Top 20 Câu</button>
+                    <button onclick="loadLeaderboard(30)" style="background: #f44336;">Top 30 Câu</button>
+                </div>
+                <div id="leaderboard-container" style="margin-top: 20px;">
+                    <table class="leaderboard-table">
+                        <thead><tr><th>Hạng</th><th>Người Chơi</th><th>Điểm</th><th>Ngày</th></tr></thead>
+                        <tbody id="leaderboard-body"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- NEW: Tập Thể Dục -->
+            <section id="exercise-section" class="card tab-content">
+                <h3><i class="fas fa-running"></i> Rèn Luyện Sức Khỏe Ngày Tết</h3>
+                <p style="text-align: center; margin-bottom: 20px;">"Ăn Tết không quên giữ dáng". Chọn thời gian và bắt đầu tập luyện cùng nhạc sôi động!</p>
+                <div class="controls" style="justify-content: center; gap: 15px;">
+                    <button onclick="startExercise(10)" style="background: linear-gradient(45deg, #ff9800, #f57c00);">10 Phút</button>
+                    <button onclick="startExercise(20)" style="background: linear-gradient(45deg, #4caf50, #388e3c);">20 Phút</button>
+                    <button onclick="startExercise(30)" style="background: linear-gradient(45deg, #2196f3, #1976d2);">30 Phút</button>
+                </div>
+                <div id="exercise-status" class="hidden" style="text-align: center; margin-top: 20px;">
+                    <div style="font-size: 3rem; font-weight: bold; color: #d00000;" id="exercise-timer">00:00</div>
+                    <p>Đang phát nhạc tập luyện...</p>
+                    <button onclick="stopExercise()" style="background: #d32f2f; margin-top: 10px;">Dừng Tập</button>
+                </div>
+            </section>
+
+            <!-- 7. Thử thách chéo -->
+            <section id="exchange-challenge" class="card tab-content">
+                <h3><i class="fas fa-random"></i> Vòng Quay Lì Xì Chéo</h3>
+                <div class="controls">
+                    <textarea id="participants" placeholder="Nhập tên người chơi (mỗi tên 1 dòng)"></textarea>
+                    <div class="row">
+                        <input type="number" id="min-amount" placeholder="Min (VNĐ)">
+                        <input type="number" id="max-amount" placeholder="Max (VNĐ)">
+                    </div>
+                    <div class="row" style="margin-top: 10px; width: 100%; display: flex; justify-content: center;">
+                         <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; color: var(--tet-red); font-weight: bold;">
+                            <input type="checkbox" id="exchange-task" style="width: auto;"> Kèm thử thách vui nhộn
+                        </label>
+                    </div>
+                    <button onclick="runExchange()">Bắt Đầu Random</button>
+                </div>
+                <div id="exchange-result" class="result-list hidden"></div>
+            </section>
+
+            <!-- 8. Tạo QR Lì Xì -->
+            <section id="vietqr-generator" class="card tab-content">
+                <h3><i class="fas fa-qrcode"></i> Tạo Mã Lì Xì VietQR</h3>
+                <div class="controls">
+                    <select id="bank-list">
+                        <option value="">-- Chọn Ngân Hàng --</option>
+                        <!-- Danh sách ngân hàng sẽ được JS thêm vào -->
+                    </select>
+                    <input type="text" id="bank-account" placeholder="Số tài khoản">
+                    <input type="text" id="account-name" placeholder="Tên chủ tài khoản (Viết hoa, không dấu)">
+                    <input type="number" id="qr-amount" placeholder="Số tiền (Để trống nếu muốn tự nhập)">
+                </div>
+                <div class="controls">
+                    <input type="text" id="qr-content" placeholder="Nội dung chuyển khoản (Tối đa 50 ký tự)">
+                    <button onclick="generateQRContent()" style="flex: 0 0 auto;"><i class="fas fa-magic"></i> AI Gợi Ý</button>
+                </div>
+                <button onclick="createVietQR()" style="width: 100%; margin-top: 10px;">Tạo Mã QR</button>
+                <div id="qr-result" class="result-box hidden" style="text-align: center;"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Nút Bật/Tắt Nhạc -->
+    <button id="music-toggle" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <!-- Nút Hướng Dẫn -->
+    <button onclick="toggleHelp()" class="help-btn">
+        <i class="fas fa-question"></i>
+    </button>
+
+    <!-- Modal Hướng Dẫn -->
+    <div id="help-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center;">
+        <div class="card" style="max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; display: block; animation: popIn 0.3s ease;">
+            <button onclick="toggleHelp()" style="position: absolute; top: 10px; right: 10px; background: transparent; color: #333; font-size: 1.5rem; box-shadow: none; padding: 0;"><i class="fas fa-times"></i></button>
+            <h2 style="color: var(--tet-red); text-align: center; margin-bottom: 20px;">Giới Thiệu Tính Năng</h2>
+            <div style="line-height: 1.6; color: #fff; text-align: left;">
+                <p><strong>1. Trợ Lý AI:</strong> Soạn lời chúc, làm thơ, câu đối Tết tự động.</p>
+                <p><strong>2. Chia Lì Xì:</strong> Chia tiền ngẫu nhiên, tìm "Vua Lì Xì".</p>
+                <p><strong>3. Gieo Quẻ & Xông Đất:</strong> Xem vận hạn và tuổi xông nhà.</p>
+                <p><strong>4. Tạo Lệnh Ảnh (Mới):</strong> AI giúp viết câu lệnh tiếng Anh chuẩn để bạn tạo ảnh trên Midjourney/Bing.</p>
+                <p><strong>5. Đố Vui Thử Thách:</strong> Trả lời câu hỏi, tự động lưu điểm vào Bảng Tổng Sắp.</p>
+                <p><strong>6. Bảng Tổng Sắp:</strong> Xem danh sách cao thủ (Lưu trữ vĩnh viễn).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Donate -->
+    <div id="donate-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center;">
+        <div class="card" style="max-width: 400px; width: 90%; position: relative; display: block; animation: popIn 0.3s ease; text-align: center;">
+            <button onclick="closeDonateModal()" style="position: absolute; top: 10px; right: 10px; background: transparent; color: #fff; font-size: 1.5rem; box-shadow: none; padding: 0;"><i class="fas fa-times"></i></button>
+            <h3 style="color: var(--tet-gold); margin-bottom: 15px;">🧧 Ủng Hộ Tác Giả 🧧</h3>
+            <p style="color: #fff; margin-bottom: 15px;">Nhập số tiền bạn muốn donate (Tuỳ tâm):</p>
+            <input type="number" id="donate-amount" placeholder="VD: 10000, 20000, 50000..." style="width: 100%; margin-bottom: 15px; text-align: center; font-size: 1.2rem; font-weight: bold;">
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button onclick="confirmDonate()" style="background: linear-gradient(45deg, #e91e63, #c2185b); width: 100%;">Tạo Mã QR</button>
+            </div>
+            <p style="font-size: 0.8rem; color: #ccc; margin-top: 10px;">*Mã QR sẽ được tạo tự động qua VietQR</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
