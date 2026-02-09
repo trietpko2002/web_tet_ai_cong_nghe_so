@@ -20,8 +20,6 @@
     <canvas id="fireworks"></canvas>
     <!-- Nhạc nền -->
     <audio id="tet-music" loop src="vansunhuy.mp3"></audio> <!-- Link nhạc demo, bạn có thể thay link nhạc Tết mp3 của bạn -->
-    <!-- Nhạc tập thể dục -->
-    <audio id="exercise-music" loop src="theduc.mp3"></audio>
     <!-- Hiệu ứng hoa đào rơi -->
     <div id="blossom-container"></div>
 
@@ -34,16 +32,27 @@
     <!-- LANDING PAGE (TRANG CHỦ GIỚI THIỆU) -->
     <section id="landing-page">
         <div class="landing-content">
-            <h1 class="landing-title">TẾT AI 2026</h1>
-            <h2 class="landing-subtitle">TẾT CÙNG AI VỚI 4.0</h2>
+            <h2 class="landing-title">TẾT AI 2026</h2>
+            <p class="landing-subtitle">KẾT NỐI TRUYỀN THỐNG - TRẢI NGHIỆM TƯƠNG LAI SỐ</p>
             <div class="landing-desc">
                 <p>Chào mừng bạn đến với cổng giải trí Tết Bính Ngọ 2026 - Nơi truyền thống hội tụ công nghệ!</p>
                 <p style="margin-top: 10px;">✨ <strong>Trợ lý AI:</strong> Chúc Tết, Làm thơ, Gieo quẻ, Xem tuổi xông đất.</p>
                 <p>🧧 <strong>Lì Xì 4.0:</strong> Chia tiền ngẫu nhiên, Tạo QR Code, Game săn lộc.</p>
-                <p>🎨 <strong>Sáng tạo & Kết nối:</strong> Vẽ tranh AI, Đố vui có thưởng, Lì xì chéo.</p>
+                <p>🎨 <strong>Sáng tạo & Kết nối:</strong> Vẽ tranh AI, Đố vui về tết, Lì xì chéo.</p>
                 <p>🏃 <strong>Sức khỏe:</strong> Rèn luyện thể thao với nhạc nền sôi động.</p>
+                <p style="color: yellow;"><strong>NGHIÊM CẤM:</strong> KHÔNG SỬ DỤNG WEB NÀY ĐÁNH LÔ ĐỀ, MÊ TÍNH DỊ ĐOAN, HOẠT ĐỘNG CỜ BẠC CÁ CƯỢC<BR>TÁC GIÁ KHÔNG CHỊU TRÁCH NHIỆM NẾU NGƯỜI DÙNG VI PHẠM PHÁP LUẬT </p>
             </div>
-            <button onclick="enterWebsite()" class="landing-btn" style="color: #fff; background: linear-gradient(45deg, #d00000, #e63946);">KHÁM PHÁ NGAY <i class="fas fa-arrow-right"></i></button>
+            
+            <!-- Nút Đăng Nhập / Vào Trang -->
+            <div class="landing-actions" style="display: flex; flex-direction: column; gap: 15px; align-items: center; width: 100%; max-width: 350px; margin: 0 auto;">
+                <!-- Google Login -->
+                <button onclick="loginGoogleAndEnter()" class="landing-btn" style="background: #fff; color: #444; font-size: 1rem; padding: 12px 20px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; text-transform: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <i class="fab fa-google" style="color: #DB4437;"></i> Đăng nhập Google
+                </button>
+
+                <!-- No Login -->
+                <button onclick="enterWebsite()" style="background: transparent; border: none; color: rgba(255,255,255,0.7); text-decoration: underline; cursor: pointer; font-size: 0.9rem; margin-top: 5px;">Không đăng nhập (Chế độ khách)</button>
+            </div>
         </div>
         <div class="landing-overlay"></div>
     </section>
@@ -53,30 +62,37 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <h1><i class="fas fa-robot" style="margin-right: 10px;"></i>Tết AI 2026</h1>
-                <h2 style="font-size: 0.8rem; letter-spacing: 1px;">TẾT CÙNG AI VỚI 4.0</h2>
+                <h2 style="font-size: 0.7rem; letter-spacing: 1px; margin-top: 5px;">KẾT NỐI TRUYỀN THỐNG 
+                    <br>TƯƠNG LAI SỐ</h2>
                 <button class="close-sidebar-btn" onclick="toggleMobileMenu(false)">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             
-            <!-- User Login Section -->
-            <div id="user-section" style="padding: 15px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2);">
-                <div id="login-buttons">
-                    <button onclick="loginWithGoogle()" style="width: 100%; font-size: 0.9rem; background: linear-gradient(45deg, #4285f4, #34a853); color: #fff; border: none; padding: 10px; border-radius: 5px; cursor: pointer; margin-bottom: 5px;"><i class="fab fa-google"></i> Đăng nhập Google</button>
-                    <button onclick="toggleAnonForm()" style="width: 100%; font-size: 0.9rem; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.5); padding: 8px; border-radius: 5px; cursor: pointer;"><i class="fas fa-user-secret"></i> Đăng nhập Ẩn danh</button>
+            <!-- User Login Section (Sidebar) -->
+            <div id="sidebar-user-section" style="padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                <div id="login-btn-container">
+                    <button onclick="openLoginModal()" class="sidebar-login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                    </button>
                 </div>
                 
-                <div id="anon-form" class="hidden" style="margin-top: 10px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px;">
-                    <input type="text" id="anon-name" placeholder="Nhập tên của bạn" style="width: 100%; margin-bottom: 5px; padding: 8px; font-size: 0.9rem;">
-                    <input type="email" id="anon-email" placeholder="Email (Tùy chọn)" style="width: 100%; margin-bottom: 5px; padding: 8px; font-size: 0.9rem;">
-                    <button onclick="loginAnonymously()" style="width: 100%; background: var(--tet-gold); color: #d00000; border: none; padding: 8px; border-radius: 5px; font-weight: bold;">Vào Ngay</button>
-                    <button onclick="toggleAnonForm()" style="background: transparent; border: none; color: #ccc; font-size: 0.8rem; margin-top: 5px; cursor: pointer;">Hủy</button>
-                </div>
-
-                <div id="user-info" class="hidden" style="color: white;">
-                    <img id="user-avatar" src="" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; margin-bottom: 5px; border: 2px solid var(--tet-gold);">
-                    <div id="user-name" style="font-weight: bold; font-size: 0.9rem;"></div>
-                    <button onclick="logout()" style="background: transparent; border: 1px solid rgba(255,255,255,0.5); padding: 2px 10px; font-size: 0.7rem; margin-top: 5px;">Đăng xuất</button>
+                <div id="user-info" class="hidden" onclick="toggleUserDropdown(event)">
+                    <img id="user-avatar" src="" alt="Avatar">
+                    <div class="user-text-info">
+                        <span style="font-size: 0.7rem; color: #ccc;">Xin chào,</span>
+                        <span id="user-name"></span>
+                    </div>
+                    <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: auto;"></i>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="user-dropdown-menu" class="dropdown-content">
+                        <!-- Khu vực hiển thị User/Pass Ẩn danh -->
+                        <a href="#" onclick="openProfileModal()"><i class="fas fa-id-badge"></i> Hồ sơ của tôi</a>
+                        <a href="#" onclick="openLeaderboardModal()"><i class="fas fa-history"></i> Lịch sử điểm số</a>
+                        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 5px 0;">
+                        <a href="#" onclick="logout()" style="color: #ff6b6b;"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
                 </div>
             </div>
 
@@ -97,10 +113,11 @@
                 <button class="nav-btn" onclick="switchTab('vietqr-generator')"><i class="fas fa-qrcode"></i> Tạo QR Code</button>
             </nav>
             <div class="sidebar-footer">
-                <p>Code bởi Triết Võ (AI Support)</p>
+                <p>Code bởi Triết Võ (Gemini Support)</p>
                 <div style="display: flex; gap: 5px; justify-content: center; margin-top: 10px;">
                     <a href="https://github.com/trietpko2002/web_tet_ai_cong_nghe_so" target="_blank" style="color: white; text-decoration: none; background: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;"><i class="fab fa-github"></i> GitHub</a>
                     <button onclick="donate()" style="background: #e91e63; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; cursor: pointer;"><i class="fas fa-heart"></i> Donate</button>
+                    <button onclick="shareWebsite()" style="background: #1877f2; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; cursor: pointer;"><i class="fas fa-share-alt"></i> Share</button>
                 </div>
             </div>
         </aside>
@@ -109,7 +126,7 @@
         <main class="content-area">
             <!-- Music Credit (Chạy chữ) -->
             <div class="music-credit-bar">
-                <div class="music-credit-text">🎵 Đang phát: Trúc Nhân, DTAP | VẠN SỰ NHƯ Ý 🎵</div>
+                <div class="music-credit-text">----------🎵 Đang phát: Trúc Nhân, DTAP | VẠN SỰ NHƯ Ý 🎵  ----------  <strong>NGHIÊM CẤM:</strong> KHÔNG SỬ DỤNG WEB NÀY ĐÁNH LÔ ĐỀ, MÊ TÍNH DỊ ĐOAN, HOẠT ĐỘNG CỜ BẠC CÁ CƯỢC, TÁC GIÁ KHÔNG CHỊU TRÁCH NHIỆM NẾU NGƯỜI DÙNG VI PHẠM PHÁP LUẬT----------</div>
             </div>
 
             <!-- 1. Đếm ngược -->
@@ -143,7 +160,7 @@
 
             <!-- 1.5. Việc Cần Làm (22-29 Tết) -->
             <section id="tet-prep" class="card tab-content">
-                <h3><i class="fas fa-clipboard-list"></i> Lịch Trình Đón Tết (22 - 29 Âm Lịch)</h3>
+                <h3><i class="fas fa-clipboard-list"></i> Lịch Trình Ăn Tết (Trước & Trong Tết)</h3>
                 <div id="tet-tasks-container" class="task-list"></div>
             </section>
 
@@ -194,6 +211,9 @@
                     <button id="btn-reallocate" onclick="allocateMoney()" class="hidden" style="background: var(--tet-gold); color: #d00000; margin-left: 5px;"><i class="fas fa-sync-alt"></i> Chia Lại</button>
                 </div>
                 <div id="lixi-result" class="result-grid hidden"></div>
+                <div class="legal-warning">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>CẢNH BÁO:</strong> Tính năng này chỉ để chia vui ngẫu nhiên ngày Tết. Nghiêm cấm sử dụng để tổ chức cá cược, đánh bạc ăn tiền dưới mọi hình thức.
+                </div>
             </section>
 
             <!-- 4. Gieo quẻ AI -->
@@ -216,6 +236,9 @@
                 <button onclick="getFortune()" class="shake-btn">Xin Quẻ</button>
                 <div id="fortune-result" class="result-box hidden"></div>
                 <p class="ai-disclaimer">*Lưu ý: Quẻ bói chỉ mang tính chất giải trí, vui xuân.</p>
+                <div class="legal-warning">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>LƯU Ý:</strong> Kết quả chỉ mang tính giải trí. Không sử dụng cho mục đích mê tín dị đoan hoặc luận số lô đề, cờ bạc.
+                </div>
             </section>
 
             <!-- 5. Xông đất đầu năm -->
@@ -245,6 +268,9 @@
                     <button onclick="playGuessGame()">Mở Bao</button>
                 </div>
                 <div id="guess-result" class="result-box hidden"></div>
+                <div class="legal-warning">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>TUÂN THỦ PHÁP LUẬT:</strong> Game chỉ mang tính giải trí vui vẻ. Nghiêm cấm hành vi cá cược dựa trên kết quả game.
+                </div>
             </section>
 
             <!-- NEW: Game Hứng Lộc -->
@@ -258,6 +284,9 @@
                     </div>
                     <div id="score-board" style="position: absolute; top: 10px; left: 10px; font-weight: bold; color: var(--tet-red); font-size: 1.2rem;">Điểm: 0</div>
                     <div id="game-timer-display" style="position: absolute; top: 10px; right: 10px; font-weight: bold; color: var(--tet-red); font-size: 1.2rem;">60s</div>
+                </div>
+                <div class="legal-warning">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>CẢNH BÁO:</strong> Trò chơi giải trí lành mạnh. Nghiêm cấm các hành vi cá độ, đặt cược dựa trên điểm số.
                 </div>
             </section>
 
@@ -304,6 +333,9 @@
                     <div style="font-size: 1rem;">Câu: <span id="quiz-progress">0/0</span> | Điểm: <span id="quiz-score">0</span></div>
                 </div>
                 <div id="quiz-container" class="hidden" style="margin-top: 20px;"></div>
+                <div class="legal-warning">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>LƯU Ý:</strong> Không sử dụng kết quả đố vui để cá cược ăn tiền trái pháp luật.
+                </div>
             </section>
 
             <!-- NEW: Tạo Ảnh Tết AI -->
@@ -370,36 +402,62 @@
 
             <!-- NEW: Thiệp Tết Online -->
             <section id="tet-card-creator" class="card tab-content">
-                <h3><i class="fas fa-id-card"></i> Tạo Thiệp Tết Online</h3>
-                <p style="text-align: center; margin-bottom: 15px;">Tải ảnh của bạn lên, chọn khung và viết lời chúc để tạo tấm thiệp độc đáo!</p>
+                <h3><i class="fas fa-id-card"></i> Tạo Thiệp Tết Online (Pro)</h3>
+                <p style="text-align: center; margin-bottom: 10px; font-size: 0.9rem; color: #ccc;">💡 Mẹo: Kéo thả để di chuyển vật thể. Chọn vật thể để xóa hoặc chỉnh sửa.</p>
                 
-                <div class="controls">
-                    <input type="file" id="card-upload" accept="image/*" onchange="handleImageUpload(event)">
-                    <input type="text" id="card-text" placeholder="Nhập lời chúc (VD: Chúc Mừng Năm Mới)" oninput="drawCard()">
-                </div>
-                
-                <div class="controls">
-                    <label style="color:white; align-self: center;">Màu chữ:</label>
-                    <input type="color" id="card-text-color" value="#ffffff" onchange="drawCard()" style="height: 45px; padding: 5px; width: 60px; flex: none;">
-                    <select id="card-font-size" onchange="drawCard()">
-                        <option value="30">Cỡ chữ: Nhỏ</option>
-                        <option value="50" selected>Cỡ chữ: Vừa</option>
-                        <option value="80">Cỡ chữ: Lớn</option>
-                    </select>
-                </div>
-                
-                <div class="controls">
-                    <select id="card-frame" onchange="drawCard()">
-                        <option value="none">-- Chọn Khung --</option>
-                        <option value="red">Khung Đỏ May Mắn</option>
-                        <option value="gold">Khung Vàng Tài Lộc</option>
-                        <option value="flower">Khung Hoa Đào</option>
-                    </select>
-                    <button onclick="downloadCard()" style="background: #4caf50;"><i class="fas fa-download"></i> Tải Thiệp Về</button>
-                </div>
+                <!-- Toolbar -->
+                <div class="card-toolbar" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; margin-bottom: 15px;">
+                    <!-- Tab 1: Ảnh Nền -->
+                    <div style="margin-bottom: 10px; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 10px;">
+                        <label style="color: var(--tet-gold); font-weight: bold;"><i class="fas fa-image"></i> Ảnh Nền:</label>
+                        <div class="controls" style="margin-top: 5px;">
+                            <input type="file" id="card-upload" accept="image/*" onchange="handleImageUpload(event)" style="font-size: 0.8rem;">
+                            <button onclick="resetCardCanvas()" style="background: #d32f2f; font-size: 0.8rem; padding: 8px;">Xóa Trắng</button>
+                        </div>
+                        <div class="controls" style="align-items: center;">
+                            <label style="font-size: 0.8rem;">Zoom:</label>
+                            <input type="range" id="bg-scale" min="0.1" max="3" step="0.1" value="1" oninput="updateBackgroundProp()">
+                            <label style="font-size: 0.8rem;">Xoay:</label>
+                            <input type="range" id="bg-rotate" min="-180" max="180" step="5" value="0" oninput="updateBackgroundProp()">
+                        </div>
+                    </div>
 
-                <div id="canvas-container" style="text-align: center; margin-top: 20px; overflow: auto;">
-                    <canvas id="card-canvas" style="max-width: 100%; border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"></canvas>
+                    <!-- Tab 2: Sticker & Text -->
+                    <div style="margin-bottom: 10px;">
+                        <label style="color: var(--tet-gold); font-weight: bold;"><i class="fas fa-icons"></i> Trang Trí:</label>
+                        <div class="sticker-list" style="display: flex; gap: 10px; overflow-x: auto; padding: 5px 0; margin-bottom: 10px;">
+                            <button onclick="addSticker('🌸')" class="sticker-btn">🌸</button>
+                            <button onclick="addSticker('🌼')" class="sticker-btn">🌼</button>
+                            <button onclick="addSticker('🧧')" class="sticker-btn">🧧</button>
+                            <button onclick="addSticker('🏮')" class="sticker-btn">🏮</button>
+                            <button onclick="addSticker('🐍')" class="sticker-btn">🐍</button>
+                            <button onclick="addSticker('💰')" class="sticker-btn">💰</button>
+                            <button onclick="addSticker('🎆')" class="sticker-btn">🎆</button>
+                            <button onclick="addSticker('2️⃣0️⃣2️⃣6️⃣')" class="sticker-btn" style="font-size: 0.8rem; width: auto;">2026</button>
+                        </div>
+                        <div class="controls">
+                            <input type="text" id="new-text-input" placeholder="Nhập chữ muốn thêm..." style="flex: 2;">
+                            <input type="color" id="new-text-color" value="#ffd700" style="width: 40px; padding: 2px; height: 42px;">
+                            <button onclick="addTextObject()" style="background: #2196f3;"><i class="fas fa-plus"></i> Thêm Chữ</button>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Khung & Xuất -->
+                    <div class="controls" style="border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 10px;">
+                        <select id="card-frame" onchange="renderCard()">
+                            <option value="none">-- Không Khung --</option>
+                            <option value="red">Khung Đỏ May Mắn</option>
+                            <option value="gold">Khung Vàng Tài Lộc</option>
+                            <option value="flower">Khung Hoa Đào</option>
+                            <option value="modern">Khung Kính Hiện Đại</option>
+                        </select>
+                        <button id="btn-delete-obj" onclick="deleteSelectedObject()" style="background: #ff5722; display: none;"><i class="fas fa-trash"></i> Xóa Chọn</button>
+                        <button onclick="downloadCard()" style="background: #4caf50;"><i class="fas fa-download"></i> Tải Về</button>
+                    </div>
+                </div>
+                
+                <div id="canvas-container" style="text-align: center; margin-top: 10px; overflow: hidden; border: 2px solid var(--tet-gold); border-radius: 5px; position: relative; touch-action: none;">
+                    <canvas id="card-canvas"></canvas>
                 </div>
             </section>
 
@@ -413,6 +471,7 @@
                     <button onclick="startExercise(30)" style="background: linear-gradient(45deg, #2196f3, #1976d2);">30 Phút</button>
                 </div>
                 <div id="exercise-status" class="hidden" style="text-align: center; margin-top: 20px;">
+                    <video id="exercise-video" src="theduc.mp4" loop playsinline style="width: 100%; max-height: 300px; border-radius: 10px; margin-bottom: 10px;"></video>
                     <div style="font-size: 3rem; font-weight: bold; color: #d00000;" id="exercise-timer">00:00</div>
                     <p>Đang phát nhạc tập luyện...</p>
                     <button onclick="stopExercise()" style="background: #d32f2f; margin-top: 10px;">Dừng Tập</button>
@@ -436,6 +495,9 @@
                     <button onclick="runExchange()">Bắt Đầu Random</button>
                 </div>
                 <div id="exchange-result" class="result-list hidden"></div>
+                <div class="legal-warning">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>CẢNH BÁO:</strong> Tính năng chỉ hỗ trợ ghép đôi tặng quà vui vẻ. Nghiêm cấm sử dụng để tổ chức cờ bạc trá hình.
+                </div>
             </section>
 
             <!-- 8. Tạo QR Lì Xì -->
@@ -457,6 +519,9 @@
                 <button onclick="createVietQR()" style="width: 100%; margin-top: 10px;">Tạo Mã QR</button>
                 <div id="qr-result" class="result-box hidden" style="text-align: center;"></div>
                 <p class="ai-disclaimer">*Lưu ý: Kiểm tra kỹ thông tin ngân hàng trước khi chuyển khoản.</p>
+                <div class="legal-warning">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>TUÂN THỦ PHÁP LUẬT:</strong> Chỉ sử dụng để lì xì mừng tuổi. Nghiêm cấm dùng mã QR để thanh toán cho các hoạt động cờ bạc, cá độ.
+                </div>
             </section>
         </main>
     </div>
@@ -526,6 +591,66 @@
                     <button onclick="shareWebsite()" style="background: #1877f2;"><i class="fab fa-facebook"></i> Share Web</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal Đăng Nhập -->
+    <div id="login-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center;">
+        <div class="card" style="max-width: 400px; width: 90%; position: relative; display: block; animation: popIn 0.3s ease; text-align: center;">
+            <button onclick="closeLoginModal()" style="position: absolute; top: 10px; right: 10px; background: transparent; color: #fff; font-size: 1.5rem; box-shadow: none; padding: 0;"><i class="fas fa-times"></i></button>
+            <h3 style="color: var(--tet-gold); margin-bottom: 20px;">Đăng Nhập</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <button onclick="loginWithGoogle()" style="background: #fff; color: #444; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px;">
+                    <i class="fab fa-google" style="color: #DB4437;"></i> Tiếp tục với Google
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Hiển Thị Tài Khoản (Credential Modal) -->
+    <div id="credential-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10001; align-items: center; justify-content: center;">
+        <div class="card" id="credential-card" style="max-width: 400px; width: 90%; text-align: center; border: 2px solid var(--tet-gold); animation: popIn 0.3s ease;">
+            <h3 style="color: var(--tet-red); text-transform: uppercase; margin-bottom: 10px;"><i class="fas fa-exclamation-triangle"></i> LƯU Ý QUAN TRỌNG</h3>
+            <p style="color: #fff; margin-bottom: 15px;">Hãy <strong>LƯU LẠI</strong> thông tin bên dưới để đăng nhập lại sau này!</p>
+            
+            <div style="background: #fff; color: #333; padding: 15px; border-radius: 10px; margin-bottom: 15px; text-align: left;">
+                <div style="margin-bottom: 5px;"><strong>Username:</strong> <span id="cred-username" style="font-family: monospace; font-size: 1.2rem; color: #d00000; font-weight: bold;"></span></div>
+                <div><strong>Password:</strong> <span id="cred-password" style="font-family: monospace; font-size: 1.2rem; color: #d00000; font-weight: bold;"></span></div>
+                <div style="font-size: 0.8rem; color: #666; margin-top: 5px; border-top: 1px dashed #ccc; padding-top: 5px;">
+                    *Mật khẩu này có hiệu lực trong <strong>6 tiếng</strong>. Sau đó hệ thống sẽ cấp mật khẩu mới khi bạn đăng nhập.
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; flex-direction: column;">
+                <button onclick="captureCredential()" style="background: #2196f3; color: #fff; width: 100%;"><i class="fas fa-download"></i> Lưu Ảnh Tài Khoản</button>
+                <button onclick="closeCredentialModal()" style="background: var(--tet-gold); color: #d00000; width: 100%; font-weight: bold;">Đã Lưu - Vào Ngay</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Hồ Sơ Của Tôi (Mới) -->
+    <div id="profile-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center;">
+        <div class="card" style="max-width: 500px; width: 95%; position: relative; display: block; animation: popIn 0.3s ease;">
+            <button onclick="closeProfileModal()" style="position: absolute; top: 10px; right: 10px; background: transparent; color: #fff; font-size: 1.5rem; box-shadow: none; padding: 0;"><i class="fas fa-times"></i></button>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img id="profile-avatar" src="" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--tet-gold); object-fit: cover; margin-bottom: 10px;">
+                <h3 id="profile-name" style="color: var(--tet-gold); margin: 0; border: none;">Tên Người Dùng</h3>
+                <div id="profile-titles" style="margin-top: 5px;">
+                    <!-- Danh hiệu sẽ được JS thêm vào -->
+                </div>
+            </div>
+
+            <div id="profile-stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; max-height: 300px; overflow-y: auto; padding-right: 5px;">
+                <!-- Stats will be injected here -->
+            </div>
+            
+            <button id="btn-reset-pass" onclick="resetAnonPassword()" style="background: #ff9800; color: #fff; width: 100%; margin-bottom: 10px; display: none;"><i class="fas fa-key"></i> Cấp lại mật khẩu mới</button>
+            <button onclick="resetUserStats()" style="background: transparent; border: 1px solid #ff6b6b; color: #ff6b6b; width: 100%; margin-bottom: 10px; font-size: 0.9rem;"><i class="fas fa-trash-alt"></i> Xóa dữ liệu thống kê</button>
+
+            <p style="text-align: center; font-size: 0.8rem; color: #888; font-style: italic;">*Dữ liệu được lưu trữ và đồng bộ khi đăng nhập.</p>
         </div>
     </div>
 

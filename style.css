@@ -253,6 +253,10 @@ body::before {
     display: block; /* Hiện khi active */
 }
 
+.card.hiding {
+    animation: fadeOut 0.3s ease forwards;
+}
+
 h3 {
     color: var(--tet-gold);
     border-bottom: 1px solid rgba(255,255,255,0.2);
@@ -488,6 +492,11 @@ button:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
 .hidden {
     display: none;
 }
@@ -574,6 +583,103 @@ button:hover {
     justify-content: center;
 }
 
+/* Sidebar Login Button */
+.sidebar-login-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    justify-content: center;
+}
+
+.sidebar-login-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 15px 5px 5px; /* Padding phải rộng hơn chút */
+    border-radius: 10px;
+    border: 1px solid var(--tet-gold);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    cursor: pointer;
+    position: relative; /* Để định vị dropdown */
+}
+
+#user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--tet-gold);
+    object-fit: cover;
+}
+
+.user-text-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    text-align: left;
+}
+
+#user-name {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--tet-gold);
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Dropdown Menu Styles */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; /* Hiển thị ngay dưới nút */
+    left: 0;
+    width: 100%;
+    background-color: rgba(30, 0, 0, 0.95);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    border-radius: 10px;
+    z-index: 100;
+    border: 1px solid var(--tet-gold);
+    overflow: hidden;
+    animation: fadeIn 0.2s ease;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(255, 215, 0, 0.2);
+    color: var(--tet-gold);
+}
+
 /* Quiz Styles */
 #quiz-container {
     background: rgba(0, 0, 0, 0.5); /* Nền tối để nổi chữ */
@@ -655,6 +761,26 @@ button:hover {
     transform: translateX(5px);
     background: rgba(255, 255, 255, 0.2);
 }
+.task-item.completed {
+    opacity: 0.7;
+    background: rgba(0, 0, 0, 0.2);
+}
+.task-item.completed h4 {
+    text-decoration: line-through;
+    color: #aaa;
+}
+.task-checkbox-container {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+}
+.task-checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    accent-color: var(--tet-gold); /* Màu checkbox */
+    transform: scale(1.2);
+}
 .task-date {
     display: flex;
     flex-direction: column;
@@ -712,6 +838,7 @@ button:hover {
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding-right: 0; /* Reset lại padding vì nút login đã về sidebar */
 }
 .music-credit-text {
     display: inline-block;
@@ -751,6 +878,32 @@ button:hover {
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
+
+/* Cảnh báo pháp lý (Chống cờ bạc) */
+.legal-warning {
+    margin-top: 15px;
+    padding: 12px;
+    background: rgba(50, 0, 0, 0.6); /* Nền tối hơn để nổi bật chữ */
+    border: 2px solid #ff1744; /* Viền đỏ đậm rõ ràng */
+    border-radius: 8px;
+    color: #ff8a80; /* Chữ đỏ hồng sáng */
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 1.4;
+    box-shadow: 0 0 10px rgba(255, 23, 68, 0.3); /* Hiệu ứng phát sáng nhẹ */
+}
+
+/* Card Creator Styles */
+.sticker-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    font-size: 1.5rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.sticker-btn:hover { transform: scale(1.2); background: rgba(255,255,255,0.3); }
 
 /* Mobile Menu Button & Overlay (Mặc định ẩn trên PC) */
 .mobile-menu-btn, .mobile-overlay, .close-sidebar-btn { display: none; }

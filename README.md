@@ -1,6 +1,6 @@
 # web_tet_ai_cong_nghe_so
 
-# <img src="./Gemini_Generated_Image_fncmtkfncmtkfncm.png" height="60" style="vertical-align:middle"> 🌸 TẾT AI 2026 - XUÂN BÍNH NGỌ 4.0 🌸
+# <img src="./Gemini_Generated_Image_fncmtkfncmtkfncm.png" height="100" style="vertical-align:middle"> 🌸 TẾT AI 2026 - XUÂN BÍNH NGỌ 4.0 🌸
 
 > **Web Tết AI 2026** - Nền tảng giải trí All-in-One đón Xuân Bính Ngọ: Trợ lý AI (Groq), Lì xì 4.0, Game Tết & Tạo thiệp Online.
 
@@ -75,6 +75,12 @@ Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nh
 - **Chuyển khoản nhanh:** Tạo mã QR chuyển khoản cho hơn 50 ngân hàng tại Việt Nam.
 - **Nội dung AI:** Sử dụng AI để gợi ý nội dung chuyển khoản lì xì độc đáo, hài hước.
 
+### 👤 15. Hệ thống Tài khoản & Bảng Xếp Hạng (User System)
+- **Đăng nhập đa dạng:**
+  - **Google:** Đăng nhập nhanh chóng, bảo mật.
+- **Hồ sơ cá nhân:** Thống kê chi tiết (Gieo quẻ, Lì xì, Game...), danh hiệu vui nhộn và tính năng **Xóa dữ liệu thống kê**.
+- **Bảng vàng thành tích:** Lưu trữ điểm số minigame và so tài với người chơi khác trên bảng xếp hạng thời gian thực.
+
 ## 🛠️ Công Nghệ Sử Dụng
 
 - **Frontend:** HTML5, CSS3 (Glassmorphism UI), Vanilla JavaScript.
@@ -109,12 +115,26 @@ Dự án này tối ưu để triển khai lên **Vercel**.
 4. Nhấn **Deploy** (Vercel tự động nhận diện đây là static site).
 
 [!Deploy with Vercel](https://vercel.com/new)
+## ⚠️ Lưu Ý Quan Trọng (Disclaimer)
 
+Ứng dụng **Web Tết AI 2026** được phát triển với mục đích **GIẢI TRÍ THUẦN TÚY** nhân dịp Tết Nguyên Đán.
+
+- 🚫 **Nghiêm cấm** sử dụng các tính năng (Lì xì, Gieo quẻ, Game...) vào mục đích **cá cược, đánh bạc, lô đề** hoặc các hành vi vi phạm pháp luật Việt Nam.
+- 🤖 Các nội dung do AI tạo ra (Lời chúc, Quẻ bói) chỉ mang tính chất tham khảo vui vẻ.
+- ⚖️ Tác giả không chịu trách nhiệm về việc người dùng sử dụng sai mục đích của ứng dụng.
 ## 📸 Ảnh Demo
 
 *(Thêm ảnh chụp màn hình giao diện web tại đây)*
-
-
+![Giao diện chính](./MAIN.png)
+![Giao diện chính](./img_readme/1.png)
+![Giao diện chính](./img_readme/2.png)
+![Giao diện chính](./img_readme/3.png)
+![Giao diện chính](./img_readme/4.png)
+![Giao diện chính](./img_readme/5.png)
+![Giao diện chính](./img_readme/6.png)
+![Giao diện chính](./img_readme/7.png)
+![Giao diện chính](./img_readme/8.png)
+![Giao diện chính](./img_readme/9.png)
 
 ## 🤝 Đóng Góp
 
