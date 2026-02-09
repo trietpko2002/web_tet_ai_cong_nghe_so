@@ -84,7 +84,8 @@ Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nh
 - **Cấp tài khoản nhanh:** Hệ thống tự động tạo Username và Password ngẫu nhiên (không cần email).
 - **Bảo mật 30 phút:** Mật khẩu chỉ có hiệu lực trong 30 phút.
 - **Tự động đổi mật khẩu:** Nếu đăng nhập bằng mật khẩu cũ sau 30 phút, hệ thống sẽ tự động cấp mật khẩu mới và thông báo cho người dùng.
-**Tính năng này đang phát triển nên chưa có thể áp dụng vào web, nếu mà bạn code ra được mình cảm ơn bạn luôn đấy 🤣**
+ 
+- **Tính năng này đang phát triển nên chưa có thể áp dụng vào web, nếu mà bạn code ra được mình cảm ơn bạn luôn đấy 🤣**
 
 
 ## Công Nghệ Sử Dụng
