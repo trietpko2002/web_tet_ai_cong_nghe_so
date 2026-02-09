@@ -86,7 +86,7 @@ Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nh
 
 1. **Clone dự án:**
    ```bash
-   git clone https://github.com/username/web_tet_ai_cong_nghe_so.git
+   git clone https://github.com/trietpko2002/web_tet_ai_cong_nghe_so.git
    ```
 
 2. **Cấu hình:**

@@ -24,6 +24,31 @@ try {
 
 let currentUser = null;
 
+// Lắng nghe trạng thái đăng nhập (Giữ đăng nhập khi F5 & Kiểm tra hết hạn 1 ngày)
+if (auth) {
+    auth.onAuthStateChanged((user) => {
+        const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 1 ngày
+        const now = Date.now();
+        const lastActivity = localStorage.getItem('tet_last_activity');
+
+        if (user) {
+            // Nếu đã quá 1 ngày không vào -> Đăng xuất
+            if (lastActivity && (now - parseInt(lastActivity) > ONE_DAY_MS)) {
+                console.log("Phiên đăng nhập hết hạn (quá 1 ngày).");
+                logout();
+            } else {
+                // Chưa hết hạn -> Cập nhật lại thời gian hoạt động mới nhất
+                localStorage.setItem('tet_last_activity', now);
+                currentUser = user;
+                updateUserUI();
+            }
+        } else {
+            currentUser = null;
+            updateUserUI();
+        }
+    });
+}
+
 // Xử lý đăng nhập Google
 function loginWithGoogle() {
     if (!auth) return alert("Chưa cấu hình Firebase!");
@@ -31,6 +56,8 @@ function loginWithGoogle() {
     auth.signInWithPopup(provider).then((result) => {
         currentUser = result.user;
         updateUserUI();
+        // Đăng nhập thành công -> Lưu thời gian hoạt động
+        localStorage.setItem('tet_last_activity', Date.now());
     }).catch((error) => {
         console.error(error);
         alert("Đăng nhập thất bại: " + error.message);
@@ -62,6 +89,9 @@ function loginAnonymously() {
         }).then(() => {
             currentUser = auth.currentUser; // Cập nhật lại biến currentUser với thông tin mới
             updateUserUI();
+            // Đăng nhập thành công -> Lưu thời gian hoạt động
+            localStorage.setItem('tet_last_activity', Date.now());
+            // onAuthStateChanged sẽ tự động chạy sau đó để cập nhật UI
         });
     }).catch((error) => {
         alert("Lỗi đăng nhập: " + error.message);
@@ -73,6 +103,8 @@ function logout() {
     auth.signOut().then(() => {
         currentUser = null;
         updateUserUI();
+        localStorage.removeItem('tet_last_activity'); // Xóa thời gian hoạt động
+        // onAuthStateChanged sẽ tự động xử lý UI về trạng thái chưa đăng nhập
     });
 }
 
@@ -270,6 +302,8 @@ function addToCalendar(title, dateStr, desc) {
 document.addEventListener('DOMContentLoaded', renderTetTasks);
 
 // --- 2. AI Tạo Lời Chúc (Dùng Gemini API) ---
+let lastAiWish = ""; // Biến lưu lời chúc gần nhất để copy/share
+
 async function generateWish(type = 'text') {
     const targetSelect = document.getElementById("wish-target");
     const targetText = targetSelect.options[targetSelect.selectedIndex].text;
@@ -303,10 +337,39 @@ async function generateWish(type = 'text') {
     prompt += ` Trình bày rõ ràng, dùng icon cho sinh động.`;
 
     const aiResponse = await callAI(prompt);
+    lastAiWish = aiResponse; // Lưu lại nội dung gốc
     
     // Xử lý xuống dòng để hiển thị đẹp hơn
     const formattedResponse = aiResponse.replace(/\n/g, "<br>");
-    resultBox.innerHTML = `<strong>Kết quả từ AI:</strong><br>${formattedResponse}`;
+    
+    resultBox.innerHTML = `
+        <strong>Kết quả từ AI:</strong><br>
+        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin: 10px 0; text-align: left; border: 1px dashed var(--tet-gold); line-height: 1.6;">${formattedResponse}</div>
+        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+            <button onclick="copyWish()" style="background: #4caf50; flex: 1;"><i class="fas fa-copy"></i> Copy</button>
+            <button onclick="shareWish()" style="background: #2196f3; flex: 1;"><i class="fas fa-share-alt"></i> Gửi Ngay</button>
+        </div>
+    `;
+}
+
+function copyWish() {
+    if (!lastAiWish) return;
+    navigator.clipboard.writeText(lastAiWish).then(() => {
+        alert("Đã sao chép lời chúc! Hãy dán vào tin nhắn (Zalo/Messenger) để gửi người thân nhé.");
+    });
+}
+
+function shareWish() {
+    if (!lastAiWish) return;
+    if (navigator.share) {
+        navigator.share({
+            title: 'Lời chúc Tết AI 2026',
+            text: lastAiWish,
+        }).catch(console.error);
+    } else {
+        copyWish();
+        alert("Thiết bị không hỗ trợ Share nhanh. Đã tự động Copy cho bạn!");
+    }
 }
 
 // --- 3. Chia Lì Xì (Thuật toán đảm bảo tổng chính xác) ---
@@ -956,15 +1019,7 @@ function endGame() {
         document.getElementById('game-ui').style.display = 'block';
         
         // Xử lý lưu điểm (Yêu cầu đăng nhập)
-        if (currentUser && db) {
-            saveScoreToLeaderboard(score, 'catch-lixi');
-        } else {
-            alert(`Bạn đạt được ${score} điểm!\n\nVui lòng ĐĂNG NHẬP (Google hoặc Ẩn danh) để lưu tên vào Bảng Xếp Hạng Hứng Lộc.`);
-            // Cuộn lên phần đăng nhập
-            document.querySelector('.sidebar').scrollIntoView({ behavior: 'smooth' });
-            // Mở menu mobile nếu đang đóng để thấy nút login
-            if (window.innerWidth <= 768) toggleMobileMenu(true);
-        }
+        saveScoreToLeaderboard(score, 'catch-lixi');
     }, 1000);
 }
 
@@ -1034,6 +1089,7 @@ function toggleMusic() {
 // --- 14. Đố Vui Tết AI ---
 let currentQuizData = null;
 let challengeState = { active: false, current: 0, total: 10, score: 0, timeLeft: 0, timerInterval: null, mode: 10 };
+let askedQuestions = JSON.parse(localStorage.getItem('tet_asked_questions')) || []; // Load lịch sử câu hỏi từ LocalStorage
 
 async function generateTetQuiz(forcedTopic = null, forcedDifficulty = null) {
     let topicText = "";
@@ -1076,10 +1132,11 @@ async function generateTetQuiz(forcedTopic = null, forcedDifficulty = null) {
     }
 
     // Prompt yêu cầu định dạng đặc biệt để dễ xử lý
+    // Thêm yếu tố ngẫu nhiên vào prompt để AI không trả về câu giống nhau
     const prompt = `Hãy tạo một câu hỏi trắc nghiệm về Tết Nguyên Đán.
     - Chủ đề: ${topicText}
     - Độ khó: ${difficultyText}
-    
+    - Yêu cầu: Câu hỏi phải độc đáo, thú vị, không được trùng lặp với các câu phổ biến. Random seed: ${Math.random()}
     Yêu cầu trả về ĐÚNG định dạng sau (ngăn cách bởi dấu |):
     Câu hỏi|Đáp án A|Đáp án B|Đáp án C|Đáp án D|Vị trí đáp án đúng (0, 1, 2 hoặc 3)|Giải thích ngắn gọn
     
@@ -1097,14 +1154,25 @@ async function generateTetQuiz(forcedTopic = null, forcedDifficulty = null) {
             throw new Error("AI trả về sai định dạng, vui lòng thử lại.");
         }
 
+        const questionText = parts[0].trim();
+
+        // Kiểm tra trùng lặp (Nếu đã hỏi rồi thì gọi lại hàm để lấy câu khác)
+        if (askedQuestions.includes(questionText)) {
+            console.log("Phát hiện câu hỏi trùng, đang đổi câu khác...");
+            return generateTetQuiz(forcedTopic, forcedDifficulty);
+        }
+        askedQuestions.push(questionText); // Lưu vào danh sách đã hỏi
+        localStorage.setItem('tet_asked_questions', JSON.stringify(askedQuestions)); // Lưu ngay vào LocalStorage
+
         currentQuizData = {
-            question: parts[0].trim(),
+            question: questionText,
             options: [parts[1].trim(), parts[2].trim(), parts[3].trim(), parts[4].trim()],
             correctIndex: parseInt(parts[5].trim()),
             explanation: parts[6].trim()
         };
 
-        let html = `<div style="font-weight: bold; font-size: 1.2rem; margin-bottom: 15px; color: #d00000;">${currentQuizData.question}</div>`;
+        // Cập nhật giao diện mới: Sử dụng class .quiz-question-text thay vì style cứng
+        let html = `<div class="quiz-question-text">${currentQuizData.question}</div>`;
         html += `<div style="display: grid; gap: 10px;">`;
         currentQuizData.options.forEach((opt, index) => {
             html += `<button class="quiz-option" onclick="checkQuizAnswer(${index}, this)">${['A', 'B', 'C', 'D'][index]}. ${opt}</button>`;
@@ -1195,6 +1263,7 @@ function startQuizChallenge(totalQs, minutes) {
                 mode: totalQs 
             };
             
+            // askedQuestions = []; // BỎ DÒNG NÀY: Không reset nữa để đảm bảo không trùng lặp vĩnh viễn
             document.getElementById("challenge-status").classList.remove("hidden");
             startQuizTimer();
             nextChallengeQuestion();
@@ -1233,13 +1302,7 @@ function endQuizChallenge() {
     container.innerHTML = html;
 
     // Logic bắt buộc đăng nhập để lưu điểm Đố Vui
-    if (currentUser && db) {
-        saveScoreToLeaderboard(challengeState.score, challengeState.mode);
-    } else {
-        container.innerHTML += `<p style="color: orange; font-weight:bold;">⚠️ Bạn chưa đăng nhập!</p>
-        <p>Vui lòng đăng nhập (Google/Ẩn danh) ở Menu bên trái để lưu kết quả này vào bảng xếp hạng.</p>
-        <button onclick="loginWithGoogle()">Đăng nhập ngay</button></div>`;
-    }
+    saveScoreToLeaderboard(challengeState.score, challengeState.mode);
 }
 
 // Hàm chung để lưu điểm
@@ -1253,7 +1316,7 @@ function saveScoreToLeaderboard(scoreVal, modeVal) {
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }).then(() => {
         if (modeVal === 'catch-lixi') {
-            alert("Đã lưu điểm Hứng Lộc thành công!");
+            // alert("Đã lưu điểm Hứng Lộc thành công!");
             openLeaderboardModal();
             loadLeaderboard('catch-lixi');
         } else {
@@ -1266,6 +1329,34 @@ function saveScoreToLeaderboard(scoreVal, modeVal) {
     }).catch((err) => {
         alert("Lỗi lưu điểm: " + err.message);
     });
+    } else {
+        // LƯU VÀO LOCAL STORAGE NẾU CHƯA ĐĂNG NHẬP
+        const localData = {
+            uid: 'local_' + Date.now(),
+            name: 'Khách (Máy này)',
+            photo: 'https://ui-avatars.com/api/?name=Guest&background=random&color=fff',
+            score: scoreVal,
+            mode: modeVal,
+            timestamp: new Date().toISOString(),
+            isLocal: true
+        };
+        
+        let localScores = JSON.parse(localStorage.getItem('tet_leaderboard')) || [];
+        localScores.push(localData);
+        localStorage.setItem('tet_leaderboard', JSON.stringify(localScores));
+        
+        alert("Bạn chưa đăng nhập: Kết quả đã được lưu trên máy này!");
+        
+        if (modeVal === 'catch-lixi') {
+            openLeaderboardModal();
+            loadLeaderboard('catch-lixi');
+        } else {
+            setTimeout(() => {
+                openLeaderboardModal();
+                loadLeaderboard(modeVal);
+            }, 1500);
+        }
+    }
 }
 
 function nextChallengeQuestion() {
@@ -1294,60 +1385,131 @@ function loadLeaderboard(mode) {
     const tbody = document.getElementById("leaderboard-body");
     tbody.innerHTML = "<tr><td colspan='4' style='text-align:center'><i class='fas fa-spinner fa-spin'></i> Đang tải dữ liệu trực tiếp...</td></tr>";
 
+    // Lấy dữ liệu Local
+    let allLocal = JSON.parse(localStorage.getItem('tet_leaderboard')) || [];
+    let localModeScores = allLocal.filter(item => item.mode == mode);
+
     // Hủy đăng ký listener cũ nếu có (để tránh chạy chồng chéo khi chuyển tab)
     if (leaderboardUnsubscribe) {
         leaderboardUnsubscribe();
     }
 
+    // Hàm render chung (kết hợp Local + Firebase)
+    const renderTable = (firebaseDocs = []) => {
+        let combined = [...localModeScores];
+        
+        firebaseDocs.forEach(doc => {
+            combined.push(doc.data()); // Gộp dữ liệu Firebase vào
+        });
+
+        // Sắp xếp giảm dần theo điểm
+        combined.sort((a, b) => b.score - a.score);
+        // Lấy Top 20
+        combined = combined.slice(0, 20);
+
+        tbody.innerHTML = "";
+        let rank = 1;
+
+        combined.forEach((data) => {
+            // Xử lý ngày tháng (Firebase Timestamp vs ISO String)
+            let dateStr = "";
+            if (data.timestamp && data.timestamp.toDate) {
+                dateStr = new Date(data.timestamp.toDate()).toLocaleString('vi-VN');
+            } else if (data.timestamp) {
+                dateStr = new Date(data.timestamp).toLocaleString('vi-VN');
+            }
+
+            // Highlight
+            let highlightStyle = "";
+            let icon = `#${rank}`;
+            if (rank === 1) icon = "🥇";
+            if (rank === 2) icon = "🥈";
+            if (rank === 3) icon = "🥉";
+
+            if (currentUser && data.uid === currentUser.uid) {
+                highlightStyle = "background-color: #fff9c4; border: 2px solid var(--tet-gold); font-weight: bold; color: #333;";
+            } else if (data.isLocal) {
+                highlightStyle = "background-color: #e3f2fd; border: 2px dashed #2196f3; color: #333;";
+            }
+
+            const row = `<tr style="${highlightStyle}">
+                <td style="font-size: 1.2rem;">${icon}</td>
+                <td><img src="${data.photo}" style="width:30px; height:30px; border-radius:50%; vertical-align:middle; border:1px solid #ccc; margin-right: 5px;"> ${data.name}</td>
+                <td style="font-weight:bold; color:#d00000; font-size: 1.1rem;">${data.score}</td>
+                <td style="font-size:0.8rem; color:#666">${dateStr}</td>
+            </tr>`;
+            tbody.innerHTML += row;
+            rank++;
+        });
+
+        if (combined.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='4' style='text-align:center'>Chưa có dữ liệu. Hãy là người đầu tiên ghi danh!</td></tr>";
+        }
+    };
+
+    if (db && navigator.onLine) { // Chỉ gọi Firebase khi có mạng và db đã init
     // Sử dụng onSnapshot để cập nhật Real-time (Tất cả người dùng đều thấy ngay lập tức)
     leaderboardUnsubscribe = db.collection("leaderboard")
         .where("mode", "==", mode)
         .orderBy("score", "desc")
         .limit(10)
         .onSnapshot((querySnapshot) => {
-            tbody.innerHTML = "";
-            let rank = 1;
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                // Hiển thị ngày giờ chi tiết
-                const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString('vi-VN') : "Vừa xong";
-                
-                // Highlight dòng của người dùng hiện tại
-                let highlightStyle = "";
-                let icon = `#${rank}`;
-                if (rank === 1) icon = "🥇";
-                if (rank === 2) icon = "🥈";
-                if (rank === 3) icon = "🥉";
-
-                if (currentUser && data.uid === currentUser.uid) {
-                    highlightStyle = "background-color: #fff9c4; border: 2px solid var(--tet-gold); font-weight: bold;";
-                }
-
-                const row = `<tr style="${highlightStyle}">
-                    <td style="font-size: 1.2rem;">${icon}</td>
-                    <td><img src="${data.photo}" style="width:30px; height:30px; border-radius:50%; vertical-align:middle; border:1px solid #ccc; margin-right: 5px;"> ${data.name}</td>
-                    <td style="font-weight:bold; color:#d00000; font-size: 1.1rem;">${data.score}</td>
-                    <td style="font-size:0.8rem; color:#666">${date}</td>
-                </tr>`;
-                tbody.innerHTML += row;
-                rank++;
-            });
-            if (querySnapshot.empty) {
-                tbody.innerHTML = "<tr><td colspan='4' style='text-align:center'>Chưa có dữ liệu. Hãy là người đầu tiên ghi danh!</td></tr>";
-            }
+            renderTable(querySnapshot.docs);
         }, (error) => {
             console.error("Error getting leaderboard: ", error);
+            renderTable([]); // Vẫn hiện local nếu lỗi mạng
             
             // Hướng dẫn người dùng tạo Index nếu lỗi (Lỗi này chắc chắn sẽ gặp lần đầu tiên)
             if (error.message.includes("requires an index")) {
-                tbody.innerHTML = `<tr><td colspan='4' style='text-align:center; color:red'>
+                tbody.innerHTML += `<tr><td colspan='4' style='text-align:center; color:red'>
                     <strong>Lỗi thiếu Index Firebase!</strong><br>
                     Vui lòng mở Console (F12) và bấm vào đường link do Firebase cung cấp để tạo Index tự động cho bảng xếp hạng này.
                 </td></tr>`;
-            } else {
-                tbody.innerHTML = `<tr><td colspan='4' style='text-align:center; color:red'>Lỗi tải dữ liệu: ${error.message}</td></tr>`;
             }
         });
+    } else {
+        renderTable([]);
+    }
+}
+
+// --- 16.5 Chia sẻ & Chụp ảnh Bảng Xếp Hạng ---
+function captureLeaderboard() {
+    const element = document.getElementById("leaderboard-content");
+    const closeBtn = element.querySelector("button[onclick='closeLeaderboardModal()']");
+    
+    // 1. Ẩn các nút điều khiển để ảnh đẹp hơn
+    element.classList.add("capturing");
+    closeBtn.style.display = "none";
+
+    // 2. Dùng html2canvas chụp lại
+    html2canvas(element, {
+        backgroundColor: "#4a0404", // Màu nền đỏ Tết thay vì trong suốt
+        scale: 2, // Tăng độ nét
+        useCORS: true // Cho phép tải ảnh avatar từ nguồn ngoài
+    }).then(canvas => {
+        // 3. Tạo link tải về
+        const link = document.createElement('a');
+        link.download = 'bang-vang-tet-2026.png';
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+        // 4. Khôi phục giao diện
+        element.classList.remove("capturing");
+        closeBtn.style.display = "block";
+        
+        alert("Đã tải ảnh thành tích! Bạn có thể đăng lên Facebook ngay.");
+    }).catch(err => {
+        console.error(err);
+        alert("Lỗi khi chụp ảnh: " + err.message);
+        element.classList.remove("capturing");
+        closeBtn.style.display = "block";
+    });
+}
+
+function shareWebsite() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent("Chơi Tết AI 2026 cực vui! Xem bói, Lì xì, Đố vui có thưởng tại đây 👇");
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
 }
 
 // --- 15. Tạo Lệnh Ảnh (Prompt Engineering) ---
