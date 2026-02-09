@@ -2,7 +2,7 @@
 
 # <img src="./Gemini_Generated_Image_fncmtkfncmtkfncm.png" height="60" style="vertical-align:middle"> 🌸 TẾT AI 2026 - XUÂN BÍNH NGỌ 4.0 🌸
 
-> **Web Tết AI 2026** - Nền tảng giải trí All-in-One đón Xuân Bính Ngọ: Trợ lý AI (Gemini/Groq), Lì xì 4.0, Game Tết & Tạo thiệp Online.
+> **Web Tết AI 2026** - Nền tảng giải trí All-in-One đón Xuân Bính Ngọ: Trợ lý AI (Groq), Lì xì 4.0, Game Tết & Tạo thiệp Online.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2Fweb_tet_ai_cong_nghe_so)
 [![Demo](https://img.shields.io/badge/Demo-Live%20Site-success)](https://your-project-name.vercel.app)
@@ -43,7 +43,7 @@ Dự án mang đến trải nghiệm đón Tết độc đáo, tiện lợi và 
 
 - **Frontend:** HTML5, CSS3 (Glassmorphism UI), Vanilla JavaScript.
 - **Backend/Database:** Firebase (Authentication, Firestore) để lưu trữ điểm số và người dùng.
-- **AI API:** Tích hợp API của OpenAI / Groq (Llama 3) để xử lý ngôn ngữ tự nhiên.
+- **AI API:** Tích hợp API của Groq (Llama 3) để xử lý ngôn ngữ tự nhiên.
 - **Hiệu ứng:** HTML5 Canvas (Pháo hoa, Game hứng lộc, Thiệp Tết), CSS Animations.
 
 ## 📦 Cài Đặt & Sử Dụng
@@ -78,9 +78,11 @@ Dự án này tối ưu để triển khai lên **Vercel**.
 
 *(Thêm ảnh chụp màn hình giao diện web tại đây)*
 
+
+
 ## 🤝 Đóng Góp
 
-Mọi ý kiến đóng góp xin vui lòng gửi Pull Request hoặc tạo Issue trên GitHub.
-
+Mọi ý kiến đóng góp hoặc báo lỗi xin vui lòng gửi Pull Request hoặc tạo Issue trên GitHub.
+Hoặc thông qua email: phanranggaming@gmail.com
 ---
 **Chúc Mừng Năm Mới - An Khang Thịnh Vượng!** 🎉
