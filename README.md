@@ -124,19 +124,80 @@ Dự án này tối ưu để triển khai lên **Vercel**.
 - ⚖️ Tác giả không chịu trách nhiệm về việc người dùng sử dụng sai mục đích của ứng dụng.
 ## 📸 Ảnh Demo
 
-*(Thêm ảnh chụp màn hình giao diện web tại đây)*
-![Giao diện chính](./MAIN.png)
-![Giao diện chính](./img_readme/1.png)
-![Giao diện chính](./img_readme/2.png)
-![Giao diện chính](./img_readme/3.png)
-![Giao diện chính](./img_readme/4.png)
-![Giao diện chính](./img_readme/5.png)
-![Giao diện chính](./img_readme/6.png)
-![Giao diện chính](./img_readme/7.png)
-![Giao diện chính](./img_readme/8.png)
-![Giao diện chính](./img_readme/9.png)
-![Giao diện chính](./img_readme/10.png)
-![Giao diện chính](./img_readme/11.png)
+<table>
+  <tr>
+    <td width="50%">
+      <img src="./MAIN.png" width="100%">
+      <br>
+      <center><b>Giao diện Landing Page</b></center>
+    </td>
+    <td width="50%">
+      <img src="./img_readme/1.png" width="100%">
+      <br>
+      <center><b>Đếm ngược Giao Thừa</b></center>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="./img_readme/2.png" width="100%">
+      <br>
+      <center><b>Lịch trình đón Tết (To-Do List)</b></center>
+    </td>
+    <td>
+      <img src="./img_readme/3.png" width="100%">
+      <br>
+      <center><b>Trợ lý Chúc Tết AI</b></center>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="./img_readme/4.png" width="100%">
+      <br>
+      <center><b>Chia Lì Xì Random</b></center>
+    </td>
+    <td>
+      <img src="./img_readme/5.png" width="100%">
+      <br>
+      <center><b>Gieo Quẻ Đầu Năm</b></center>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="./img_readme/6.png" width="100%">
+      <br>
+      <center><b>Xem Tuổi Xông Đất</b></center>
+    </td>
+    <td>
+      <img src="./img_readme/7.png" width="100%">
+      <br>
+      <center><b>Game Đoán Lì Xì (Troll)</b></center>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="./img_readme/8.png" width="100%">
+      <br>
+      <center><b>Game Hứng Lộc</b></center>
+    </td>
+    <td>
+      <img src="./img_readme/9.png" width="100%">
+      <br>
+      <center><b>Đố Vui Ngày Tết</b></center>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="./img_readme/10.png" width="100%">
+      <br>
+      <center><b>Tập Thể Dục Giữ Dáng</b></center>
+    </td>
+    <td>
+      <img src="./img_readme/11.png" width="100%">
+      <br>
+      <center><b>Tạo Ảnh Tết AI (Prompt)</b></center>
+    </td>
+  </tr>
+</table>
 
 ## 🤝 Đóng Góp
 
