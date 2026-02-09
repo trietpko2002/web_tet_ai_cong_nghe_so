@@ -100,10 +100,25 @@ Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nh
    git clone https://github.com/trietpko2002/web_tet_ai_cong_nghe_so.git
    ```
 
-2. **Cấu hình:**
-   - Mở file `script.js`.
-   - Cập nhật `firebaseConfig` với thông tin dự án Firebase của bạn.
-   - Cập nhật `API_KEY` của Groq hoặc OpenAI.
+2. **Cấu hình Firebase & API:**
+   - Mở file `script.js` bằng trình soạn thảo code (như VS Code).
+   - **Cấu hình Firebase (Bắt buộc để lưu điểm, tài khoản):**
+     - Tìm đến biến `firebaseConfig`.
+     - Thay thế các giá trị mẫu (`API_KEY_HERE`, `ID_CUA_BAN`...) bằng thông tin từ dự án Firebase của bạn.
+     - *Nếu bạn chưa có, hãy tạo một dự án mới trên Firebase Console.*
+   - **Cấu hình API cho AI (Bắt buộc cho các tính năng AI):**
+     - Dự án này sử dụng API của **Groq** (miễn phí, nhanh) làm mặc định.
+     - **Bước 1: Lấy API Key**
+       - Truy cập trang GroqCloud.
+       - Đăng nhập bằng tài khoản Google.
+       - Chọn **"Create API Key"** và sao chép (copy) mã API Key của bạn (có dạng `gsk_...`).
+     - **Bước 2: Dán vào code**
+       - Trong file `script.js`, tìm đến dòng:
+         ```javascript
+         const API_KEY = "API_KEY".trim(); // <-- Dán Key Groq (gsk_...) vào đây
+         ```
+       - Thay thế `"API_KEY"` bằng API Key bạn vừa copy.
+       - **Ví dụ:** `const API_KEY = "gsk_abc123xyz...".trim();`
 
 3. **Chạy ứng dụng:**
    - Mở file `index.html` trên trình duyệt web bất kỳ.
