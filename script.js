@@ -209,6 +209,66 @@ function updateCountdown() {
 }
 setInterval(updateCountdown, 1000);
 
+// --- 1.5. Lịch Trình Đón Tết (22 - 29 Tết) ---
+const tetTasks = [
+    { day: 22, date: "2026-02-08", title: "Dọn dẹp nhà cửa sơ bộ", desc: "Giặt giũ chăn màn, rèm cửa, lau dọn trần nhà, sắp xếp đồ đạc." },
+    { day: 23, date: "2026-02-09", title: "Cúng Ông Công Ông Táo", desc: "Chuẩn bị mâm cúng, thả cá chép tiễn Táo Quân về trời (Nên cúng trước 12h trưa)." },
+    { day: 24, date: "2026-02-10", title: "Lau dọn bàn thờ", desc: "Rút tỉa chân nhang, đánh bóng lư đồng, lau dọn bàn thờ gia tiên sạch sẽ." },
+    { day: 25, date: "2026-02-11", title: "Đi chợ sắm Tết", desc: "Mua bánh kẹo, mứt, hạt dưa, đồ khô, phong bao lì xì, quần áo mới." },
+    { day: 26, date: "2026-02-12", title: "Chuẩn bị gói bánh", desc: "Rửa lá dong, ngâm gạo nếp, đãi đỗ xanh, ướp thịt để gói bánh chưng/bánh tét." },
+    { day: 27, date: "2026-02-13", title: "Gói và luộc bánh", desc: "Tổ chức gói bánh chưng/bánh tét, luộc bánh qua đêm, quây quần bên bếp lửa." },
+    { day: 28, date: "2026-02-14", title: "Trang trí nhà cửa", desc: "Cắm hoa đào/mai/quất. Bày mâm ngũ quả. Treo câu đối đỏ." },
+    { day: 29, date: "2026-02-15", title: "Cúng Tất Niên", desc: "Làm mâm cơm tất niên cúng gia tiên. Chuẩn bị đón Giao Thừa thiêng liêng." }
+];
+
+function renderTetTasks() {
+    const container = document.getElementById("tet-tasks-container");
+    if (!container) return;
+    container.innerHTML = "";
+
+    tetTasks.forEach(task => {
+        const div = document.createElement("div");
+        div.className = "task-item";
+        div.innerHTML = `
+            <div class="task-date">
+                <span class="lunar-day">${task.day} Tết</span>
+                <span class="solar-date">${task.date.split("-").reverse().join("/")}</span>
+            </div>
+            <div class="task-info">
+                <h4>${task.title}</h4>
+                <p>${task.desc}</p>
+            </div>
+            <div class="task-actions">
+                <button onclick="addToCalendar('${task.title}', '${task.date}', '${task.desc}')" title="Thêm vào Lịch (App)"><i class="fas fa-calendar-plus"></i></button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function addToCalendar(title, dateStr, desc) {
+    // Tạo file .ics để thêm vào lịch (Google Calendar, Apple Calendar, Outlook...)
+    const startDate = new Date(dateStr);
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 1); // Sự kiện cả ngày, kết thúc vào ngày hôm sau
+
+    const start = startDate.toISOString().split('T')[0].replace(/-/g, "");
+    const end = endDate.toISOString().split('T')[0].replace(/-/g, "");
+
+    const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//TetAI//Tet Schedule//EN\nBEGIN:VEVENT\nUID:${Date.now()}@tetai.com\nDTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z\nDTSTART;VALUE=DATE:${start}\nDTEND;VALUE=DATE:${end}\nSUMMARY:${title}\nDESCRIPTION:${desc}\nEND:VEVENT\nEND:VCALENDAR`;
+
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.setAttribute('download', `${title}.ics`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Gọi hàm render khi tải trang
+document.addEventListener('DOMContentLoaded', renderTetTasks);
+
 // --- 2. AI Tạo Lời Chúc (Dùng Gemini API) ---
 async function generateWish(type = 'text') {
     const targetSelect = document.getElementById("wish-target");
@@ -233,11 +293,12 @@ async function generateWish(type = 'text') {
     if (type === 'poem') promptType = "một bài thơ chúc Tết (4 câu)";
     if (type === 'couplet') promptType = "một câu đối Tết";
 
-    let prompt = `Hãy viết ${promptType} năm Bính Ngọ 2026 thật hay.
+    let prompt = `Đóng vai một chuyên gia văn hóa Việt Nam, hãy sáng tác ${promptType} cho năm mới Bính Ngọ 2026 thật hay, ý nghĩa và độc đáo.
     - Đối tượng nhận: "${targetText}"
     - Phong cách: "${styleText}"
     - Độ dài: "${lengthText}"
-    - Chủ đề chính: "${themeText}"`;
+    - Chủ đề chính: "${themeText}"
+    - Yêu cầu: Sử dụng từ ngữ chau chuốt, có vần điệu (nếu là thơ/câu đối), mang đậm không khí Tết cổ truyền kết hợp hiện đại.`;
     
     prompt += ` Trình bày rõ ràng, dùng icon cho sinh động.`;
 
@@ -376,12 +437,12 @@ async function getFortune() {
     resultBox.classList.remove("hidden");
     resultBox.innerHTML = "<i class='fas fa-spinner fa-spin'></i> Thầy phán AI đang xem thiên văn...";
     
-    const prompt = `Hãy đóng vai một thầy bói thông thái, gieo quẻ đầu năm Bính Ngọ 2026.
+    const prompt = `Hãy đóng vai một thầy phong thủy/tử vi lão làng, gieo quẻ đầu năm Bính Ngọ 2026.
     - Thông tin tín chủ: ${age ? age + " tuổi" : "Không rõ tuổi"}, ${genderText}.
     - Muốn xin quẻ về: ${topicText}.
     
     Hãy trả về kết quả gồm:
-    1. Tên quẻ (Ví dụ: Quẻ Đại Cát, Quẻ Tấn Tài...).
+    1. Tên quẻ (Đặt tên theo phong cách Hán Việt nghe thật kêu, ví dụ: Hỏa Thiên Đại Hữu, Lôi Địa Dự...).
     2. Lời phán: Một đoạn thơ hoặc văn vần ngắn gọn, súc tích nói về vận hạn năm nay theo chủ đề đã chọn.
     3. Con số may mắn (0-99) và Màu sắc hợp mệnh.
     Văn phong huyền bí nhưng tích cực.`;
@@ -407,7 +468,7 @@ async function suggestFirstFooting() {
     resultBox.classList.remove("hidden");
     resultBox.innerHTML = "<i class='fas fa-spinner fa-spin'></i> Thầy phong thủy AI đang tính toán...";
 
-    const prompt = `Gia chủ sinh năm ${ownerInput} (${genderText}). Hãy gợi ý 3 tuổi đẹp nhất để xông đất cho gia chủ vào năm mới Bính Ngọ 2026.
+    const prompt = `Gia chủ sinh năm ${ownerInput} (${genderText}). Với tư cách là chuyên gia phong thủy, hãy phân tích kỹ Thiên Can, Địa Chi, Ngũ Hành và gợi ý 3 tuổi đẹp nhất (Tam Hợp, Lục Hợp) để xông đất cho gia chủ vào năm mới Bính Ngọ 2026.
     Giải thích ngắn gọn tại sao hợp (Thiên can, Địa chi, Ngũ hành).
     Gợi ý thêm giờ đẹp để xông đất.`;
 
@@ -1093,8 +1154,8 @@ function endQuizChallenge() {
         }).then(() => {
             // Tự động chuyển tab sau khi lưu thành công
             setTimeout(() => {
-                switchTab('leaderboard-section');
-                loadLeaderboard(challengeState.mode);
+                openLeaderboardModal(); // Mở modal thay vì chuyển tab
+                loadLeaderboard(challengeState.mode); // Load đúng mode vừa chơi
             }, 1500);
         }).catch((err) => {
             container.innerHTML += `<p style="color: red;">Lỗi lưu điểm: ${err.message}</p>`;
@@ -1115,6 +1176,15 @@ function nextChallengeQuestion() {
 
 // --- 16. Bảng Tổng Sắp (Firestore) ---
 let leaderboardUnsubscribe = null; // Biến lưu listener để hủy khi cần thiết
+
+function openLeaderboardModal() {
+    document.getElementById('leaderboard-modal').style.display = 'flex';
+    loadLeaderboard(10); // Mặc định load top 10 câu
+}
+
+function closeLeaderboardModal() {
+    document.getElementById('leaderboard-modal').style.display = 'none';
+}
 
 function loadLeaderboard(mode) {
     if (!db) return alert("Chưa cấu hình Firebase!");
@@ -1182,6 +1252,7 @@ function loadLeaderboard(mode) {
 async function generateImagePrompt() {
     const promptInput = document.getElementById("img-prompt").value;
     const style = document.getElementById("prompt-style").value;
+    const mood = document.getElementById("prompt-mood").value;
     const lighting = document.getElementById("prompt-lighting").value;
     const camera = document.getElementById("prompt-camera").value;
     const ratio = document.getElementById("prompt-ratio").value;
@@ -1197,18 +1268,22 @@ async function generateImagePrompt() {
     resultBox.classList.remove("hidden");
     textArea.value = "AI đang viết lệnh...";
 
+    // Thêm các từ khóa chất lượng cao để lệnh không bị "thưa"
+    const qualityBoosters = "Masterpiece, best quality, 8k resolution, highly detailed, sharp focus, HDR, intricate details";
+
     // Prompt cho LLM (Groq) để tạo Image Prompt
     let systemPrompt = `Act as an expert Prompt Engineer for Midjourney/DALL-E 3. 
-    Create a detailed, high-quality image generation prompt in English based on the following inputs.
+    Create a VERY DETAILED, rich, and high-quality image generation prompt in English based on the following inputs. Expand on the user's idea with artistic descriptions.
     
     User Idea: ${promptInput}
     Style: ${style}
+    Mood/Atmosphere: ${mood}
     Lighting: ${lighting}
     Camera: ${camera}
     Aspect Ratio: ${ratio}
 
     Output ONLY the final prompt text. Do not add explanations.
-    Structure: [Subject], [Details], [Environment], [Style Keywords], [Lighting/Camera], [Aspect Ratio]`;
+    Structure: [Subject Description + Action], [Environment & Background], [Art Style & Medium], [Mood & Atmosphere], [Lighting & Camera Angles], [Quality Boosters: ${qualityBoosters}], [Aspect Ratio]`;
 
     const finalPrompt = await callAI(systemPrompt);
     textArea.value = finalPrompt.replace(/^"|"$/g, ''); // Xóa dấu ngoặc kép nếu có
@@ -1309,4 +1384,198 @@ function confirmDonate() {
     // Mở trong tab mới
     window.open(url, '_blank');
     closeDonateModal();
+}
+
+// --- 19. Thiệp Tết Online ---
+let uploadedImage = null;
+
+function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            uploadedImage = img;
+            drawCard();
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function drawCard() {
+    const canvas = document.getElementById('card-canvas');
+    const ctx = canvas.getContext('2d');
+    const text = document.getElementById('card-text').value;
+    const frameType = document.getElementById('card-frame').value;
+    const textColor = document.getElementById('card-text-color') ? document.getElementById('card-text-color').value : '#ffffff';
+    const fontSize = document.getElementById('card-font-size') ? parseInt(document.getElementById('card-font-size').value) : 50;
+
+    // 1. Thiết lập kích thước canvas theo ảnh (giới hạn chiều rộng để không quá to)
+    const maxWidth = 800;
+    let w = 800;
+    let h = 600;
+
+    if (uploadedImage) {
+        w = uploadedImage.width;
+        h = uploadedImage.height;
+        if (w > maxWidth) {
+            h = (maxWidth / w) * h;
+            w = maxWidth;
+        }
+    }
+
+    canvas.width = w;
+    canvas.height = h;
+
+    // 2. Vẽ nền hoặc ảnh
+    if (uploadedImage) {
+        ctx.drawImage(uploadedImage, 0, 0, w, h);
+    } else {
+        // Nền mặc định nếu chưa có ảnh
+        const grd = ctx.createLinearGradient(0, 0, w, h);
+        grd.addColorStop(0, "#c0392b");
+        grd.addColorStop(1, "#8e44ad");
+        ctx.fillStyle = grd;
+        ctx.fillRect(0, 0, w, h);
+        
+        if (!text) {
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.font = '20px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Tải ảnh lên hoặc chọn khung để bắt đầu', w/2, h/2);
+        }
+    }
+
+    // 3. Vẽ khung (Nâng cấp)
+    ctx.save();
+    if (frameType === 'red') {
+        // Khung đỏ cổ điển
+        const border = 20;
+        ctx.strokeStyle = '#b71c1c';
+        ctx.lineWidth = border;
+        ctx.strokeRect(0, 0, w, h);
+        
+        // Viền vàng bên trong
+        ctx.strokeStyle = '#ffd700';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(border/2, border/2, w-border, h-border);
+
+        // Góc trang trí
+        ctx.fillStyle = '#ffd700';
+        const cornerSize = 40;
+        // Top-Left
+        ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(cornerSize, 0); ctx.lineTo(0, cornerSize); ctx.fill();
+        // Top-Right
+        ctx.beginPath(); ctx.moveTo(w,0); ctx.lineTo(w-cornerSize, 0); ctx.lineTo(w, cornerSize); ctx.fill();
+        // Bottom-Left
+        ctx.beginPath(); ctx.moveTo(0,h); ctx.lineTo(cornerSize, h); ctx.lineTo(0, h-cornerSize); ctx.fill();
+        // Bottom-Right
+        ctx.beginPath(); ctx.moveTo(w,h); ctx.lineTo(w-cornerSize, h); ctx.lineTo(w, h-cornerSize); ctx.fill();
+
+    } else if (frameType === 'gold') {
+        // Khung vàng sang trọng
+        const border = 25;
+        ctx.strokeStyle = '#ffd700';
+        ctx.lineWidth = border;
+        ctx.strokeRect(0, 0, w, h);
+        
+        // Họa tiết chấm bi trên khung
+        ctx.fillStyle = '#b71c1c';
+        for(let i=0; i<w; i+=40) {
+            ctx.beginPath(); ctx.arc(i, border/2, 5, 0, Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.arc(i, h-border/2, 5, 0, Math.PI*2); ctx.fill();
+        }
+        for(let i=0; i<h; i+=40) {
+            ctx.beginPath(); ctx.arc(border/2, i, 5, 0, Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.arc(w-border/2, i, 5, 0, Math.PI*2); ctx.fill();
+        }
+
+    } else if (frameType === 'flower') {
+        // Khung hoa đào (Hồng phấn)
+        const border = 30;
+        ctx.strokeStyle = '#ffcdd2';
+        ctx.lineWidth = border;
+        ctx.strokeRect(0, 0, w, h);
+        
+        // Vẽ hoa đơn giản ở 4 góc
+        const drawFlower = (cx, cy) => {
+            ctx.fillStyle = '#e91e63';
+            for(let i=0; i<5; i++) {
+                ctx.beginPath();
+                ctx.ellipse(cx, cy, 15, 5, i * (Math.PI*2/5), 0, Math.PI*2);
+                ctx.fill();
+            }
+            ctx.beginPath(); ctx.arc(cx, cy, 5, 0, Math.PI*2); ctx.fillStyle='#ffeb3b'; ctx.fill();
+        };
+        
+        drawFlower(border, border);
+        drawFlower(w-border, border);
+        drawFlower(border, h-border);
+        drawFlower(w-border, h-border);
+    }
+    ctx.restore();
+
+    // 4. Vẽ chữ (Lời chúc) - Có wrap text
+    if (text) {
+        ctx.save();
+        ctx.font = `bold ${fontSize}px "Dancing Script", cursive, Arial`;
+        ctx.fillStyle = textColor;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        
+        // Shadow cho chữ dễ đọc
+        ctx.shadowColor = "rgba(0,0,0,0.8)";
+        ctx.shadowBlur = 8;
+        ctx.shadowOffsetX = 2;
+        ctx.shadowOffsetY = 2;
+
+        const x = w / 2;
+        const y = h - 40; // Cách đáy một chút
+        const maxWidthText = w - 60;
+        const lineHeight = fontSize * 1.2;
+
+        wrapText(ctx, text, x, y, maxWidthText, lineHeight);
+        ctx.restore();
+    }
+}
+
+// Hàm xử lý xuống dòng
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
+    let lines = [];
+
+    // Tính toán các dòng
+    for(let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+            lines.push(line);
+            line = words[n] + ' ';
+        } else {
+            line = testLine;
+        }
+    }
+    lines.push(line);
+
+    // Vẽ từ dưới lên trên
+    for(let k = 0; k < lines.length; k++) {
+        // Dòng cuối cùng vẽ ở vị trí y, các dòng trước đó vẽ cao hơn
+        ctx.fillText(lines[lines.length - 1 - k], x, y - (k * lineHeight));
+    }
+}
+
+function downloadCard() {
+    const canvas = document.getElementById('card-canvas');
+    // Cho phép tải về ngay cả khi không có ảnh upload (chỉ có nền gradient)
+    // if (!uploadedImage) return alert("Vui lòng tạo thiệp trước!");
+    
+    const link = document.createElement('a');
+    link.download = 'thiep-tet-2026.png';
+    link.href = canvas.toDataURL();
+    link.click();
 }

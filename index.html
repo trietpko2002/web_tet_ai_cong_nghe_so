@@ -71,6 +71,7 @@
 
             <nav class="sidebar-nav">
                 <button class="nav-btn active" onclick="switchTab('countdown-section')"><i class="fas fa-clock"></i> Đếm Ngược</button>
+                <button class="nav-btn" onclick="switchTab('tet-prep')"><i class="fas fa-clipboard-list"></i> Việc Cần Làm</button>
                 <button class="nav-btn" onclick="switchTab('ai-wishes')"><i class="fas fa-robot"></i> Trợ Lý Chúc Tết</button>
                 <button class="nav-btn" onclick="switchTab('lixi-allocator')"><i class="fas fa-money-bill-wave"></i> Chia Lì Xì</button>
                 <button class="nav-btn" onclick="switchTab('fortune-telling')"><i class="fas fa-scroll"></i> Gieo Quẻ</button>
@@ -78,9 +79,9 @@
                 <button class="nav-btn" onclick="switchTab('guess-game')"><i class="fas fa-question-circle"></i> Đoán Lì Xì</button>
                 <button class="nav-btn" onclick="switchTab('catch-lixi-game')"><i class="fas fa-gamepad"></i> Game Hứng Lộc</button>
                 <button class="nav-btn" onclick="switchTab('tet-quiz')"><i class="fas fa-puzzle-piece"></i> Đố Vui Tết</button>
-                <button class="nav-btn" onclick="switchTab('leaderboard-section')"><i class="fas fa-trophy"></i> Bảng Tổng Sắp</button>
                 <button class="nav-btn" onclick="switchTab('exercise-section')"><i class="fas fa-running"></i> Tập Thể Dục</button>
                 <button class="nav-btn" onclick="switchTab('ai-image-gen')"><i class="fas fa-paint-brush"></i> Tạo Ảnh Tết AI</button>
+                <button class="nav-btn" onclick="switchTab('tet-card-creator')"><i class="fas fa-id-card"></i> Thiệp Tết Online</button>
                 <button class="nav-btn" onclick="switchTab('exchange-challenge')"><i class="fas fa-random"></i> Lì Xì Chéo</button>
                 <button class="nav-btn" onclick="switchTab('vietqr-generator')"><i class="fas fa-qrcode"></i> Tạo QR Code</button>
             </nav>
@@ -129,6 +130,12 @@
                 </div>
             </section>
 
+            <!-- 1.5. Việc Cần Làm (22-29 Tết) -->
+            <section id="tet-prep" class="card tab-content">
+                <h3><i class="fas fa-clipboard-list"></i> Lịch Trình Đón Tết (22 - 29 Âm Lịch)</h3>
+                <div id="tet-tasks-container" class="task-list"></div>
+            </section>
+
             <!-- 2. Tạo lời chúc AI -->
             <section id="ai-wishes" class="card tab-content">
                 <h3><i class="fas fa-robot"></i> Trợ Lý Chúc Tết AI</h3>
@@ -163,6 +170,7 @@
                     <button onclick="generateWish('couplet')"><i class="fas fa-columns"></i> Câu Đối</button>
                 </div>
                 <div id="wish-result" class="result-box hidden"></div>
+                <p class="ai-disclaimer">*Lưu ý: Nội dung do AI tạo ra mang tính chất tham khảo và giải trí, có thể chứa sai sót.</p>
             </section>
 
             <!-- 3. Chia bao lì xì -->
@@ -196,6 +204,7 @@
                 <p style="text-align: center; margin-bottom: 10px;">Thành tâm khấn nguyện và bấm nút bên dưới</p>
                 <button onclick="getFortune()" class="shake-btn">Xin Quẻ</button>
                 <div id="fortune-result" class="result-box hidden"></div>
+                <p class="ai-disclaimer">*Lưu ý: Quẻ bói chỉ mang tính chất giải trí, vui xuân.</p>
             </section>
 
             <!-- 5. Xông đất đầu năm -->
@@ -210,6 +219,7 @@
                     <button onclick="suggestFirstFooting()">Tìm Tuổi Hợp</button>
                 </div>
                 <div id="footing-result" class="result-box hidden"></div>
+                <p class="ai-disclaimer">*Lưu ý: Thông tin phong thủy do AI tổng hợp, chỉ mang tính tham khảo.</p>
             </section>
 
             <!-- 6. Đoán lì xì (Troll) -->
@@ -273,6 +283,10 @@
                     <button onclick="startQuizChallenge(30, 10)" style="background: linear-gradient(45deg, #f44336, #e57373);">30 Câu / 10 Phút</button>
                 </div>
 
+                <div class="controls" style="justify-content: center; margin-top: 15px;">
+                    <button onclick="openLeaderboardModal()" style="background: #673ab7; color: #fff;"><i class="fas fa-trophy"></i> Xem Bảng Xếp Hạng</button>
+                </div>
+
                 <div id="challenge-status" class="hidden" style="text-align: center; margin-top: 15px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; border: 1px dashed var(--tet-gold); color: #fff;">
                     <div style="font-size: 1.5rem; font-weight: bold; color: #d00000;" id="quiz-timer">00:00</div>
                     <div style="font-size: 1rem;">Câu: <span id="quiz-progress">0/0</span> | Điểm: <span id="quiz-score">0</span></div>
@@ -300,6 +314,13 @@
                         <option value="Vintage, film grain, retro 90s">Vintage / Hoài cổ</option>
                         <option value="Watercolor, soft edges, pastel">Tranh Màu nước</option>
                         <option value="Traditional Vietnamese Dong Ho painting style">Tranh Đông Hồ</option>
+                    </select>
+                    <select id="prompt-mood">
+                        <option value="">-- Chọn Cảm xúc/Không khí --</option>
+                        <option value="Joyful, festive, energetic atmosphere">Vui tươi, nhộn nhịp</option>
+                        <option value="Peaceful, serene, cozy, warm lighting">Ấm cúng, bình yên</option>
+                        <option value="Mysterious, magical, ethereal">Huyền ảo, lung linh</option>
+                        <option value="Nostalgic, emotional, touching">Hoài niệm, xúc động</option>
                     </select>
                     <select id="prompt-lighting">
                         <option value="">-- Chọn Ánh sáng --</option>
@@ -332,21 +353,41 @@
                         <button onclick="copyPrompt()" style="background:#4caf50;"><i class="fas fa-copy"></i> Copy Lệnh</button>
                     </div>
                 </div>
+                <p class="ai-disclaimer">*Lưu ý: AI tạo lệnh ảnh có thể không hiểu hết ý đồ nghệ thuật phức tạp.</p>
             </section>
 
-            <!-- NEW: Bảng Tổng Sắp -->
-            <section id="leaderboard-section" class="card tab-content">
-                <h3><i class="fas fa-trophy"></i> Bảng Tổng Sắp Cao Thủ</h3>
-                <div class="controls" style="justify-content: center;">
-                    <button onclick="loadLeaderboard(10)" style="background: #4caf50;">Top 10 Câu</button>
-                    <button onclick="loadLeaderboard(20)" style="background: #ff9800;">Top 20 Câu</button>
-                    <button onclick="loadLeaderboard(30)" style="background: #f44336;">Top 30 Câu</button>
+            <!-- NEW: Thiệp Tết Online -->
+            <section id="tet-card-creator" class="card tab-content">
+                <h3><i class="fas fa-id-card"></i> Tạo Thiệp Tết Online</h3>
+                <p style="text-align: center; margin-bottom: 15px;">Tải ảnh của bạn lên, chọn khung và viết lời chúc để tạo tấm thiệp độc đáo!</p>
+                
+                <div class="controls">
+                    <input type="file" id="card-upload" accept="image/*" onchange="handleImageUpload(event)">
+                    <input type="text" id="card-text" placeholder="Nhập lời chúc (VD: Chúc Mừng Năm Mới)" oninput="drawCard()">
                 </div>
-                <div id="leaderboard-container" style="margin-top: 20px;">
-                    <table class="leaderboard-table">
-                        <thead><tr><th>Hạng</th><th>Người Chơi</th><th>Điểm</th><th>Ngày</th></tr></thead>
-                        <tbody id="leaderboard-body"></tbody>
-                    </table>
+                
+                <div class="controls">
+                    <label style="color:white; align-self: center;">Màu chữ:</label>
+                    <input type="color" id="card-text-color" value="#ffffff" onchange="drawCard()" style="height: 45px; padding: 5px; width: 60px; flex: none;">
+                    <select id="card-font-size" onchange="drawCard()">
+                        <option value="30">Cỡ chữ: Nhỏ</option>
+                        <option value="50" selected>Cỡ chữ: Vừa</option>
+                        <option value="80">Cỡ chữ: Lớn</option>
+                    </select>
+                </div>
+                
+                <div class="controls">
+                    <select id="card-frame" onchange="drawCard()">
+                        <option value="none">-- Chọn Khung --</option>
+                        <option value="red">Khung Đỏ May Mắn</option>
+                        <option value="gold">Khung Vàng Tài Lộc</option>
+                        <option value="flower">Khung Hoa Đào</option>
+                    </select>
+                    <button onclick="downloadCard()" style="background: #4caf50;"><i class="fas fa-download"></i> Tải Thiệp Về</button>
+                </div>
+
+                <div id="canvas-container" style="text-align: center; margin-top: 20px; overflow: auto;">
+                    <canvas id="card-canvas" style="max-width: 100%; border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"></canvas>
                 </div>
             </section>
 
@@ -403,6 +444,7 @@
                 </div>
                 <button onclick="createVietQR()" style="width: 100%; margin-top: 10px;">Tạo Mã QR</button>
                 <div id="qr-result" class="result-box hidden" style="text-align: center;"></div>
+                <p class="ai-disclaimer">*Lưu ý: Kiểm tra kỹ thông tin ngân hàng trước khi chuyển khoản.</p>
             </section>
         </main>
     </div>
@@ -444,6 +486,25 @@
                 <button onclick="confirmDonate()" style="background: linear-gradient(45deg, #e91e63, #c2185b); width: 100%;">Tạo Mã QR</button>
             </div>
             <p style="font-size: 0.8rem; color: #ccc; margin-top: 10px;">*Mã QR sẽ được tạo tự động qua VietQR</p>
+        </div>
+    </div>
+
+    <!-- Modal Leaderboard (Mới) -->
+    <div id="leaderboard-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center;">
+        <div class="card" style="max-width: 700px; width: 95%; max-height: 90vh; overflow-y: auto; position: relative; display: block; animation: popIn 0.3s ease;">
+            <button onclick="closeLeaderboardModal()" style="position: absolute; top: 10px; right: 10px; background: transparent; color: #fff; font-size: 1.5rem; box-shadow: none; padding: 0;"><i class="fas fa-times"></i></button>
+            <h3 style="color: var(--tet-gold); text-align: center;"><i class="fas fa-trophy"></i> Bảng Tổng Sắp Cao Thủ</h3>
+            
+            <div class="controls" style="justify-content: center; margin-bottom: 15px;">
+                <button onclick="loadLeaderboard(10)" style="background: #4caf50; font-size: 0.8rem;">Top 10 Câu</button>
+                <button onclick="loadLeaderboard(20)" style="background: #ff9800; font-size: 0.8rem;">Top 20 Câu</button>
+                <button onclick="loadLeaderboard(30)" style="background: #f44336; font-size: 0.8rem;">Top 30 Câu</button>
+            </div>
+
+            <table class="leaderboard-table">
+                <thead><tr><th>Hạng</th><th>Người Chơi</th><th>Điểm</th><th>Ngày</th></tr></thead>
+                <tbody id="leaderboard-body"></tbody>
+            </table>
         </div>
     </div>
 

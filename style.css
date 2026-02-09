@@ -148,6 +148,7 @@ body::before {
     box-shadow: 5px 0 15px rgba(0,0,0,0.1);
     z-index: 10;
     flex-shrink: 0;
+    transition: transform 0.3s ease;
 }
 
 .sidebar-header {
@@ -293,6 +294,10 @@ input:focus, select:focus, textarea:focus {
 textarea {
     width: 100%;
     height: 80px;
+}
+
+input[type="file"] {
+    padding: 7px; /* Căn chỉnh lại input file */
 }
 
 button {
@@ -604,6 +609,68 @@ button:hover {
     color: #d00000;
 }
 
+/* Task List Styles */
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.task-item {
+    display: flex;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s;
+}
+.task-item:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.2);
+}
+.task-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--tet-red);
+    color: var(--tet-gold);
+    padding: 10px;
+    border-radius: 8px;
+    min-width: 90px;
+    margin-right: 15px;
+    border: 1px solid var(--tet-gold);
+}
+.task-date .lunar-day {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.task-date .solar-date {
+    font-size: 0.8rem;
+}
+.task-info {
+    flex: 1;
+}
+.task-info h4 {
+    color: var(--tet-gold);
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+.task-actions button {
+    padding: 0;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #4caf50, #81c784);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.task-actions button:hover {
+    transform: scale(1.1);
+}
+
 /* Music Credit Bar */
 .music-credit-bar {
     width: 100%;
@@ -659,14 +726,63 @@ button:hover {
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .app-container { flex-direction: column; }
-    .sidebar { width: 100%; height: auto; flex-shrink: 0; }
-    .sidebar-nav { display: flex; overflow-x: auto; padding: 10px; }
-    .nav-btn { width: auto; white-space: nowrap; margin-bottom: 0; margin-right: 10px; padding: 10px 15px; }
-    .content-area { padding: 15px; }
+    
+    /* Sidebar chuyển thành thanh điều hướng ngang có thể cuộn trên mobile */
+    .sidebar { 
+        width: 100%; 
+        height: auto; 
+        flex-shrink: 0; 
+        max-height: 25vh; /* Giới hạn chiều cao */
+    }
+    
+    .sidebar-nav { 
+        display: flex; 
+        overflow-x: auto; 
+        padding: 10px; 
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iOS */
+    }
+    
+    .nav-btn { 
+        width: auto; 
+        margin-bottom: 0; 
+        margin-right: 10px; 
+        padding: 10px 15px; 
+        font-size: 0.9rem;
+    }
+    
+    .content-area { padding: 15px; padding-bottom: 80px; /* Chừa chỗ cho nút nhạc/help */ }
     .timer-wrapper { gap: 5px; }
     .timer-box { min-width: 60px; padding: 10px 5px; }
     .timer-box span { font-size: 1.8rem; }
     .hny-text { font-size: 2.5rem; }
+    
+    /* Tối ưu cho điện thoại gập (Foldable) khi mở ra hoặc màn hình hẹp */
+    .result-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+    
+    .lixi-packet {
+        min-height: 100px;
+        padding: 10px;
+    }
+    
+    .landing-title { font-size: 3rem; }
+    .landing-subtitle { font-size: 1rem; letter-spacing: 2px; }
+    
+    /* Modal full màn hình trên mobile */
+    .card {
+        width: 100%;
+        border-radius: 0;
+        margin: 0;
+        min-height: auto;
+    }
+    
+    #leaderboard-modal .card {
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+    }
 }
