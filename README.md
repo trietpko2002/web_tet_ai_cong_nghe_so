@@ -141,43 +141,43 @@ Dự án này tối ưu để triển khai lên **Vercel**.
     <td>
       <img src="./img_readme/2.png" width="100%">
       <br>
-      <center><b>Lịch trình đón Tết (To-Do List)</b></center>
+      <center><b>Trợ lý Chúc Tết AI</b></center>
     </td>
     <td>
       <img src="./img_readme/3.png" width="100%">
       <br>
-      <center><b>Trợ lý Chúc Tết AI</b></center>
+      <center><b>Tạo câu hỏi Đố vui Tế</b></center>
     </td>
   </tr>
   <tr>
     <td>
       <img src="./img_readme/4.png" width="100%">
       <br>
-      <center><b>Chia Lì Xì Random</b></center>
+      <center><b>Tạo Mã QR để quét lì xì</b></center>
     </td>
     <td>
       <img src="./img_readme/5.png" width="100%">
       <br>
-      <center><b>Gieo Quẻ Đầu Năm</b></center>
+      <center><b>Tạo lệnh tạo ảnh AI</b></center>
     </td>
   </tr>
   <tr>
     <td>
       <img src="./img_readme/6.png" width="100%">
       <br>
-      <center><b>Xem Tuổi Xông Đất</b></center>
+      <center><b>Chọn bao lì xì đã phân bổ</b></center>
     </td>
     <td>
       <img src="./img_readme/7.png" width="100%">
       <br>
-      <center><b>Game Đoán Lì Xì (Troll)</b></center>
+      <center><b>Game Hứng Lộc leo top</b></center>
     </td>
   </tr>
   <tr>
     <td>
       <img src="./img_readme/8.png" width="100%">
       <br>
-      <center><b>Game Hứng Lộc</b></center>
+      <center><b>Làm thiệp Tết</b></center>
     </td>
     <td>
       <img src="./img_readme/9.png" width="100%">
@@ -189,12 +189,12 @@ Dự án này tối ưu để triển khai lên **Vercel**.
     <td>
       <img src="./img_readme/10.png" width="100%">
       <br>
-      <center><b>Tập Thể Dục Giữ Dáng</b></center>
+      <center><b>Hồ sơ cá nhân</b></center>
     </td>
     <td>
       <img src="./img_readme/11.png" width="100%">
       <br>
-      <center><b>Tạo Ảnh Tết AI (Prompt)</b></center>
+      <center><b>Đăng nhập bằng Google/Ẩn danh</b></center>
     </td>
   </tr>
 </table>
