@@ -134,11 +134,23 @@ function switchAnonTab(mode) {
         loginForm.classList.add('hidden');
         tabReg.classList.add('active');
         tabLogin.classList.remove('active');
+        
+        // Style active
+        tabReg.style.background = 'var(--tet-gold)';
+        tabReg.style.color = '#d00000';
+        tabLogin.style.background = 'transparent';
+        tabLogin.style.color = '#fff';
     } else {
         regForm.classList.add('hidden');
         loginForm.classList.remove('hidden');
         tabReg.classList.remove('active');
         tabLogin.classList.add('active');
+        
+        // Style active
+        tabLogin.style.background = 'var(--tet-gold)';
+        tabLogin.style.color = '#d00000';
+        tabReg.style.background = 'transparent';
+        tabReg.style.color = '#fff';
     }
 }
 
@@ -161,20 +173,29 @@ function removeVietnameseTones(str) {
     return str;
 }
 
+// --- CẤU HÌNH GUEST MODE & HÀM HỖ TRỢ ---
+const GUEST_DOMAIN = "@tetai.guest";
+const PASS_EXPIRY_MS = 30 * 60 * 1000; // 30 phút
+
+function generateRandomString(length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
+
 // 1. ĐĂNG KÝ TÀI KHOẢN ẨN DANH (CẤP USER/PASS)
 function registerAnonAccount() {
-    const nickname = document.getElementById("anon-reg-name").value.trim();
-    if (!nickname) return alert("Vui lòng nhập biệt danh!");
-
-    // Tạo Username: nickname không dấu + 4 số ngẫu nhiên
-    const cleanName = removeVietnameseTones(nickname).toLowerCase().replace(/[^a-z0-9]/g, '');
-    const username = cleanName + Math.floor(1000 + Math.random() * 9000);
+    // Tạo Username ngẫu nhiên: guest_xxxxxx
+    const username = "guest_" + generateRandomString(6);
     
-    // Tạo Password: 6 ký tự ngẫu nhiên
-    const password = Math.random().toString(36).slice(-6);
+    // Tạo Password ngẫu nhiên: 8 ký tự
+    const password = generateRandomString(8);
     
     // Email giả lập (để dùng Firebase Auth)
-    const email = username + "@tetai.local";
+    const email = username + GUEST_DOMAIN;
 
     auth.createUserWithEmailAndPassword(email, password).then((userCredential) => {
         const user = userCredential.user;
@@ -185,22 +206,26 @@ function registerAnonAccount() {
         // FIX: Hiện Modal thông tin tài khoản NGAY LẬP TỨC để đảm bảo người dùng thấy
         showCredentialModal(username, password);
         
+        // Hiện thông báo JS (Alert) để người dùng chắc chắn thấy
+        alert(`🎉 ĐĂNG KÝ THÀNH CÔNG!\n\n👤 Username: ${username}\n🔑 Password: ${password}\n\n⚠️ Lưu ý: Mật khẩu sẽ đổi sau 30 phút.`);
+
         closeLoginModal();
 
         // Cập nhật tên hiển thị
         user.updateProfile({
-            displayName: nickname,
-            photoURL: `https://ui-avatars.com/api/?name=${encodeURIComponent(nickname)}&background=random&color=fff`
+            displayName: username,
+            photoURL: `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=random&color=fff`
         }).then(() => {
             // Cập nhật UI sau khi có tên
             currentUser = user;
             updateUserUI();
 
-            // Lưu thời gian hết hạn pass (6 tiếng) vào Firestore
-            const expiryTime = Date.now() + (6 * 60 * 60 * 1000);
+            // Lưu thời gian tạo pass vào Firestore để tính 30 phút
             db.collection('users').doc(user.uid).set({
-                passExpiry: expiryTime,
-                username: username // Lưu để tra cứu nếu cần
+                type: 'guest',
+                passCreatedAt: Date.now(),
+                username: username,
+                score: 0
             }, { merge: true });
 
             // Vào trang chính
@@ -224,7 +249,11 @@ function loginAnonAccount() {
 
     if (!username || !password) return alert("Vui lòng nhập Username và Password!");
 
-    const email = username + "@tetai.local";
+    // Tự động thêm domain nếu user chỉ nhập username
+    let email = username;
+    if (!email.includes("@")) {
+        email = email + GUEST_DOMAIN;
+    }
 
     auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
         const user = userCredential.user;
@@ -236,27 +265,31 @@ function loginAnonAccount() {
         db.collection('users').doc(user.uid).get().then((doc) => {
             if (doc.exists) {
                 const data = doc.data();
-                const now = Date.now();
                 
-                // Nếu pass cũ quá 6 tiếng -> Cấp pass mới
-                if (data.passExpiry && now > data.passExpiry) {
-                    const newPassword = Math.random().toString(36).slice(-6);
-                    
-                    user.updatePassword(newPassword).then(() => {
-                        // Cập nhật thời hạn mới
-                        const newExpiry = now + (6 * 60 * 60 * 1000);
-                        db.collection('users').doc(user.uid).update({
-                            passExpiry: newExpiry
-                        });
+                // Chỉ áp dụng cho tài khoản Guest
+                if (data.type === 'guest') {
+                    const now = Date.now();
+                    const createdAt = data.passCreatedAt || 0;
 
-                        // Cập nhật pass mới vào storage
-                        localStorage.setItem('tet_anon_creds', JSON.stringify({ username: username, password: newPassword }));
+                    // NẾU QUÁ 30 PHÚT -> ĐỔI PASS
+                    if (now - createdAt > PASS_EXPIRY_MS) {
+                        const newPassword = generateRandomString(8);
                         
-                        // FIX: Hiện Modal khi cấp lại pass
-                        showCredentialModal(username, newPassword);
-                        
-                        alert("Mật khẩu cũ đã hết hạn (quá 6 tiếng). Hệ thống đã cấp mật khẩu mới!");
-                    });
+                        user.updatePassword(newPassword).then(() => {
+                            // Cập nhật thời gian mới vào Firestore
+                            db.collection('users').doc(user.uid).update({
+                                passCreatedAt: now
+                            });
+
+                            // Cập nhật pass mới vào storage
+                            localStorage.setItem('tet_anon_creds', JSON.stringify({ username: username, password: newPassword }));
+                            
+                            // FIX: Hiện Modal khi cấp lại pass
+                            showCredentialModal(username, newPassword);
+                            
+                            alert(`⏰ Mật khẩu cũ đã hết hạn (30 phút).\n\n🔑 MẬT KHẨU MỚI CỦA BẠN LÀ: ${newPassword}`);
+                        });
+                    }
                 }
             }
         });
@@ -266,6 +299,7 @@ function loginAnonAccount() {
         enterWebsite();
 
     }).catch((error) => {
+        console.error(error);
         alert("Đăng nhập thất bại! Kiểm tra lại Username/Password.");
     });
 }
@@ -303,16 +337,15 @@ function captureCredential() {
 }
 
 function resetAnonPassword() {
-    if (!currentUser || !currentUser.email.endsWith("@tetai.local")) return;
+    if (!currentUser || !currentUser.email.endsWith(GUEST_DOMAIN)) return;
     
     if (confirm("Bạn muốn tạo mật khẩu mới? Mật khẩu cũ sẽ bị vô hiệu hóa.")) {
-        const newPassword = Math.random().toString(36).slice(-6);
+        const newPassword = generateRandomString(8);
         const username = currentUser.email.split('@')[0];
 
         currentUser.updatePassword(newPassword).then(() => {
-            const expiryTime = Date.now() + (6 * 60 * 60 * 1000);
             db.collection('users').doc(currentUser.uid).update({
-                passExpiry: expiryTime
+                passCreatedAt: Date.now()
             });
 
             // Lưu pass mới vào storage
@@ -320,6 +353,7 @@ function resetAnonPassword() {
             
             closeProfileModal();
             showCredentialModal(username, newPassword); // Hiện bảng thông tin để người dùng lưu lại
+            alert(`🔑 MẬT KHẨU MỚI CỦA BẠN LÀ: ${newPassword}`);
         }).catch(err => {
             alert("Lỗi: " + err.message);
         });
@@ -366,7 +400,7 @@ function toggleUserDropdown(event) {
 
     // Hiển thị thông tin User/Pass nếu có trong LocalStorage
     const credsInfo = document.getElementById("anon-creds-info");
-    if (currentUser && currentUser.email.endsWith("@tetai.local")) {
+    if (currentUser && currentUser.email.endsWith(GUEST_DOMAIN)) {
         const creds = JSON.parse(localStorage.getItem('tet_anon_creds'));
         if (creds) {
             credsInfo.style.display = "block";
@@ -446,7 +480,7 @@ function openProfileModal() {
         avatar.src = currentUser.photoURL;
         name.innerText = currentUser.displayName;
         // Hiện nút reset pass nếu là tài khoản ẩn danh
-        btnResetPass.style.display = currentUser.email.endsWith("@tetai.local") ? 'block' : 'none';
+        btnResetPass.style.display = currentUser.email.endsWith(GUEST_DOMAIN) ? 'block' : 'none';
     } else {
         avatar.src = "https://ui-avatars.com/api/?name=Guest&background=random&color=fff";
         name.innerText = "Khách (Chưa đăng nhập)";

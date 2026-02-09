@@ -88,6 +88,10 @@
                     <!-- Dropdown Menu -->
                     <div id="user-dropdown-menu" class="dropdown-content">
                         <!-- Khu vực hiển thị User/Pass Ẩn danh -->
+                        <div id="anon-creds-info" style="display: none; padding: 10px; background: rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem;">
+                            <div style="color: #ccc;">User: <strong id="menu-anon-user" style="color: var(--tet-gold);"></strong></div>
+                            <div style="color: #ccc;">Pass: <strong id="menu-anon-pass" style="color: var(--tet-gold);"></strong></div>
+                        </div>
                         <a href="#" onclick="openProfileModal()"><i class="fas fa-id-badge"></i> Hồ sơ của tôi</a>
                         <a href="#" onclick="openLeaderboardModal()"><i class="fas fa-history"></i> Lịch sử điểm số</a>
                         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 5px 0;">
@@ -602,7 +606,26 @@
             <button onclick="closeLoginModal()" style="position: absolute; top: 10px; right: 10px; background: transparent; color: #fff; font-size: 1.5rem; box-shadow: none; padding: 0;"><i class="fas fa-times"></i></button>
             <h3 style="color: var(--tet-gold); margin-bottom: 20px;">Đăng Nhập</h3>
             
+            <!-- Tab chuyển đổi -->
+            <div class="login-tabs" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 15px;">
+                <button onclick="switchAnonTab('login')" id="tab-login" class="active" style="flex: 1; font-size: 0.9rem; background: var(--tet-gold); color: #d00000; border: 1px solid var(--tet-gold);">Đăng Nhập</button>
+                <button onclick="switchAnonTab('register')" id="tab-register" style="flex: 1; font-size: 0.9rem; background: transparent; border: 1px solid #fff; color: #fff;">Đăng Ký Khách</button>
+            </div>
+
+            <!-- Form Đăng Nhập -->
+            <div id="anon-login-form">
+                <p>Tính năng đang phát triển</p>
+            </div>
+
+            <!-- Form Đăng Ký (Cấp tài khoản) -->
+            <div id="anon-register-form" class="hidden" style="text-align: center; margin-bottom: 10px;">
+               <p>Tính năng đang phát triển</p>
+            </div>
+
+          <br>  <div style="margin: 10px 0; border-top: 1px solid rgba(255,255,255,0.2); position: relative;"><span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #4a0404; padding: 0 10px; font-size: 0.8rem; color: #ccc;">HOẶC</span></div>
+
             <div style="display: flex; flex-direction: column; gap: 15px;">
+                <br>
                 <button onclick="loginWithGoogle()" style="background: #fff; color: #444; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px;">
                     <i class="fab fa-google" style="color: #DB4437;"></i> Tiếp tục với Google
                 </button>
