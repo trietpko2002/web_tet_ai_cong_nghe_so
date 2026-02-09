@@ -135,6 +135,8 @@ Dự án này tối ưu để triển khai lên **Vercel**.
 ![Giao diện chính](./img_readme/7.png)
 ![Giao diện chính](./img_readme/8.png)
 ![Giao diện chính](./img_readme/9.png)
+![Giao diện chính](./img_readme/10.png)
+![Giao diện chính](./img_readme/11.png)
 
 ## 🤝 Đóng Góp
 
