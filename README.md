@@ -55,7 +55,7 @@ Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nh
 
 ### 🏃 10. Tập Thể Dục (Exercise)
 - **Giữ dáng ngày Tết:** Công cụ bấm giờ tập luyện với các mốc 10, 20, 30 phút.
-- **Nhạc nền động lực:** Tự động chuyển từ nhạc Tết sang nhạc tập thể dục sôi động (EDM/Vinahouse) khi bắt đầu tập.
+- **Nhạc nền động lực:** Tự động chuyển từ nhạc Tết sang nhạc tập thể dục của Trúc Nhân cũng là bài Vạn Sự Như Ý trình làng hát ở Làn Sóng Xanh 2025 vì đang viral vì khúc cuối có phần tập thể dục 😂.
 
 ### 🎨 11. Tạo Ảnh Tết AI (Prompt Engineering)
 - **Hỗ trợ sáng tạo:** Giúp người dùng không rành tiếng Anh viết câu lệnh (Prompt) chuẩn xác để tạo ảnh trên Midjourney, DALL-E 3.
