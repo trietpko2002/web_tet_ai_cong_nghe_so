@@ -9,31 +9,31 @@
 Chào mừng đến với dự án **Web Tết AI Công Nghệ Số** - Một nền tảng giải trí tổng hợp kết hợp giữa không khí Tết cổ truyền Việt Nam và công nghệ AI hiện đại (Artificial Intelligence).
 
 Dự án mang đến trải nghiệm đón Tết độc đáo, tiện lợi và thú vị cho người dùng trong dịp Xuân Bính Ngọ 2026.
-+## 📑 Mục Lục
-+
-1. Chi Tiết Tính Năng
-+    - 1. Đếm Ngược Giao Thừa
-+    - 2. Lịch Trình Đón Tết
-+    - 3. Trợ Lý Chúc Tết AI
-+    - 4. Chia Lì Xì Random
-+    - 5. Gieo Quẻ Đầu Năm
-+    - 6. Xem Tuổi Xông Đất
-+    - 7. Đoán Lì Xì
-+    - 8. Game Hứng Lộc
-+    - 9. Đố Vui Ngày Tết
-+    - 10. Tập Thể Dục
-+    - 11. Tạo Ảnh Tết AI
-+    - 12. Thiệp Tết Online
-+    - 13. Lì Xì Chéo
-+    - 14. Tạo Mã VietQR
-+    - 15. Hệ thống Tài khoản & BXH
-+    - 16. Tài Khoản Khách
-2. Công Nghệ Sử Dụng
-3. Cài Đặt & Sử Dụng
-4. Hướng Dẫn Triển Khai (Deploy)
-5. Lưu Ý Quan Trọng
-6. Ảnh Demo
-7. Đóng Góp
+## 📑 Mục Lục
+
+1. [Chi Tiết Tính Năng](#chi-tiết-tính-năng)
+    - [1. Đếm Ngược Giao Thừa](#1-đếm-ngược-giao-thừa-countdown)
+    - [2. Lịch Trình Đón Tết](#2-lịch-trình-đón-tết-to-do-list)
+    - [3. Trợ Lý Chúc Tết AI](#3-trợ-lý-chúc-tết-ai-ai-wishes)
+    - [4. Chia Lì Xì Random](#4-chia-lì-xì-random-lucky-money)
+    - [5. Gieo Quẻ Đầu Năm](#5-gieo-quẻ-đầu-năm-fortune-telling)
+    - [6. Xem Tuổi Xông Đất](#6-xem-tuổi-xông-đất-first-footing)
+    - [7. Đoán Lì Xì](#7-đoán-lì-xì-guess-game)
+    - [8. Game Hứng Lộc](#8-game-hứng-lộc-catch-lixi)
+    - [9. Đố Vui Ngày Tết](#9-đố-vui-ngày-tết-tet-quiz)
+    - [10. Tập Thể Dục](#10-tập-thể-dục-exercise)
+    - [11. Tạo Ảnh Tết AI](#11-tạo-ảnh-tết-ai-prompt-engineering)
+    - [12. Thiệp Tết Online](#12-thiệp-tết-online-card-creator)
+    - [13. Lì Xì Chéo](#13-lì-xì-chéo-exchange-challenge)
+    - [14. Tạo Mã VietQR](#14-tạo-mã-vietqr-qr-code)
+    - [15. Hệ thống Tài khoản & BXH](#15-hệ-thống-tài-khoản--bảng-xếp-hạng-user-system)
+    - [16. Tài Khoản Khách](#16-tài-khoản-khách-guest-mode)
+2. [Công Nghệ Sử Dụng](#công-nghệ-sử-dụng)
+3. [Cài Đặt & Sử Dụng](#cài-đặt--sử-dụng)
+4. [Hướng Dẫn Triển Khai (Deploy)](#hướng-dẫn-triển-khai-deploy)
+5. [Lưu Ý Quan Trọng](#lưu-ý-quan-trọng-disclaimer)
+6. [Ảnh Demo](#ảnh-demo)
+7. [Đóng Góp](#đóng-góp)
 
 ##  Chi Tiết Tính Năng
 
@@ -152,7 +152,6 @@ Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nh
    - Mở file `index.html` trên trình duyệt web bất kỳ.
    - Hoặc sử dụng Live Server trên VS Code để có trải nghiệm tốt nhất.
 
-## 🌐 Triển Khai (Deploy)
 ## 🌐 Hướng Dẫn Triển Khai (Deploy)
  
 Dự án này tối ưu để triển khai lên **Vercel**.
@@ -166,17 +165,16 @@ Dự án này là Static Web (HTML/CSS/JS) nên rất dễ dàng triển khai mi
 ### Cách 1: Deploy lên Vercel (Khuyên dùng)
 Vercel tốc độ cao, hỗ trợ CI/CD tự động (cập nhật web ngay khi bạn push code lên GitHub).
  
-!Deploy with Vercel
 1. **Đẩy code lên GitHub:**
    - Tạo một repository mới trên GitHub.
    - Upload toàn bộ code của bạn lên đó.
-+2. **Đăng ký/Đăng nhập Vercel:**
+2. **Đăng ký/Đăng nhập Vercel:**
    - Truy cập Vercel.com.
    - Đăng nhập bằng tài khoản GitHub.
-+3. **Tạo Project mới:**
+3. **Tạo Project mới:**
    - Tại Dashboard, nhấn nút **"Add New..."** -> **"Project"**.
    - Ở mục **Import Git Repository**, tìm repo bạn vừa tạo và nhấn **Import**.
-+4. **Cấu hình & Deploy:**
+4. **Cấu hình & Deploy:**
    - **Framework Preset:** Chọn *Other* (hoặc để mặc định vì đây là HTML thuần).
    - **Root Directory:** Để `./` (mặc định).
    - Nhấn **Deploy**.
