@@ -12,22 +12,22 @@ Dự án mang đến trải nghiệm đón Tết độc đáo, tiện lợi và 
 +## 📑 Mục Lục
 +
 1. Chi Tiết Tính Năng
-    - 1. Đếm Ngược Giao Thừa
-    - 2. Lịch Trình Đón Tết
-    - 3. Trợ Lý Chúc Tết AI
-    - 4. Chia Lì Xì Random
-    - 5. Gieo Quẻ Đầu Năm
-    - 6. Xem Tuổi Xông Đất
-    - 7. Đoán Lì Xì
-    - 8. Game Hứng Lộc
-    - 9. Đố Vui Ngày Tết
-    - 10. Tập Thể Dục
-    - 11. Tạo Ảnh Tết AI
-    - 12. Thiệp Tết Online
-    - 13. Lì Xì Chéo
-    - 14. Tạo Mã VietQR
-    - 15. Hệ thống Tài khoản & BXH
-    - 16. Tài Khoản Khách
++    - 1. Đếm Ngược Giao Thừa
++    - 2. Lịch Trình Đón Tết
++    - 3. Trợ Lý Chúc Tết AI
++    - 4. Chia Lì Xì Random
++    - 5. Gieo Quẻ Đầu Năm
++    - 6. Xem Tuổi Xông Đất
++    - 7. Đoán Lì Xì
++    - 8. Game Hứng Lộc
++    - 9. Đố Vui Ngày Tết
++    - 10. Tập Thể Dục
++    - 11. Tạo Ảnh Tết AI
++    - 12. Thiệp Tết Online
++    - 13. Lì Xì Chéo
++    - 14. Tạo Mã VietQR
++    - 15. Hệ thống Tài khoản & BXH
++    - 16. Tài Khoản Khách
 2. Công Nghệ Sử Dụng
 3. Cài Đặt & Sử Dụng
 4. Hướng Dẫn Triển Khai (Deploy)
