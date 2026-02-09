@@ -47,7 +47,6 @@ body::before {
     height: 100%;
     width: 100%;
     position: relative;
-    z-index: 2; /* Trên lớp hoa rơi */
 }
 
 /* LANDING PAGE */
@@ -152,6 +151,7 @@ body::before {
     z-index: 10;
     flex-shrink: 0;
     transition: transform 0.3s ease;
+    position: relative;
 }
 
 .sidebar-header {
@@ -231,6 +231,7 @@ body::before {
     overflow-y: auto; /* Chỉ cuộn phần nội dung */
     padding: 30px;
     position: relative;
+    z-index: 2;
 }
 
 .card {
