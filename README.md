@@ -131,17 +131,39 @@ Dự án này tối ưu để triển khai lên **Vercel**.
 
 *(Thêm ảnh chụp màn hình giao diện web tại đây)*
 ![Giao diện chính](./MAIN.png)
-![Giao diện chính](./img_readme/1.png)
-![Giao diện chính](./img_readme/2.png)
-![Giao diện chính](./img_readme/3.png)
-![Giao diện chính](./img_readme/4.png)
-![Giao diện chính](./img_readme/5.png)
-![Giao diện chính](./img_readme/6.png)
-![Giao diện chính](./img_readme/7.png)
-![Giao diện chính](./img_readme/8.png)
-![Giao diện chính](./img_readme/9.png)
-![Giao diện chính](./img_readme/10.png)
-![Giao diện chính](./img_readme/11.png)
+
+<table>
+  <tr>
+    <td align="center"><img src="./img_readme/1.png" width="100%" /><br /><b>1. Đếm Ngược Giao Thừa</b></td>
+    <td align="center"><img src="./img_readme/2.png" width="100%" /><br /><b>2. Lịch Trình Đón Tết</b></td>
+    <td align="center"><img src="./img_readme/3.png" width="100%" /><br /><b>3. Trợ Lý Chúc Tết AI</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./img_readme/4.png" width="100%" /><br /><b>4. Chia Lì Xì Random</b></td>
+    <td align="center"><img src="./img_readme/5.png" width="100%" /><br /><b>5. Gieo Quẻ Đầu Năm</b></td>
+    <td align="center"><img src="./img_readme/6.png" width="100%" /><br /><b>6. Xem Tuổi Xông Đất</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./img_readme/7.png" width="100%" /><br /><b>7. Đoán Lì Xì (Troll)</b></td>
+    <td align="center"><img src="./img_readme/8.png" width="100%" /><br /><b>8. Game Hứng Lộc</b></td>
+    <td align="center"><img src="./img_readme/9.png" width="100%" /><br /><b>9. Đố Vui Ngày Tết</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./img_readme/10.png" width="100%" /><br /><b>10. Tập Thể Dục</b></td>
+    <td align="center"><img src="./img_readme/11.png" width="100%" /><br /><b>11. Tạo Ảnh Tết AI</b></td>
+    <td align="center"><img src="./img_readme/12.png" width="100%" /><br /><b>12. Thiệp Tết Online</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./img_readme/13.png" width="100%" /><br /><b>13. Lì Xì Chéo</b></td>
+    <td align="center"><img src="./img_readme/14.png" width="100%" /><br /><b>14. Tạo Mã VietQR</b></td>
+    <td align="center"><img src="./img_readme/15.png" width="100%" /><br /><b>15. Bảng Xếp Hạng</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./img_readme/16.png" width="100%" /><br /><b>16. Tài Khoản Khách</b></td>
+    <td align="center"></td>
+    <td align="center"></td>
+  </tr>
+</table>
 
 ## 🤝 Đóng Góp
 
