@@ -23,6 +23,12 @@
     <!-- Hiệu ứng hoa đào rơi -->
     <div id="blossom-container"></div>
 
+    <!-- Nút Menu Mobile (Floating) & Overlay -->
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="mobile-overlay" id="mobile-overlay" onclick="toggleMobileMenu(false)"></div>
+
     <!-- LANDING PAGE (TRANG CHỦ GIỚI THIỆU) -->
     <section id="landing-page">
         <div class="landing-content">
@@ -46,6 +52,9 @@
             <div class="sidebar-header">
                 <h1><i class="fas fa-robot" style="margin-right: 10px;"></i>Tết AI 2026</h1>
                 <h2 style="font-size: 0.8rem; letter-spacing: 1px;">TẾT CÙNG AI VỚI 4.0</h2>
+                <button class="close-sidebar-btn" onclick="toggleMobileMenu(false)">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             
             <!-- User Login Section -->
@@ -246,6 +255,7 @@
                         <button onclick="startGame()" style="font-size: 1.2rem; padding: 15px 30px;">Bắt Đầu Chơi</button>
                     </div>
                     <div id="score-board" style="position: absolute; top: 10px; left: 10px; font-weight: bold; color: var(--tet-red); font-size: 1.2rem;">Điểm: 0</div>
+                    <div id="game-timer-display" style="position: absolute; top: 10px; right: 10px; font-weight: bold; color: var(--tet-red); font-size: 1.2rem;">60s</div>
                 </div>
             </section>
 
@@ -499,6 +509,7 @@
                 <button onclick="loadLeaderboard(10)" style="background: #4caf50; font-size: 0.8rem;">Top 10 Câu</button>
                 <button onclick="loadLeaderboard(20)" style="background: #ff9800; font-size: 0.8rem;">Top 20 Câu</button>
                 <button onclick="loadLeaderboard(30)" style="background: #f44336; font-size: 0.8rem;">Top 30 Câu</button>
+                <button onclick="loadLeaderboard('catch-lixi')" style="background: #e91e63; font-size: 0.8rem;">Top Hứng Lộc</button>
             </div>
 
             <table class="leaderboard-table">

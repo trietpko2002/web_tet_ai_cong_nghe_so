@@ -712,7 +712,47 @@ function switchTab(tabId) {
     if (activeButton) {
         activeButton.classList.add('active');
     }
+
+    // Tự động đóng menu mobile khi chọn xong chức năng
+    if (window.innerWidth <= 768) {
+        toggleMobileMenu(false);
+    }
 }
+
+// --- 9.5. Mobile Menu & Swipe Gestures (Vuốt để mở) ---
+function toggleMobileMenu(forceState) {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('mobile-overlay');
+    
+    const isOpen = sidebar.classList.contains('open');
+    const shouldOpen = forceState !== undefined ? forceState : !isOpen;
+
+    if (shouldOpen) {
+        sidebar.classList.add('open');
+        overlay.classList.add('active');
+    } else {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+    }
+}
+
+// Xử lý sự kiện Vuốt (Swipe)
+let touchStartX = 0;
+document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+}, {passive: true});
+
+document.addEventListener('touchend', e => {
+    const touchEndX = e.changedTouches[0].screenX;
+    // Vuốt từ trái sang phải (chỉ nhận khi vuốt từ mép trái < 50px) để mở menu
+    if (touchEndX - touchStartX > 50 && touchStartX < 50) {
+        toggleMobileMenu(true);
+    }
+    // Vuốt từ phải sang trái để đóng menu
+    if (touchStartX - touchEndX > 50) {
+        toggleMobileMenu(false);
+    }
+}, {passive: true});
 
 // --- 10. Hiệu ứng Hoa Rơi (Mai & Đào) ---
 function createBlossom() {
@@ -846,6 +886,8 @@ let gameRunning = false;
 let score = 0;
 let playerX = 150;
 let items = []; // {x, y, type: 'lixi' | 'bomb', speed}
+let gameTimeLeft = 60;
+let gameTimerInterval = null;
 
 function initGame() {
     const container = document.getElementById('game-container');
@@ -875,7 +917,55 @@ function startGame() {
     items = [];
     document.getElementById('game-ui').style.display = 'none';
     document.getElementById('score-board').innerText = 'Điểm: 0';
+    
+    // Reset Timer
+    gameTimeLeft = 60;
+    document.getElementById('game-timer-display').innerText = gameTimeLeft + 's';
+    clearInterval(gameTimerInterval);
+    
+    gameTimerInterval = setInterval(() => {
+        gameTimeLeft--;
+        document.getElementById('game-timer-display').innerText = gameTimeLeft + 's';
+        if (gameTimeLeft <= 0) {
+            endGame();
+        }
+    }, 1000);
+
     gameLoop();
+}
+
+function endGame() {
+    gameRunning = false;
+    clearInterval(gameTimerInterval);
+    
+    // Vẽ màn hình kết thúc lên Canvas
+    gameCtx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    gameCtx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+    
+    gameCtx.fillStyle = "#ffd700";
+    gameCtx.font = "bold 30px Arial";
+    gameCtx.textAlign = "center";
+    gameCtx.fillText("HẾT GIỜ!", gameCanvas.width / 2, gameCanvas.height / 2 - 20);
+    
+    gameCtx.fillStyle = "#fff";
+    gameCtx.font = "20px Arial";
+    gameCtx.fillText("Tổng điểm: " + score, gameCanvas.width / 2, gameCanvas.height / 2 + 20);
+
+    // Hiển thị lại nút chơi lại sau 1 chút
+    setTimeout(() => {
+        document.getElementById('game-ui').style.display = 'block';
+        
+        // Xử lý lưu điểm (Yêu cầu đăng nhập)
+        if (currentUser && db) {
+            saveScoreToLeaderboard(score, 'catch-lixi');
+        } else {
+            alert(`Bạn đạt được ${score} điểm!\n\nVui lòng ĐĂNG NHẬP (Google hoặc Ẩn danh) để lưu tên vào Bảng Xếp Hạng Hứng Lộc.`);
+            // Cuộn lên phần đăng nhập
+            document.querySelector('.sidebar').scrollIntoView({ behavior: 'smooth' });
+            // Mở menu mobile nếu đang đóng để thấy nút login
+            if (window.innerWidth <= 768) toggleMobileMenu(true);
+        }
+    }, 1000);
 }
 
 function gameLoop() {
@@ -1142,28 +1232,40 @@ function endQuizChallenge() {
 
     container.innerHTML = html;
 
+    // Logic bắt buộc đăng nhập để lưu điểm Đố Vui
     if (currentUser && db) {
-        // Lưu điểm vào Firestore
-        db.collection("leaderboard").add({
-            uid: currentUser.uid,
-            name: currentUser.displayName,
-            photo: currentUser.photoURL,
-            score: challengeState.score,
-            mode: challengeState.mode,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        }).then(() => {
+        saveScoreToLeaderboard(challengeState.score, challengeState.mode);
+    } else {
+        container.innerHTML += `<p style="color: orange; font-weight:bold;">⚠️ Bạn chưa đăng nhập!</p>
+        <p>Vui lòng đăng nhập (Google/Ẩn danh) ở Menu bên trái để lưu kết quả này vào bảng xếp hạng.</p>
+        <button onclick="loginWithGoogle()">Đăng nhập ngay</button></div>`;
+    }
+}
+
+// Hàm chung để lưu điểm
+function saveScoreToLeaderboard(scoreVal, modeVal) {
+    db.collection("leaderboard").add({
+        uid: currentUser.uid,
+        name: currentUser.displayName,
+        photo: currentUser.photoURL,
+        score: scoreVal,
+        mode: modeVal, // 'catch-lixi' hoặc số câu hỏi (10, 20, 30)
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+        if (modeVal === 'catch-lixi') {
+            alert("Đã lưu điểm Hứng Lộc thành công!");
+            openLeaderboardModal();
+            loadLeaderboard('catch-lixi');
+        } else {
             // Tự động chuyển tab sau khi lưu thành công
             setTimeout(() => {
                 openLeaderboardModal(); // Mở modal thay vì chuyển tab
-                loadLeaderboard(challengeState.mode); // Load đúng mode vừa chơi
+                loadLeaderboard(modeVal); // Load đúng mode vừa chơi
             }, 1500);
-        }).catch((err) => {
-            container.innerHTML += `<p style="color: red;">Lỗi lưu điểm: ${err.message}</p>`;
-        });
-    } else {
-        container.innerHTML += `<p style="color: orange;">Bạn chưa đăng nhập nên không lưu được điểm.</p>
-        <button onclick="loginWithGoogle()">Đăng nhập ngay</button></div>`;
-    }
+        }
+    }).catch((err) => {
+        alert("Lỗi lưu điểm: " + err.message);
+    });
 }
 
 function nextChallengeQuestion() {

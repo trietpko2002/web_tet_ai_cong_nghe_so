@@ -117,6 +117,9 @@ body::before {
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
     text-transform: uppercase;
     letter-spacing: 2px;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
 }
 
 .landing-btn:hover {
@@ -725,35 +728,73 @@ button:hover {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
+/* Mobile Menu Button & Overlay (Mặc định ẩn trên PC) */
+.mobile-menu-btn, .mobile-overlay, .close-sidebar-btn { display: none; }
+
 /* Responsive */
 @media (max-width: 768px) {
     .app-container { flex-direction: column; }
     
-    /* Sidebar chuyển thành thanh điều hướng ngang có thể cuộn trên mobile */
+    /* Nút Menu Nổi (Floating) - Chỉ hiện trên Mobile */
+    .mobile-menu-btn {
+        display: flex;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1100;
+        background: rgba(168, 26, 26, 0.85);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        border: 1px solid var(--tet-gold);
+    }
+
+    /* Sidebar Off-canvas (Menu trượt từ trái sang) */
     .sidebar { 
-        width: 100%; 
-        height: auto; 
-        flex-shrink: 0; 
-        max-height: 25vh; /* Giới hạn chiều cao */
+        position: fixed;
+        top: 0; left: 0;
+        height: 100%;
+        width: 280px;
+        transform: translateX(-100%); /* Ẩn sang trái */
+        z-index: 1200;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: rgba(40, 0, 0, 0.98);
+        box-shadow: 2px 0 20px rgba(0,0,0,0.6);
+        max-height: none;
+        flex-direction: column;
+        backdrop-filter: none; /* Tắt mờ để hiển thị rõ nét trên mobile */
     }
+    .sidebar.open { transform: translateX(0); }
     
-    .sidebar-nav { 
-        display: flex; 
-        overflow-x: auto; 
-        padding: 10px; 
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iOS */
+    .sidebar-nav { display: block; overflow-y: auto; overflow-x: hidden; padding: 20px 10px; white-space: normal; }
+    .nav-btn { width: 100%; margin-right: 0; margin-bottom: 10px; }
+    
+    /* Overlay (Lớp phủ mờ) */
+    .mobile-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1150; backdrop-filter: blur(3px); }
+    .mobile-overlay.active { display: block; }
+    
+    /* Đẩy nội dung xuống để không bị nút che */
+    .content-area { padding: 15px; padding-top: 70px; padding-bottom: 80px; }
+
+    /* Nút đóng menu (X) trong Sidebar */
+    .close-sidebar-btn {
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1201;
     }
-    
-    .nav-btn { 
-        width: auto; 
-        margin-bottom: 0; 
-        margin-right: 10px; 
-        padding: 10px 15px; 
-        font-size: 0.9rem;
-    }
-    
-    .content-area { padding: 15px; padding-bottom: 80px; /* Chừa chỗ cho nút nhạc/help */ }
     .timer-wrapper { gap: 5px; }
     .timer-box { min-width: 60px; padding: 10px 5px; }
     .timer-box span { font-size: 1.8rem; }

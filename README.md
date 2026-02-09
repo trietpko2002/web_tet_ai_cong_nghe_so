@@ -4,40 +4,76 @@
 
 > **Web Tết AI 2026** - Nền tảng giải trí All-in-One đón Xuân Bính Ngọ: Trợ lý AI (Groq), Lì xì 4.0, Game Tết & Tạo thiệp Online.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2Fweb_tet_ai_cong_nghe_so)
-[![Demo](https://img.shields.io/badge/Demo-Live%20Site-success)](https://your-project-name.vercel.app)
+[![Demo](https://img.shields.io/badge/Demo-Live%20Site-success)](https://web-tet-ai.vercel.app/)
 
 Chào mừng đến với dự án **Web Tết AI Công Nghệ Số** - Một nền tảng giải trí tổng hợp kết hợp giữa không khí Tết cổ truyền Việt Nam và công nghệ AI hiện đại (Artificial Intelligence).
 
 Dự án mang đến trải nghiệm đón Tết độc đáo, tiện lợi và thú vị cho người dùng trong dịp Xuân Bính Ngọ 2026.
 
-## 🚀 Tính Năng Nổi Bật
+## 🚀 Chi Tiết Tính Năng
 
-### 1. 📅 Quản Lý & Đếm Ngược
-- **Đếm ngược Giao Thừa:** Đồng hồ đếm ngược chính xác từng giây đến thời khắc chuyển giao năm mới.
-- **Lịch Trình Đón Tết (Mới):** Danh sách việc cần làm chi tiết từ 22 đến 29 Tết (Cúng ông Táo, Gói bánh, Tất niên...).
-- **Tích hợp Lịch (Calendar):** Tính năng xuất file `.ics` giúp thêm ngay lịch trình vào Google Calendar/Apple Calendar chỉ với 1 cú click.
+Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nhóm chính, giúp người dùng trải nghiệm Tết trọn vẹn:
 
-### 2. 🤖 Trợ Lý AI Thông Minh (Gemini/Groq)
-- **Chúc Tết AI:** Tự động soạn lời chúc, làm thơ, viết câu đối theo đối tượng (Sếp, Gia đình, Người yêu...) và phong cách (Hài hước, Trang trọng...).
-- **Gieo Quẻ Đầu Năm:** Xem quẻ bói vui về Tình duyên, Sự nghiệp, Tài lộc dựa trên tuổi và giới tính.
-- **Xem Tuổi Xông Đất:** Phân tích Thiên Can, Địa Chi để gợi ý tuổi xông nhà đẹp nhất cho gia chủ.
-- **Tạo Lệnh Ảnh (Prompt):** Hỗ trợ viết câu lệnh tiếng Anh chuẩn xác để tạo ảnh Tết nghệ thuật trên Midjourney, DALL-E 3.
+### 🕒 1. Đếm Ngược Giao Thừa (Countdown)
+- **Đồng hồ thời gian thực:** Hiển thị chính xác số Ngày, Giờ, Phút, Giây còn lại đến thời khắc Giao Thừa Tết Bính Ngọ 2026.
+- **Thông tin nghỉ Tết:** Cung cấp lịch nghỉ Tết chính thức cho Học sinh, Sinh viên và Người đi làm.
+- **Hiệu ứng pháo hoa:** Tự động kích hoạt màn pháo hoa rực rỡ khi đồng hồ điểm 00:00:00.
 
-### 3. 🧧 Tiện Ích Lì Xì 4.0
-- **Chia Lì Xì Random:** Thuật toán chia tiền ngẫu nhiên cho nhóm, tìm ra "Vua Lì Xì" may mắn nhất.
-- **Tạo Mã VietQR:** Tạo mã QR chuyển khoản ngân hàng nhanh chóng kèm lời chúc, hỗ trợ hơn 50 ngân hàng tại Việt Nam.
-- **Lì Xì Chéo:** Minigame quay số ngẫu nhiên để ghép đôi lì xì trong nhóm bạn bè/đồng nghiệp.
+### 📝 2. Lịch Trình Đón Tết (To-Do List)
+- **Danh sách việc cần làm:** Gợi ý chi tiết các công việc truyền thống từ ngày 22 đến 29 tháng Chạp (Cúng ông Táo, Gói bánh chưng, Tảo mộ, Tất niên...).
+- **Tích hợp Lịch:** Tính năng "Thêm vào lịch" giúp xuất file `.ics` để đồng bộ ngay vào Google Calendar hoặc Apple Calendar trên điện thoại.
 
-### 4. 🎮 Giải Trí & Game
-- **Game Hứng Lộc:** Minigame điều khiển túi hứng tiền, tránh pháo nổ.
-- **Đố Vui Ngày Tết:** Ngân hàng câu hỏi trắc nghiệm về phong tục Tết, có tính điểm và bảng xếp hạng.
-- **Đoán Lì Xì (Troll):** Game vui mở bao lì xì với chế độ "Troll" hài hước theo độ tuổi.
-- **Thiệp Tết Online (Mới):** Tự tay thiết kế thiệp chúc Tết với ảnh cá nhân, khung hình đa dạng và lời chúc tùy chỉnh màu sắc/cỡ chữ.
+### 🤖 3. Trợ Lý Chúc Tết AI (AI Wishes)
+- **Sáng tạo nội dung:** Sử dụng AI (Gemini/Groq) để soạn lời chúc, làm thơ 4 câu hoặc viết câu đối đỏ.
+- **Cá nhân hóa cao:** Tùy chọn đối tượng nhận (Ông bà, Sếp, Người yêu...), phong cách (Hài hước, Trang trọng, Tình cảm) và chủ đề (Tài lộc, Sức khỏe).
 
-### 5. 💪 Sức Khỏe & Kết Nối
-- **Rèn Luyện Sức Khỏe:** Chế độ tập thể dục với nhạc nền sôi động để giữ dáng ngày Tết.
-- **Bảng Xếp Hạng (Leaderboard):** Lưu danh sách cao thủ chơi game đố vui (Tích hợp Firebase).
+### 💰 4. Chia Lì Xì Random (Lucky Money)
+- **Thuật toán công bằng:** Nhập tổng tiền và số người, hệ thống sẽ chia ngẫu nhiên các phần tiền khác nhau.
+- **Vua Lì Xì:** Tự động tìm ra người may mắn nhận được số tiền lớn nhất (King).
+- **Lời chúc đính kèm:** Mỗi bao lì xì đi kèm một lời chúc vui nhộn hoặc "cà khịa" hài hước.
+
+### 🔮 5. Gieo Quẻ Đầu Năm (Fortune Telling)
+- **Xem bói vui:** Nhập tuổi và giới tính để xin quẻ về Tình duyên, Sự nghiệp hoặc Tài lộc.
+- **Kết quả chi tiết:** AI đóng vai thầy phán, cung cấp tên quẻ, lời bình giải thơ văn, con số may mắn và màu sắc hợp mệnh.
+
+### 🚪 6. Xem Tuổi Xông Đất (First Footing)
+- **Phân tích phong thủy:** Dựa trên năm sinh gia chủ để phân tích Thiên Can, Địa Chi, Ngũ Hành.
+- **Gợi ý chính xác:** Đề xuất 3 tuổi đẹp nhất (Tam Hợp, Lục Hợp) để xông nhà, kèm lý do giải thích chi tiết.
+
+### ❓ 7. Đoán Lì Xì (Guess Game)
+- **Minigame vui vẻ:** Chọn mở bao lì xì để nhận tiền mừng tuổi ảo.
+- **Chế độ Troll:** Nếu bật chế độ này, hệ thống sẽ dựa vào tuổi người chơi để đưa ra số tiền và lời nhắn "bá đạo" (Ví dụ: Lớn rồi không được lì xì, Trẻ con mới được nhiều...).
+
+### 🎮 8. Game Hứng Lộc (Catch Lixi)
+- **Cách chơi:** Di chuyển túi thần tài (bằng chuột hoặc chạm tay) để hứng các bao lì xì rơi xuống và tránh pháo nổ.
+- **Thử thách:** Giới hạn thời gian 60 giây.
+- **Lưu điểm:** Tự động lưu điểm số cao nhất vào Bảng Xếp Hạng (yêu cầu đăng nhập).
+
+### 🧠 9. Đố Vui Ngày Tết (Tet Quiz)
+- **Ngân hàng câu hỏi:** Hàng trăm câu hỏi trắc nghiệm về Phong tục, Ẩm thực, Lịch sử Tết.
+- **Chế độ Thử thách:** Chơi tính giờ (10 câu/1 phút, 20 câu/5 phút...) để tích điểm đua Top.
+- **Kiến thức bổ ích:** Hiển thị giải thích chi tiết cho từng đáp án đúng/sai.
+
+### 🏃 10. Tập Thể Dục (Exercise)
+- **Giữ dáng ngày Tết:** Công cụ bấm giờ tập luyện với các mốc 10, 20, 30 phút.
+- **Nhạc nền động lực:** Tự động chuyển từ nhạc Tết sang nhạc tập thể dục sôi động (EDM/Vinahouse) khi bắt đầu tập.
+
+### 🎨 11. Tạo Ảnh Tết AI (Prompt Engineering)
+- **Hỗ trợ sáng tạo:** Giúp người dùng không rành tiếng Anh viết câu lệnh (Prompt) chuẩn xác để tạo ảnh trên Midjourney, DALL-E 3.
+- **Tùy chỉnh chi tiết:** Lựa chọn phong cách (3D, Anime, Sơn dầu...), ánh sáng, góc máy và tỷ lệ khung hình.
+
+### 💌 12. Thiệp Tết Online (Card Creator)
+- **Thiết kế thiệp:** Tải ảnh cá nhân lên, chọn khung hình Tết (Hoa đào, Khung vàng...).
+- **Chèn lời chúc:** Viết lời chúc lên thiệp, tùy chỉnh phông chữ thư pháp, màu sắc và kích thước.
+- **Tải về:** Xuất file ảnh chất lượng cao để gửi tặng bạn bè qua mạng xã hội.
+
+### 🔄 13. Lì Xì Chéo (Exchange Challenge)
+- **Ghép đôi ngẫu nhiên:** Nhập danh sách tên nhóm bạn/đồng nghiệp, hệ thống sẽ quay số để ghép cặp "Người tặng - Người nhận".
+- **Thử thách đi kèm:** Có tùy chọn thêm các thử thách vui (Hát, múa, uống bia...) kèm theo lì xì.
+
+### 💳 14. Tạo Mã VietQR (QR Code)
+- **Chuyển khoản nhanh:** Tạo mã QR chuyển khoản cho hơn 50 ngân hàng tại Việt Nam.
+- **Nội dung AI:** Sử dụng AI để gợi ý nội dung chuyển khoản lì xì độc đáo, hài hước.
 
 ## 🛠️ Công Nghệ Sử Dụng
 
