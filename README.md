@@ -2,6 +2,11 @@
 
 # <img src="./Gemini_Generated_Image_fncmtkfncmtkfncm.png" height="60" style="vertical-align:middle"> 🌸 TẾT AI 2026 - XUÂN BÍNH NGỌ 4.0 🌸
 
+> **Web Tết AI 2026** - Nền tảng giải trí All-in-One đón Xuân Bính Ngọ: Trợ lý AI (Gemini/Groq), Lì xì 4.0, Game Tết & Tạo thiệp Online.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2Fweb_tet_ai_cong_nghe_so)
+[![Demo](https://img.shields.io/badge/Demo-Live%20Site-success)](https://your-project-name.vercel.app)
+
 Chào mừng đến với dự án **Web Tết AI Công Nghệ Số** - Một nền tảng giải trí tổng hợp kết hợp giữa không khí Tết cổ truyền Việt Nam và công nghệ AI hiện đại (Artificial Intelligence).
 
 Dự án mang đến trải nghiệm đón Tết độc đáo, tiện lợi và thú vị cho người dùng trong dịp Xuân Bính Ngọ 2026.

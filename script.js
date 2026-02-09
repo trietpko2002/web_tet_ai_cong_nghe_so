@@ -211,14 +211,14 @@ setInterval(updateCountdown, 1000);
 
 // --- 1.5. Lịch Trình Đón Tết (22 - 29 Tết) ---
 const tetTasks = [
-    { day: 22, date: "2026-02-08", title: "Dọn dẹp nhà cửa sơ bộ", desc: "Giặt giũ chăn màn, rèm cửa, lau dọn trần nhà, sắp xếp đồ đạc." },
-    { day: 23, date: "2026-02-09", title: "Cúng Ông Công Ông Táo", desc: "Chuẩn bị mâm cúng, thả cá chép tiễn Táo Quân về trời (Nên cúng trước 12h trưa)." },
-    { day: 24, date: "2026-02-10", title: "Lau dọn bàn thờ", desc: "Rút tỉa chân nhang, đánh bóng lư đồng, lau dọn bàn thờ gia tiên sạch sẽ." },
-    { day: 25, date: "2026-02-11", title: "Đi chợ sắm Tết", desc: "Mua bánh kẹo, mứt, hạt dưa, đồ khô, phong bao lì xì, quần áo mới." },
-    { day: 26, date: "2026-02-12", title: "Chuẩn bị gói bánh", desc: "Rửa lá dong, ngâm gạo nếp, đãi đỗ xanh, ướp thịt để gói bánh chưng/bánh tét." },
-    { day: 27, date: "2026-02-13", title: "Gói và luộc bánh", desc: "Tổ chức gói bánh chưng/bánh tét, luộc bánh qua đêm, quây quần bên bếp lửa." },
-    { day: 28, date: "2026-02-14", title: "Trang trí nhà cửa", desc: "Cắm hoa đào/mai/quất. Bày mâm ngũ quả. Treo câu đối đỏ." },
-    { day: 29, date: "2026-02-15", title: "Cúng Tất Niên", desc: "Làm mâm cơm tất niên cúng gia tiên. Chuẩn bị đón Giao Thừa thiêng liêng." }
+    { day: 22, date: "2026-02-09", title: "Dọn dẹp nhà cửa sơ bộ", desc: "Giặt giũ chăn màn, rèm cửa, lau dọn trần nhà, sắp xếp đồ đạc." },
+    { day: 23, date: "2026-02-10", title: "Cúng Ông Công Ông Táo", desc: "Chuẩn bị mâm cúng, thả cá chép tiễn Táo Quân về trời (Nên cúng trước 12h trưa)." },
+    { day: 24, date: "2026-02-11", title: "Lau dọn bàn thờ", desc: "Rút tỉa chân nhang, đánh bóng lư đồng, lau dọn bàn thờ gia tiên sạch sẽ." },
+    { day: 25, date: "2026-02-12", title: "Đi chợ sắm Tết", desc: "Mua bánh kẹo, mứt, hạt dưa, đồ khô, phong bao lì xì, quần áo mới." },
+    { day: 26, date: "2026-02-13", title: "Chuẩn bị gói bánh", desc: "Rửa lá dong, ngâm gạo nếp, đãi đỗ xanh, ướp thịt để gói bánh chưng/bánh tét." },
+    { day: 27, date: "2026-02-14", title: "Gói và luộc bánh", desc: "Tổ chức gói bánh chưng/bánh tét, luộc bánh qua đêm, quây quần bên bếp lửa." },
+    { day: 28, date: "2026-02-15", title: "Trang trí nhà cửa", desc: "Cắm hoa đào/mai/quất. Bày mâm ngũ quả. Treo câu đối đỏ." },
+    { day: 29, date: "2026-02-16", title: "Cúng Tất Niên", desc: "Làm mâm cơm tất niên cúng gia tiên. Chuẩn bị đón Giao Thừa thiêng liêng." }
 ];
 
 function renderTetTasks() {
