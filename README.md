@@ -129,7 +129,6 @@ Dự án này tối ưu để triển khai lên **Vercel**.
 - ⚖️ Tác giả không chịu trách nhiệm về việc người dùng sử dụng sai mục đích của ứng dụng.
 ## 📸 Ảnh Demo
 
-*(Thêm ảnh chụp màn hình giao diện web tại đây)*
 ![Giao diện chính](./MAIN.png)
 
 <table>
