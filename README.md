@@ -9,6 +9,31 @@
 Chào mừng đến với dự án **Web Tết AI Công Nghệ Số** - Một nền tảng giải trí tổng hợp kết hợp giữa không khí Tết cổ truyền Việt Nam và công nghệ AI hiện đại (Artificial Intelligence).
 
 Dự án mang đến trải nghiệm đón Tết độc đáo, tiện lợi và thú vị cho người dùng trong dịp Xuân Bính Ngọ 2026.
++## 📑 Mục Lục
++
+1. Chi Tiết Tính Năng
+    - 1. Đếm Ngược Giao Thừa
+    - 2. Lịch Trình Đón Tết
+    - 3. Trợ Lý Chúc Tết AI
+    - 4. Chia Lì Xì Random
+    - 5. Gieo Quẻ Đầu Năm
+    - 6. Xem Tuổi Xông Đất
+    - 7. Đoán Lì Xì
+    - 8. Game Hứng Lộc
+    - 9. Đố Vui Ngày Tết
+    - 10. Tập Thể Dục
+    - 11. Tạo Ảnh Tết AI
+    - 12. Thiệp Tết Online
+    - 13. Lì Xì Chéo
+    - 14. Tạo Mã VietQR
+    - 15. Hệ thống Tài khoản & BXH
+    - 16. Tài Khoản Khách
+2. Công Nghệ Sử Dụng
+3. Cài Đặt & Sử Dụng
+4. Hướng Dẫn Triển Khai (Deploy)
+5. Lưu Ý Quan Trọng
+6. Ảnh Demo
+7. Đóng Góp
 
 ##  Chi Tiết Tính Năng
 
@@ -128,16 +153,47 @@ Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nh
    - Hoặc sử dụng Live Server trên VS Code để có trải nghiệm tốt nhất.
 
 ## 🌐 Triển Khai (Deploy)
-
+## 🌐 Hướng Dẫn Triển Khai (Deploy)
+ 
 Dự án này tối ưu để triển khai lên **Vercel**.
-
+Dự án này là Static Web (HTML/CSS/JS) nên rất dễ dàng triển khai miễn phí.
+ 
 ### Hướng dẫn nhanh:
 1. Push code lên GitHub.
 2. Vào Vercel, chọn **Add New Project**.
 3. Import repo vừa tạo.
 4. Nhấn **Deploy** (Vercel tự động nhận diện đây là static site).
+### Cách 1: Deploy lên Vercel (Khuyên dùng)
+Vercel tốc độ cao, hỗ trợ CI/CD tự động (cập nhật web ngay khi bạn push code lên GitHub).
+ 
+!Deploy with Vercel
+1. **Đẩy code lên GitHub:**
+   - Tạo một repository mới trên GitHub.
+   - Upload toàn bộ code của bạn lên đó.
++2. **Đăng ký/Đăng nhập Vercel:**
+   - Truy cập Vercel.com.
+   - Đăng nhập bằng tài khoản GitHub.
++3. **Tạo Project mới:**
+   - Tại Dashboard, nhấn nút **"Add New..."** -> **"Project"**.
+   - Ở mục **Import Git Repository**, tìm repo bạn vừa tạo và nhấn **Import**.
++4. **Cấu hình & Deploy:**
+   - **Framework Preset:** Chọn *Other* (hoặc để mặc định vì đây là HTML thuần).
+   - **Root Directory:** Để `./` (mặc định).
+   - Nhấn **Deploy**.
+   - Chờ khoảng 1 phút, Vercel sẽ cung cấp cho bạn đường link (VD: `web-tet-ai.vercel.app`).
 
-[!Deploy with Vercel](https://vercel.com/new)
+### Cách 2: Deploy lên GitHub Pages
+Đơn giản, tích hợp sẵn trong GitHub.
+
+1. **Vào Repository của bạn trên GitHub.**
+2. Chọn tab **Settings** (Cài đặt).
+3. Ở menu bên trái, chọn mục **Pages**.
+4. Tại phần **Build and deployment**:
+   - **Source:** Chọn `Deploy from a branch`.
+   - **Branch:** Chọn `main` (hoặc `master`) và folder `/ (root)`.
+5. Nhấn **Save**.
+6. Chờ khoảng 1-2 phút, refresh lại trang, bạn sẽ thấy link web hiện ra ở trên cùng (VD: `username.github.io/repo-name`).
+
 ## ⚠️ Lưu Ý Quan Trọng (Disclaimer)
 
 Ứng dụng **Web Tết AI 2026** được phát triển với mục đích **GIẢI TRÍ THUẦN TÚY** nhân dịp Tết Nguyên Đán.
