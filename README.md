@@ -10,7 +10,7 @@ Chào mừng đến với dự án **Web Tết AI Công Nghệ Số** - Một n�
 
 Dự án mang đến trải nghiệm đón Tết độc đáo, tiện lợi và thú vị cho người dùng trong dịp Xuân Bính Ngọ 2026.
 
-## 🚀 Chi Tiết Tính Năng
+##  Chi Tiết Tính Năng
 
 Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nhóm chính, giúp người dùng trải nghiệm Tết trọn vẹn:
 
@@ -108,10 +108,13 @@ Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nh
      - *Nếu bạn chưa có, hãy tạo một dự án mới trên Firebase Console.*
    - **Cấu hình API cho AI (Bắt buộc cho các tính năng AI):**
      - Dự án này sử dụng API của **Groq** (miễn phí, nhanh) làm mặc định.
-     - **Bước 1: Lấy API Key**
-       - Truy cập trang GroqCloud.
-       - Đăng nhập bằng tài khoản Google.
-       - Chọn **"Create API Key"** và sao chép (copy) mã API Key của bạn (có dạng `gsk_...`).
+     - **Bước 1: Lấy API Key (Miễn phí)**
+       1. Truy cập GroqCloud Console.
+       2. Đăng nhập bằng tài khoản Google/GitHub/Email.
+       3. Tại menu bên trái, chọn mục **API Keys**.
+       4. Nhấn nút **Create API Key**.
+       5. Đặt tên bất kỳ (VD: `TetApp`) rồi nhấn **Submit**.
+       6. **QUAN TRỌNG:** Copy ngay chuỗi ký tự bắt đầu bằng `gsk_...` (Vì nó chỉ hiện 1 lần duy nhất).
      - **Bước 2: Dán vào code**
        - Trong file `script.js`, tìm đến dòng:
          ```javascript

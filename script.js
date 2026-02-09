@@ -2,6 +2,8 @@
 // CẤU HÌNH FIREBASE (ĐỂ LƯU ĐIỂM & ĐĂNG NHẬP)
 // ============================================================
 // BẠN CẦN THAY THẾ BẰNG CONFIG CỦA BẠN TỪ FIREBASE CONSOLE
+// 1. Vào Project Settings -> General -> Your apps -> Config
+// 2. Copy toàn bộ object config và dán đè vào bên dưới
  const firebaseConfig = {
   apiKey: "AIzaSyCNyI8-gGrql58m9xvjzkrgNIfCLsei67g",
   authDomain: "tetaiweb.firebaseapp.com",
