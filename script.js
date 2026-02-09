@@ -1307,28 +1307,29 @@ function endQuizChallenge() {
 
 // Hàm chung để lưu điểm
 function saveScoreToLeaderboard(scoreVal, modeVal) {
-    db.collection("leaderboard").add({
-        uid: currentUser.uid,
-        name: currentUser.displayName,
-        photo: currentUser.photoURL,
-        score: scoreVal,
-        mode: modeVal, // 'catch-lixi' hoặc số câu hỏi (10, 20, 30)
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(() => {
-        if (modeVal === 'catch-lixi') {
-            // alert("Đã lưu điểm Hứng Lộc thành công!");
-            openLeaderboardModal();
-            loadLeaderboard('catch-lixi');
-        } else {
-            // Tự động chuyển tab sau khi lưu thành công
-            setTimeout(() => {
-                openLeaderboardModal(); // Mở modal thay vì chuyển tab
-                loadLeaderboard(modeVal); // Load đúng mode vừa chơi
-            }, 1500);
-        }
-    }).catch((err) => {
-        alert("Lỗi lưu điểm: " + err.message);
-    });
+    if (currentUser && db) {
+        db.collection("leaderboard").add({
+            uid: currentUser.uid,
+            name: currentUser.displayName,
+            photo: currentUser.photoURL,
+            score: scoreVal,
+            mode: modeVal, // 'catch-lixi' hoặc số câu hỏi (10, 20, 30)
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+            if (modeVal === 'catch-lixi') {
+                // alert("Đã lưu điểm Hứng Lộc thành công!");
+                openLeaderboardModal();
+                loadLeaderboard('catch-lixi');
+            } else {
+                // Tự động chuyển tab sau khi lưu thành công
+                setTimeout(() => {
+                    openLeaderboardModal(); // Mở modal thay vì chuyển tab
+                    loadLeaderboard(modeVal); // Load đúng mode vừa chơi
+                }, 1500);
+            }
+        }).catch((err) => {
+            alert("Lỗi lưu điểm: " + err.message);
+        });
     } else {
         // LƯU VÀO LOCAL STORAGE NẾU CHƯA ĐĂNG NHẬP
         const localData = {
