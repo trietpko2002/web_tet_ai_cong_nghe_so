@@ -35,7 +35,7 @@ Dự án mang đến trải nghiệm đón Tết độc đáo, tiện lợi và 
 6. [Ảnh Demo](#ảnh-demo)
 7. [Đóng Góp](#đóng-góp)
 
-##  Chi Tiết Tính Năng
+## Chi Tiết Tính Năng
 
 Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nhóm chính, giúp người dùng trải nghiệm Tết trọn vẹn:
 
@@ -111,7 +111,7 @@ Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nh
 - **Bảo mật 30 phút:** Mật khẩu chỉ có hiệu lực trong 30 phút.
 - **Tự động đổi mật khẩu:** Nếu đăng nhập bằng mật khẩu cũ sau 30 phút, hệ thống sẽ tự động cấp mật khẩu mới và thông báo cho người dùng.
 
-## ️ Công Nghệ Sử Dụng
+## Công Nghệ Sử Dụng
 
 - **Frontend:** HTML5, CSS3 (Glassmorphism UI), Vanilla JavaScript.
 - **Backend/Database:** Firebase (Authentication, Firestore) để lưu trữ điểm số và người dùng.
