@@ -9,32 +9,6 @@
 Chào mừng đến với dự án **Web Tết AI Công Nghệ Số** - Một nền tảng giải trí tổng hợp kết hợp giữa không khí Tết cổ truyền Việt Nam và công nghệ AI hiện đại (Artificial Intelligence).
 
 Dự án mang đến trải nghiệm đón Tết độc đáo, tiện lợi và thú vị cho người dùng trong dịp Xuân Bính Ngọ 2026.
-## 📑 Mục Lục
-
-1. [Chi Tiết Tính Năng](#chi-tiết-tính-năng)
-    - [1. Đếm Ngược Giao Thừa](#1-đếm-ngược-giao-thừa-countdown)
-    - [2. Lịch Trình Đón Tết](#2-lịch-trình-đón-tết-to-do-list)
-    - [3. Trợ Lý Chúc Tết AI](#3-trợ-lý-chúc-tết-ai-ai-wishes)
-    - [4. Chia Lì Xì Random](#4-chia-lì-xì-random-lucky-money)
-    - [5. Gieo Quẻ Đầu Năm](#5-gieo-quẻ-đầu-năm-fortune-telling)
-    - [6. Xem Tuổi Xông Đất](#6-xem-tuổi-xông-đất-first-footing)
-    - [7. Đoán Lì Xì](#7-đoán-lì-xì-guess-game)
-    - [8. Game Hứng Lộc](#8-game-hứng-lộc-catch-lixi)
-    - [9. Đố Vui Ngày Tết](#9-đố-vui-ngày-tết-tet-quiz)
-    - [10. Tập Thể Dục](#10-tập-thể-dục-exercise)
-    - [11. Tạo Ảnh Tết AI](#11-tạo-ảnh-tết-ai-prompt-engineering)
-    - [12. Thiệp Tết Online](#12-thiệp-tết-online-card-creator)
-    - [13. Lì Xì Chéo](#13-lì-xì-chéo-exchange-challenge)
-    - [14. Tạo Mã VietQR](#14-tạo-mã-vietqr-qr-code)
-    - [15. Hệ thống Tài khoản & BXH](#15-hệ-thống-tài-khoản--bảng-xếp-hạng-user-system)
-    - [16. Tài Khoản Khách](#16-tài-khoản-khách-guest-mode)
-2. [Công Nghệ Sử Dụng](#công-nghệ-sử-dụng)
-3. [Cài Đặt & Sử Dụng](#cài-đặt--sử-dụng)
-4. [Hướng Dẫn Triển Khai (Deploy)](#hướng-dẫn-triển-khai-deploy)
-5. [Lưu Ý Quan Trọng](#lưu-ý-quan-trọng-disclaimer)
-6. [Ảnh Demo](#ảnh-demo)
-7. [Đóng Góp](#đóng-góp)
-
 ## Chi Tiết Tính Năng
 
 Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nhóm chính, giúp người dùng trải nghiệm Tết trọn vẹn:
