@@ -547,7 +547,7 @@ function resetUserStats() {
 // ============================================================
 // CẤU HÌNH API (CHUYỂN SANG OPENAI / GROQ)
 // ============================================================
-const API_KEY = "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".trim(); // <-- Dán Key Groq (gsk_...) vào đây
+const API_KEY = "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".trim(); // <-- Dán Key Groq (gsk_...) vào đây
 
 // 1. Cấu hình OpenAI (Mất phí):
 // const API_URL = "https://api.openai.com/v1/chat/completions";
