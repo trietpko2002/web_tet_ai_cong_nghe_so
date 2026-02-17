@@ -117,13 +117,14 @@ Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nh
        4. Nhấn nút **Create API Key**.
        5. Đặt tên bất kỳ (VD: `TetApp`) rồi nhấn **Submit**.
        6. **QUAN TRỌNG:** Copy ngay chuỗi ký tự bắt đầu bằng `gsk_...` (Vì nó chỉ hiện 1 lần duy nhất).
-     - **Bước 2: Dán vào code**
-       - Trong file `script.js`, tìm đến dòng:
-         ```javascript
-         const API_KEY = "API_KEY".trim(); // <-- Dán Key Groq (gsk_...) vào đây
-         ```
-       - Thay thế `"API_KEY"` bằng API Key bạn vừa copy.
-       - **Ví dụ:** `const API_KEY = "gsk_abc123xyz...".trim();`
+     - **Bước 2: Nhập Key vào Web (Mới)**
+       - Mở trang web lên (file `index.html`).
+       - Ở menu bên trái, dưới cùng có nút **"Cài đặt API Key"**.
+       - Dán Key vừa copy vào ô nhập và nhấn **Lưu Key**.
+       - *Lưu ý: Key này sẽ được lưu vào trình duyệt của bạn (LocalStorage) để sử dụng cho các lần sau.*
+     - **(Tùy chọn) Cấu hình Key mặc định trong Code:**
+       - Nếu muốn set cứng Key cho mọi người dùng (không khuyến khích nếu public code):
+       - Mở `script.js`, tìm hàm `getApiKey()` và thay thế chuỗi Key mặc định trong đó.
 
 3. **Chạy ứng dụng:**
    - Mở file `index.html` trên trình duyệt web bất kỳ.

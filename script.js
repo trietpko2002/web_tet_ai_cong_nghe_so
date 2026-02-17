@@ -547,7 +547,17 @@ function resetUserStats() {
 // ============================================================
 // CẤU HÌNH API (CHUYỂN SANG OPENAI / GROQ)
 // ============================================================
-const API_KEY = "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".trim(); // <-- Dán Key Groq (gsk_...) vào đây
+// Hàm lấy API Key từ LocalStorage hoặc dùng Key mặc định
+function getApiKey() {
+    const localKey = localStorage.getItem('tet_ai_api_key');
+    return (localKey && localKey.trim() !== "") ? localKey.trim() : "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".trim();
+}
+
+// Hàm lấy Model AI từ LocalStorage
+function getApiModel() {
+    const localModel = localStorage.getItem('tet_ai_model');
+    return localModel ? localModel : "llama-3.3-70b-versatile";
+}
 
 // 1. Cấu hình OpenAI (Mất phí):
 // const API_URL = "https://api.openai.com/v1/chat/completions";
@@ -555,18 +565,20 @@ const API_KEY = "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".trim(
 
 // 2. Cấu hình Groq (Miễn phí & Nhanh - Khuyên dùng):
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const API_MODEL = "llama-3.3-70b-versatile";
 const VISION_MODEL = "llama-3.2-11b-vision-preview"; // Model AI nhìn được hình ảnh
 
 // Hàm gọi AI chung
 async function callAI(promptText) {
+    const API_KEY = getApiKey();
+    const currentModel = getApiModel(); // Lấy model động
+
     if (API_KEY === "" || API_KEY === "YOUR_API_KEY_HERE") {
-        alert("Bạn chưa nhập API Key trong file script.js!");
+        alert("Bạn chưa nhập API Key! Vui lòng vào Cài đặt API để nhập Key.");
         return "Lỗi: Chưa cấu hình API Key.";
     }
 
     const data = {
-        model: API_MODEL,
+        model: currentModel,
         messages: [
             { role: "user", content: promptText }
         ]
@@ -598,6 +610,7 @@ async function callAI(promptText) {
 
 // Hàm gọi AI Vision (Để phân tích ảnh)
 async function callAIVision(text, base64Image) {
+    const API_KEY = getApiKey();
     const data = {
         model: VISION_MODEL,
         messages: [
@@ -621,6 +634,40 @@ async function callAIVision(text, base64Image) {
     });
     const result = await response.json();
     return result.choices[0].message.content;
+}
+
+// --- Quản lý API Key UI ---
+function openApiSettings() {
+    document.getElementById('api-settings-modal').style.display = 'flex';
+    const currentKey = localStorage.getItem('tet_ai_api_key') || "";
+    document.getElementById('input-api-key').value = currentKey;
+    
+    const currentModel = localStorage.getItem('tet_ai_model') || "llama-3.3-70b-versatile";
+    document.getElementById('input-api-model').value = currentModel;
+}
+
+function closeApiSettings() {
+    document.getElementById('api-settings-modal').style.display = 'none';
+}
+
+function saveApiKey() {
+    const key = document.getElementById('input-api-key').value.trim();
+    const model = document.getElementById('input-api-model').value;
+
+    if (!key) return alert("Vui lòng nhập API Key!");
+    localStorage.setItem('tet_ai_api_key', key);
+    localStorage.setItem('tet_ai_model', model);
+    alert("Đã lưu Cấu hình (Key & Model) thành công!");
+    closeApiSettings();
+}
+
+function deleteApiKey() {
+    if(confirm("Bạn có chắc muốn xóa API Key đã lưu?")) {
+        localStorage.removeItem('tet_ai_api_key');
+        localStorage.removeItem('tet_ai_model'); // Xóa luôn model đã lưu về mặc định
+        document.getElementById('input-api-key').value = "";
+        alert("Đã xóa cấu hình. Hệ thống sẽ dùng Key và Model mặc định.");
+    }
 }
 
 // --- Xử lý Đăng nhập từ Landing Page ---

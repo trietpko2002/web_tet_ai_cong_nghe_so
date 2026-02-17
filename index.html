@@ -125,6 +125,11 @@
                     <button onclick="donate()" style="background: #e91e63; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; cursor: pointer;"><i class="fas fa-heart"></i> Donate</button>
                     <button onclick="shareWebsite()" style="background: #1877f2; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; cursor: pointer;"><i class="fas fa-share-alt"></i> Share</button>
                 </div>
+                <div style="margin-top: 10px;">
+                    <button onclick="openApiSettings()" style="background: #333; color: #ccc; border: 1px solid #555; padding: 5px 10px; border-radius: 5px; font-size: 0.7rem; cursor: pointer; width: 100%;">
+                        <i class="fas fa-key"></i> Cài đặt API Key
+                    </button>
+                </div>
             </div>
         </aside>
 
@@ -678,6 +683,34 @@
             <button onclick="resetUserStats()" style="background: transparent; border: 1px solid #ff6b6b; color: #ff6b6b; width: 100%; margin-bottom: 10px; font-size: 0.9rem;"><i class="fas fa-trash-alt"></i> Xóa dữ liệu thống kê</button>
 
             <p style="text-align: center; font-size: 0.8rem; color: #888; font-style: italic;">*Dữ liệu được lưu trữ và đồng bộ khi đăng nhập.</p>
+        </div>
+    </div>
+
+    <!-- Modal Cài đặt API -->
+    <div id="api-settings-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10002; align-items: center; justify-content: center;">
+        <div class="card" style="max-width: 400px; width: 90%; position: relative; display: block; animation: popIn 0.3s ease; text-align: center;">
+            <button onclick="closeApiSettings()" style="position: absolute; top: 10px; right: 10px; background: transparent; color: #fff; font-size: 1.5rem; box-shadow: none; padding: 0;"><i class="fas fa-times"></i></button>
+            <h3 style="color: var(--tet-gold); margin-bottom: 15px;">Cấu Hình API Key</h3>
+            <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 15px;">Nhập API Key Groq của bạn để sử dụng các tính năng AI không giới hạn.</p>
+            
+            <input type="password" id="input-api-key" placeholder="gsk_..." style="width: 100%; margin-bottom: 10px; text-align: center;">
+            
+            <label style="color: #ccc; font-size: 0.8rem; display: block; margin-bottom: 5px; text-align: left;">Chọn Model AI:</label>
+            <select id="input-api-model" style="width: 100%; margin-bottom: 15px; background: #333; color: #fff; border: 1px solid #555; padding: 8px; border-radius: 5px;">
+                <option value="llama-3.3-70b-versatile">Llama 3.3 70B (Mặc định - Thông minh nhất)</option>
+                <option value="llama-3.1-8b-instant">Llama 3.1 8B (Siêu nhanh)</option>
+                <option value="mixtral-8x7b-32768">Mixtral 8x7B (Cân bằng)</option>
+                <option value="gemma2-9b-it">Gemma 2 9B (Google)</option>
+            </select>
+
+            <div style="display: flex; gap: 5px; margin-bottom: 15px;">
+                 <button onclick="saveApiKey()" style="background: #4caf50; flex: 1;">Lưu Key</button>
+                 <button onclick="deleteApiKey()" style="background: #f44336; flex: 1;">Xóa Key</button>
+            </div>
+            
+            <p style="font-size: 0.8rem; color: #888;">
+                <a href="https://console.groq.com/keys" target="_blank" style="color: var(--tet-gold);">Lấy Key miễn phí tại đây</a>
+            </p>
         </div>
     </div>
 
