@@ -1,14 +1,25 @@
 # web_tet_ai_cong_nghe_so
 
-# <img src="./Gemini_Generated_Image_fncmtkfncmtkfncm.png" height="100" style="vertical-align:middle"> 🌸 TẾT AI 2026 - XUÂN BÍNH NGỌ 4.0 🌸
+# <img src="./Gemini_Generated_Image_fncmtkfncmtkfncm.png" height="100" style="vertical-align:middle"> 🌸 SOURCE CODE WEB TẾT AI 2026 - XUÂN BÍNH NGỌ 4.0 🌸
 
-> **Web Tết AI 2026** - Nền tảng giải trí All-in-One đón Xuân Bính Ngọ: Trợ lý AI (Groq), Lì xì 4.0, Game Tết & Tạo thiệp Online.
+> **Mã nguồn mở (Open Source) Web Tết AI 2026** - Nền tảng giải trí All-in-One đón Xuân Bính Ngọ, kết hợp giữa truyền thống và công nghệ AI hiện đại.
 
-[![Demo](https://img.shields.io/badge/Demo-Live%20Site-success)](https://web-tet-ai.vercel.app/)
+## 🎯 Giới Thiệu Dự Án
 
-Chào mừng đến với dự án **Web Tết AI Công Nghệ Số** - Một nền tảng giải trí tổng hợp kết hợp giữa không khí Tết cổ truyền Việt Nam và công nghệ AI hiện đại (Artificial Intelligence).
+**Web Tết AI** là một dự án mã nguồn mở được xây dựng với mục đích học hỏi, chia sẻ kiến thức và mang đến một không gian giải trí sáng tạo, vui vẻ trong dịp Tết Nguyên Đán. Dự án tái hiện các hoạt động Tết cổ truyền của Việt Nam trên một nền tảng web hiện đại, tích hợp các công nghệ Trí tuệ nhân tạo (AI) như Groq (Llama 3) để tạo ra những trải nghiệm độc đáo.
 
-Dự án mang đến trải nghiệm đón Tết độc đáo, tiện lợi và thú vị cho người dùng trong dịp Xuân Bính Ngọ 2026.
+Đây là sản phẩm phi lợi nhuận, dành cho cộng đồng lập trình viên và những ai yêu thích công nghệ có thể tham khảo, học hỏi hoặc tự phát triển phiên bản của riêng mình.
+
+**Lưu ý:** Domain demo của dự án đã ngừng hoạt động. Bạn có thể tải mã nguồn về và tự triển khai theo hướng dẫn chi tiết bên dưới.
+
+## ⚖️ CẢNH BÁO PHÁP LÝ & MỤC ĐÍCH SỬ DỤNG
+
+Dự án này được tạo ra với mục đích **GIẢI TRÍ LÀNH MẠNH** và **HỌC TẬP**.
+
+- 🚫 **NGHIÊM CẤM TUYỆT ĐỐI** việc sử dụng mã nguồn hoặc các tính năng của trang web này (như Gieo Quẻ, Chia Lì Xì, Đố Vui, Game...) vào các hoạt động **cờ bạc, cá độ, lô đề, hoặc bất kỳ hình thức nào vi phạm pháp luật Việt Nam.**
+- 🔮 Các tính năng tâm linh như "Gieo Quẻ", "Xem Tuổi Xông Đất" chỉ là sản phẩm của AI, mang tính chất **tham khảo vui vẻ, không có giá trị thực tế và không được dùng cho mục đích mê tín dị đoan.**
+- 👨‍⚖️ Tác giả không chịu bất kỳ trách nhiệm pháp lý nào đối với việc người dùng sử dụng sai mục đích của mã nguồn này. Mọi hành vi vi phạm pháp luật sẽ do cá nhân/tổ chức sử dụng tự chịu trách nhiệm trước pháp luật.
+
 ## Chi Tiết Tính Năng
 
 Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nhóm chính, giúp người dùng trải nghiệm Tết trọn vẹn:
@@ -97,38 +108,56 @@ Hệ thống cung cấp 14 tính năng độc đáo được chia thành các nh
 
 ## 📦 Cài Đặt & Sử Dụng
 
-1. **Clone dự án:**
+### Bước 1: Tải Code về máy
+Bạn có thể Clone qua Git hoặc tải file ZIP:
    ```bash
    git clone https://github.com/trietpko2002/web_tet_ai_cong_nghe_so.git
    ```
+   Hoặc nhấn nút **Code** -> **Download ZIP** ở trên GitHub và giải nén ra thư mục.
 
-2. **Cấu hình Firebase & API:**
-   - Mở file `script.js` bằng trình soạn thảo code (như VS Code).
-   - **Cấu hình Firebase (Bắt buộc để lưu điểm, tài khoản):**
-     - Tìm đến biến `firebaseConfig`.
-     - Thay thế các giá trị mẫu (`API_KEY_HERE`, `ID_CUA_BAN`...) bằng thông tin từ dự án Firebase của bạn.
-     - *Nếu bạn chưa có, hãy tạo một dự án mới trên Firebase Console.*
-   - **Cấu hình API cho AI (Bắt buộc cho các tính năng AI):**
-     - Dự án này sử dụng API của **Groq** (miễn phí, nhanh) làm mặc định.
-     - **Bước 1: Lấy API Key (Miễn phí)**
-       1. Truy cập GroqCloud Console.
-       2. Đăng nhập bằng tài khoản Google/GitHub/Email.
-       3. Tại menu bên trái, chọn mục **API Keys**.
-       4. Nhấn nút **Create API Key**.
-       5. Đặt tên bất kỳ (VD: `TetApp`) rồi nhấn **Submit**.
-       6. **QUAN TRỌNG:** Copy ngay chuỗi ký tự bắt đầu bằng `gsk_...` (Vì nó chỉ hiện 1 lần duy nhất).
-     - **Bước 2: Nhập Key vào Web (Mới)**
-       - Mở trang web lên (file `index.html`).
-       - Ở menu bên trái, dưới cùng có nút **"Cài đặt API Key"**.
-       - Dán Key vừa copy vào ô nhập và nhấn **Lưu Key**.
-       - *Lưu ý: Key này sẽ được lưu vào trình duyệt của bạn (LocalStorage) để sử dụng cho các lần sau.*
-     - **(Tùy chọn) Cấu hình Key mặc định trong Code:**
-       - Nếu muốn set cứng Key cho mọi người dùng (không khuyến khích nếu public code):
-       - Mở `script.js`, tìm hàm `getApiKey()` và thay thế chuỗi Key mặc định trong đó.
+### Bước 2: Cấu hình Firebase (Quan trọng)
+Để các tính năng **Đăng nhập, Lưu điểm, Bảng xếp hạng** hoạt động, bạn cần có Firebase riêng.
 
-3. **Chạy ứng dụng:**
+1. Truy cập Firebase Console.
+2. Nhấn **Create a project** (Tạo dự án mới) -> Đặt tên tùy ý -> Continue.
+3. Sau khi tạo xong, vào mục **Build** (bên trái):
+   - Chọn **Authentication** -> Nhấn **Get Started**.
+     - Tab **Sign-in method**: Bật **Google** và **Email/Password**.
+   - Chọn **Firestore Database** -> Nhấn **Create Database**.
+     - Chọn **Start in test mode** (để dễ chạy thử) -> Next -> Enable.
+4. Lấy Config:
+   - Nhấn vào biểu tượng bánh răng (Settings) bên cạnh **Project Overview** -> **Project settings**.
+   - Kéo xuống phần **Your apps**.
+   - Nhấn vào biểu tượng **Web (</>)**.
+   - Đặt tên App (VD: WebTet) -> Register app.
+   - **Copy toàn bộ đoạn code trong `const firebaseConfig = { ... };`**.
+5. Quay lại code của bạn:
+   - Mở file `script.js`.
+   - Tìm dòng đầu tiên: `const firebaseConfig = { ... }`.
+   - Dán đè config của bạn vào đó.
+
+### Bước 3: Cấu hình Groq AI API (Miễn phí)
+Dự án sử dụng AI của Groq (Llama 3) để tạo lời chúc, gieo quẻ... vì nó miễn phí và cực nhanh.
+
+1. Truy cập Groq Cloud Console.
+2. Đăng nhập (Login) bằng Google/GitHub.
+3. Ở menu trái, chọn **API Keys**.
+4. Nhấn **Create API Key** -> Đặt tên -> Submit.
+5. **Copy chuỗi Key** (bắt đầu bằng `gsk_...`).
+
+**Cách nhập Key vào Web:**
+- **Cách 1 (Khuyên dùng):** 
+  - Chạy web lên (`index.html`).
+  - Ở menu bên trái, dưới cùng có nút **"Cài đặt API Key"**.
+  - Dán Key vào và nhấn **Lưu**. (Key sẽ lưu ở trình duyệt của bạn).
+- **Cách 2 (Set cứng trong code):**
+  - Mở `script.js`.
+  - Tìm hàm `getApiKey()`.
+  - Thay thế chuỗi Key mặc định bằng Key của bạn.
+
+### Bước 4: Chạy ứng dụng
    - Mở file `index.html` trên trình duyệt web bất kỳ.
-   - Hoặc sử dụng Live Server trên VS Code để có trải nghiệm tốt nhất.
+   - **Khuyên dùng:** Cài Extension **Live Server** trên VS Code -> Chuột phải vào `index.html` -> **Open with Live Server** (Để tránh lỗi CORS khi tải ảnh thiệp).
 
 ## 🌐 Hướng Dẫn Triển Khai (Deploy)
  
@@ -170,13 +199,6 @@ Vercel tốc độ cao, hỗ trợ CI/CD tự động (cập nhật web ngay khi
 5. Nhấn **Save**.
 6. Chờ khoảng 1-2 phút, refresh lại trang, bạn sẽ thấy link web hiện ra ở trên cùng (VD: `username.github.io/repo-name`).
 
-## ⚠️ Lưu Ý Quan Trọng (Disclaimer)
-
-Ứng dụng **Web Tết AI 2026** được phát triển với mục đích **GIẢI TRÍ THUẦN TÚY** nhân dịp Tết Nguyên Đán.
-
-- 🚫 **Nghiêm cấm** sử dụng các tính năng (Lì xì, Gieo quẻ, Game...) vào mục đích **cá cược, đánh bạc, lô đề** hoặc các hành vi vi phạm pháp luật Việt Nam.
-- 🤖 Các nội dung do AI tạo ra (Lời chúc, Quẻ bói) chỉ mang tính chất tham khảo vui vẻ.
-- ⚖️ Tác giả không chịu trách nhiệm về việc người dùng sử dụng sai mục đích của ứng dụng.
 ## 📸 Ảnh Demo
 
 ![Giao diện chính](./MAIN.png)
