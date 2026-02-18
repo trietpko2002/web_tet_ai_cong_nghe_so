@@ -5,12 +5,12 @@
 // 1. Vào Project Settings -> General -> Your apps -> Config
 // 2. Copy toàn bộ object config và dán đè vào bên dưới
  const firebaseConfig = {
-  apiKey: "AIzaSyCNyI8-gGrql58m9xvjzkrgNIfCLsei67g",
-  authDomain: "tetaiweb.firebaseapp.com",
-  projectId: "tetaiweb",
-  storageBucket: "tetaiweb.firebasestorage.app",
-    messagingSenderId: "836797908697",
-    appId: "1:836797908697:web:cdf8b23c8e604d2479e0c8"
+  apiKey: "NHAP_TAI_DAY",
+  authDomain: "NHAP_TAI_DAY",
+  projectId: "NHAP_TAI_DAY",
+  storageBucket: "NHAP_TAI_DAY.firebasestorage.app",
+    messagingSenderId: "NHAP_TAI_DAY",
+    appId: "NHAP_TAI_DAY"
 };
 
 // --- FIX: Ẩn Landing Page ngay lập tức nếu đã đăng nhập (Tránh bị nháy/giật) ---
